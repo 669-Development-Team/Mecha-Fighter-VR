@@ -7,9 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hologram
-  m_Shader: {fileID: -6465566751694194690, guid: b8517d6875cab5744aad0c41a366c078,
-    type: 3}
+  m_Name: 3D Text Material
+  m_Shader: {fileID: 4800000, guid: 2454bd7fc9de5d14b9f08a1320faf373, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,14 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_388317C7:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_A6B3BAD5:
-        m_Texture: {fileID: 2800000, guid: df637162ee99e68479b73db905f40a9f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2336c1fb3f00cae42870be682a2633db, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -57,8 +48,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_19F336F4: 0.5
-    - Vector1_68F400A4: 0.1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -81,18 +70,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_138773: {r: 222.86098, g: 222.86098, b: 222.86098, a: 0}
-    - Color_2030E652: {r: 0, g: 11.043138, b: 11.984314, a: 0}
-    - Color_6FC997B0: {r: 9.160785, g: 11.984314, b: 11.858824, a: 0}
-    - Color_E7307E9A: {r: 0.35377356, g: 0.8846734, b: 1, a: 0}
-    - Vector2_8605CFF3: {r: 2, g: 2, b: 0, a: 0}
-    - Vector2_A2F5E77A: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_CD32910C: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 0, g: 0.8235294, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
---- !u!114 &2185040476039300261
+--- !u!114 &1271338378514699822
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
