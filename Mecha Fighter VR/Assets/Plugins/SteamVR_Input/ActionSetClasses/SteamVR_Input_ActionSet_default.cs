@@ -89,6 +89,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Vector2 JoystickLeft
+        {
+            get
+            {
+                return SteamVR_Actions.default_JoystickLeft;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 JoystickRight
+        {
+            get
+            {
+                return SteamVR_Actions.default_JoystickRight;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
