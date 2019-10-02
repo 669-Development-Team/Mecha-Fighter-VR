@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 688625807289367821}
   - component: {fileID: 5149216914936091411}
   - component: {fileID: 7253881753484910792}
-  - component: {fileID: 5563278273616958691}
+  - component: {fileID: 1172398093210631456}
   m_Layer: 0
   m_Name: Footstep
   m_TagString: Untagged
@@ -104,7 +104,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5563278273616958691
+--- !u!114 &1172398093210631456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,9 +113,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 686689185494121609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc076f99f9a0a4345b086e230ac0b10b, type: 3}
+  m_Script: {fileID: 11500000, guid: 069269b2074190647974a0099f9a579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstepVFX: {fileID: 0}
-  leftFoot: {fileID: 0}
-  rightFoot: {fileID: 0}
