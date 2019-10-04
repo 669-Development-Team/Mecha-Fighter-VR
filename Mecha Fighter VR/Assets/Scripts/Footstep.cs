@@ -3,9 +3,11 @@ using UnityEngine.Experimental.VFX;
 
 public class Footstep : MonoBehaviour
 {
-    [SerializeField] private VisualEffect footstepVFX;
     [SerializeField] private Transform leftFoot;
     [SerializeField] private Transform rightFoot;
+    [SerializeField] private VisualEffect footstepVfx;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] footstepSfx;
 
     private Animator animator;
 
@@ -21,32 +23,42 @@ public class Footstep : MonoBehaviour
 
     private void Update()
     {
-        //Check THIS FRAME to see if we need to play a sound for the left foot, RIGHT NOW...
+        TriggerFootstep();
+    }
+
+    private void TriggerFootstep()
+    {
+        // Check this frame if foot hits the ground
         currentFrameFootstepLeft = animator.GetFloat("FootstepLeft");
+        currentFrameFootstepRight = animator.GetFloat("FootstepRight");
+
         if (currentFrameFootstepLeft > 0 && lastFrameFootstepLeft < 0)
         {
-            //is this frame's curve BIGGER than the last frames?
-            RaycastHit surfaceHitLeft;
-            Ray aboveLeftFoot = new Ray(leftFoot.transform.position + new Vector3(0, 1.5f, 0), Vector3.down);
-            if (Physics.Raycast(aboveLeftFoot, out surfaceHitLeft, 2f))
-            {
-                Instantiate(footstepVFX, transform.position, Quaternion.identity); //Play LEFT FOOTSTEP
-            }
+            // Play LEFT FOOTSTEP
+            PlayVfx(leftFoot);
+            PlaySfx();
         }
-        lastFrameFootstepLeft = animator.GetFloat("FootstepLeft"); //get left foot's CURVE FLOAT from the Animator Controller, from the CURRENT FRAME.
 
-        //Check THIS FRAME to see if we need to play a sound for the right foot, RIGHT NOW...
-        currentFrameFootstepRight = animator.GetFloat("FootstepRight");
         if (currentFrameFootstepRight < 0 && lastFrameFootstepRight > 0)
         {
-            //is this frame's curve SMALLER than last frames?
-            RaycastHit surfaceHitRight;
-            Ray aboveRightFoot = new Ray(rightFoot.transform.position + new Vector3(0, 1.5f, 0), Vector3.down);
-            if (Physics.Raycast(aboveRightFoot, out surfaceHitRight, 2f))
-            {
-                Instantiate(footstepVFX, transform.position, Quaternion.identity); //Play RIGHT FOOTSTEP
-            }
+            // Play RIGHT FOOTSTEP
+            PlayVfx(rightFoot);
+            PlaySfx();
         }
-        lastFrameFootstepRight = animator.GetFloat("FootstepRight"); //get right foot's CURVE FLOAT from the Animator Controller, from the CURRENT FRAME.
+
+        // Record current frame into last frame for each foot from animation curve
+        lastFrameFootstepLeft = animator.GetFloat("FootstepLeft");
+        lastFrameFootstepRight = animator.GetFloat("FootstepRight");
+    }
+
+    private void PlayVfx(Transform footTransform)
+    {
+        Instantiate(footstepVfx, footTransform.position, Quaternion.identity);
+    }
+
+    private void PlaySfx()
+    {
+        audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)], 0.8f);
+        audioSource.Play();
     }
 }
