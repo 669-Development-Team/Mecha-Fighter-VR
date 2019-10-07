@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - projectile
+  - FxTemporaire
+  - Character 1
+  - Character 2
+  - Burnable
   layers:
   - Default
   - TransparentFX
