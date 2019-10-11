@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glass
-  m_Shader: {fileID: -6465566751694194690, guid: 6a259c5fca5b6aa498b868890a6edfba,
+  m_Shader: {fileID: -6465566751694194690, guid: a3ff76e557352f248a3ca5d2f83307cf,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
