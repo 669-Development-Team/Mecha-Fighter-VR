@@ -8,15 +8,21 @@ namespace Control
     {
         public SteamVR_Action_Vector2 leftJoystick;
         public SteamVR_Action_Vector2 rightJoystick;
+        public SteamVR_Action_Boolean leftTrigger;
+        public SteamVR_Action_Boolean rightTrigger;
 
         private Vector2 leftAxis2D;
         private Vector2 rightAxis2D;
+        private bool leftShieldTriggered = false;
+        private bool rightShieldTriggered = false;
 
         private MovementHandler movementHandler;
+        private ShieldAbility shieldAbility;
 
         private void Start()
         {
             movementHandler = GetComponent<MovementHandler>();
+            shieldAbility = GetComponent<ShieldAbility>();
         }
 
         private void Update()
@@ -24,17 +30,16 @@ namespace Control
             ReadInputs();
 
             ControlMovement();
+            ControlShield();
         }
 
         private void ReadInputs()
         {
-            if (leftJoystick.axis != Vector2.zero)
-            {
-                Debug.Log(leftJoystick.axis);
-            }
-
             leftAxis2D = leftJoystick.axis;
             rightAxis2D = rightJoystick.axis;
+
+            leftShieldTriggered = leftTrigger.state;
+            rightShieldTriggered = rightTrigger.state;
         }
 
         private void ControlMovement()
@@ -46,6 +51,12 @@ namespace Control
             // Rotation with right stick
             Vector3 rotationVector = new Vector3(0, rightAxis2D.x, 0); // Rotate x on the y-axis
             movementHandler.DoRotation(rotationVector);
+        }
+
+        private void ControlShield()
+        {
+            shieldAbility.ToggleLeftShield(leftShieldTriggered);
+            shieldAbility.ToggleRightShield(rightShieldTriggered);
         }
     }
 }

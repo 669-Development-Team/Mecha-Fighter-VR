@@ -51,6 +51,14 @@
       "requirement": "mandatory"
     },
     {
+      "name": "/actions/default/in/TriggerLeft",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TriggerRight",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }
@@ -110,7 +118,11 @@
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
       "/actions/default/in/Teleport": "Teleport",
-      "/actions/default/out/Haptic": "Haptic"
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/default/in/JoystickLeft": "Joystick Left",
+      "/actions/default/in/JoystickRight": "Joystick Right",
+      "/actions/default/in/TriggerLeft": "Trigger Left",
+      "/actions/default/in/TriggerRight": "Trigger Right"
     }
   ]
 }
