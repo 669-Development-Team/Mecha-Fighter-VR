@@ -37,7 +37,6 @@ public class ControllerInteraction : MonoBehaviour
             selectedButton.GetComponent<ButtonInteraction>().action();
             hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, source);
             timeLastScreenChange = Time.time;
-            selectedButton = null;
         }
 
         //Update the status of the previous trigger boolean

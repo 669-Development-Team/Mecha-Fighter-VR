@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
         previousScreen = currentScreen;
         currentScreen = screen;
     }
-    
+
     //Clear all of the input fields on the current screen
     private void clearInputs()
     {
@@ -90,6 +90,17 @@ public class UIManager : MonoBehaviour
         //Set the field name and input boxes on the onscreen keyboard
         findInputField("Field Name").text = fieldName;
         input.text = textField.text;
+    }
+
+    //
+    public void enterKey(string key)
+    {
+        input.text += key;
+    }
+
+    public void backspace()
+    {
+        input.text.Substring(0, input.text.Length - 1);
     }
 
     //Control functions for the menu buttons
