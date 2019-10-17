@@ -25,7 +25,7 @@ public class ControllerInteraction : MonoBehaviour
     {
         //If the controller exits a UI button, pulse
         if (otherObject.tag == "UI")
-            pulse(0.1f, source);
+            pulse(0.2f, source);
     }
 
     private void pulse(float amplitude, SteamVR_Input_Sources source)
