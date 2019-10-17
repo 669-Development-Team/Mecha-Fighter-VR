@@ -24,6 +24,7 @@ public class ButtonInteraction : MonoBehaviour
     //If the button is activated, invoke the associated function
     public void action()
     {
+        transform.GetComponent<MeshRenderer>().material = unselected;
         buttonAction.Invoke();
     }
 }

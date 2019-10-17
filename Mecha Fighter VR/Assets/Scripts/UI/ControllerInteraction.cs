@@ -8,6 +8,11 @@ public class ControllerInteraction : MonoBehaviour
     //Button that the controller is currently in
     private GameObject selectedButton;
 
+    //The amount of time the controller will vibrate after clicking a button
+    private const float clickButtonDuration = 0.1f;
+    //The time at which the screen changed last
+    private float timeLastScreenChange = 0;
+
     //The corresponding controller for the script
     public SteamVR_Input_Sources controller;
     //The state of the trigger on the previous frame
@@ -28,7 +33,12 @@ public class ControllerInteraction : MonoBehaviour
 
         //If the controller is in a button and the trigger is clicked, perform the action of the button
         if (selectedButton != null && selectedButton.activeInHierarchy && triggerWasClicked == false && triggerPos == 1.0f)
+        {
             selectedButton.GetComponent<ButtonInteraction>().action();
+            hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, source);
+            timeLastScreenChange = Time.time;
+            selectedButton = null;
+        }
 
         //Update the status of the previous trigger boolean
         if (triggerPos == 1.0f)
@@ -57,8 +67,10 @@ public class ControllerInteraction : MonoBehaviour
         }
     }
 
+    //If the controller isn't still vibrating from clicking a button, play a short vibration
     private void pulse(float amplitude, SteamVR_Input_Sources source)
     {
-        hapticController.Execute(0, 0.1f, 0.1f, amplitude, source);
+        if(Time.time - timeLastScreenChange > clickButtonDuration)
+            hapticController.Execute(0, 0.1f, 0.1f, amplitude, source);
     }
 }

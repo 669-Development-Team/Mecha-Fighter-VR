@@ -11,6 +11,7 @@ TagManager:
   - Burnable
   - Button
   - Menu Screen
+  - Keyboard Input
   layers:
   - Default
   - TransparentFX
