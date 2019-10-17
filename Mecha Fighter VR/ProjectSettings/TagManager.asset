@@ -9,6 +9,8 @@ TagManager:
   - Character 1
   - Character 2
   - Burnable
+  - Button
+  - Menu Screen
   layers:
   - Default
   - TransparentFX
