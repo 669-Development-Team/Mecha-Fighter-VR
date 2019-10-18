@@ -7,28 +7,22 @@ namespace Action
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 100f;
 
-        private Animator animator;
         private Rigidbody rigidbody;
 
-        private void Start()
+        private void Awake()
         {
-            animator = GetComponent<Animator>();
             rigidbody = GetComponent<Rigidbody>();
         }
 
         public void DoMovement(Vector3 movementVector)
         {
             rigidbody.MovePosition(rigidbody.position + moveSpeed * Time.deltaTime * movementVector);
-
-            // Animation
-            animator.SetFloat("Speed", movementVector.sqrMagnitude);
-            animator.SetFloat("Horizontal", movementVector.x);
-            animator.SetFloat("Vertical", movementVector.y);
         }
 
-        public void DoRotation(Vector3 rotationVector)
-        {
-            rigidbody.MoveRotation(Quaternion.Euler(rigidbody.rotation.eulerAngles + Time.deltaTime * rotationSpeed * rotationVector));
-        }
+        // Formerly used with the right joystick/trackpad. No longer used as the player should always be facing the opponent.
+//        public void DoRotation(Vector3 rotationVector)
+//        {
+//            rigidbody.MoveRotation(Quaternion.Euler(rigidbody.rotation.eulerAngles + Time.deltaTime * rotationSpeed * rotationVector));
+//        }
     }
 }
