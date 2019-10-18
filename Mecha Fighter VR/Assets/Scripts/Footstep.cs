@@ -51,12 +51,12 @@ public class Footstep : MonoBehaviour
         lastFrameFootstepRight = animator.GetFloat("FootstepRight");
     }
 
-    private void PlayVfx(Transform footTransform)
+    public void PlayVfx(Transform footTransform)
     {
         Instantiate(footstepVfx, footTransform.position, Quaternion.identity);
     }
 
-    private void PlaySfx()
+    public void PlaySfx()
     {
         audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)], 0.8f);
         audioSource.Play();
