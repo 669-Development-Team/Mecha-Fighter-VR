@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.mecahfightervr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Users\\Brian\\Developer\\CSC 699\\Mecha-Fighter-VR\\Mecha Fighter VR\\actions.json",
+      "action_manifest_path": "C:\\Users\\Ben Tingle\\Documents\\CodingBullshit\\CS_STUFF\\699\\Mecha-Fighter-VR\\Mecha Fighter VR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Mecha Fighter VR [Testing]"
