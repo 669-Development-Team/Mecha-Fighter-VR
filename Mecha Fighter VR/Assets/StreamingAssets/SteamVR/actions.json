@@ -43,12 +43,12 @@
     {
       "name": "/actions/default/in/JoystickLeft",
       "type": "vector2",
-      "requirement": "mandatory"
+      "requirement": "suggested"
     },
     {
       "name": "/actions/default/in/JoystickRight",
       "type": "vector2",
-      "requirement": "mandatory"
+      "requirement": "suggested"
     },
     {
       "name": "/actions/default/in/TriggerLeft",
@@ -57,6 +57,11 @@
     {
       "name": "/actions/default/in/TriggerRight",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Axis",
+      "type": "vector2",
+      "requirement": "optional"
     },
     {
       "name": "/actions/default/out/Haptic",

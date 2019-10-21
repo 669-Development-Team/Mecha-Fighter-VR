@@ -4,8 +4,8 @@ namespace Action
 {
     public class ShieldAbility : MonoBehaviour
     {
-        [SerializeField] private Shield leftShield;
-        [SerializeField] private Shield rightShield;
+        [SerializeField] private Shield leftShield = null;
+        [SerializeField] private Shield rightShield = null;
 
         public void ToggleLeftShield(bool shieldTriggered)
         {
