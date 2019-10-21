@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VFXEffect : MonoBehaviour
+public class VfxEffect : MonoBehaviour
 {
     private void Start()
     {
