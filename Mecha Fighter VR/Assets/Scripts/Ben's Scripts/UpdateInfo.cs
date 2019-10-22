@@ -18,8 +18,8 @@ public class UpdateInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (!displayOverride)
-			text.text = "IK Weight: " + string.Format("{0:0.00}", robot.IKWeight);
+		//if (!displayOverride)
+		//	text.text = "IK Weight: " + string.Format("{0:0.00}", robot.IKWeight);
 		//else
 			//text.text = "Override: " + robot.overrideIK + (robot.overrideIK ? ", Value: " + robot.overrideValue : "");
     }

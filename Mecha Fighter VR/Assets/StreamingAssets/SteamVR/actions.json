@@ -61,7 +61,7 @@
     {
       "name": "/actions/default/in/Axis",
       "type": "vector2",
-      "requirement": "optional"
+      "requirement": "suggested"
     },
     {
       "name": "/actions/default/out/Haptic",
@@ -131,7 +131,8 @@
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/in/TriggerLeft": "Trigger Left",
       "/actions/default/in/TriggerRight": "Trigger Right",
-      "/actions/default/out/Haptic": "Haptic"
+      "/actions/default/out/Haptic": "Haptic",
+      "/actions/default/in/Axis": "Axis"
     }
   ]
 }

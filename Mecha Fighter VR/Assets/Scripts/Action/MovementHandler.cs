@@ -7,15 +7,16 @@ namespace Action
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 100f;
 
-        private Rigidbody rigidbody;
+        public Rigidbody rigidbody;
 
-        private void Awake()
+        /*private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
-        }
+        }*/
 
         public void DoMovement(Vector3 movementVector)
         {
+			if (rigidbody == null) return;
             rigidbody.MovePosition(rigidbody.position + moveSpeed * Time.deltaTime * movementVector);
         }
 

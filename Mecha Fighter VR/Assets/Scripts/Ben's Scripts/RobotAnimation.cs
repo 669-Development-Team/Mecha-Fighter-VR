@@ -7,20 +7,19 @@ public class RobotAnimation : MonoBehaviour
 {
 	delegate void Action();
 	
-	public Animator animator;
-	public ArmIK leftArm, rightArm;
-	public float IKWeight { get; set; }
-	public int hitType;
+	Animator animator;
 	
-	IKSolverArm solverLeft, solverRight;
+	public int hitType;
+	public bool gotHit;
+	
+	IKSolverVR fullBodyIK;
 	Dictionary<string, Action> KeyInputMap;
 	const float defaultFadeTime = 0.3f;
 	
 	void Start()
 	{
-		solverLeft = leftArm.GetIKSolver() as IKSolverArm;
-		solverRight = rightArm.GetIKSolver() as IKSolverArm;
-		IKWeight = solverLeft.GetIKPositionWeight();
+		animator = GetComponent<Animator>();
+		fullBodyIK = GetComponent<VRIK>().GetIKSolver() as IKSolverVR;
 		
 		this.KeyInputMap = new Dictionary<string, Action> () 
 		{
@@ -31,15 +30,14 @@ public class RobotAnimation : MonoBehaviour
 			{ "down s", new Action(ToggleActionIdle) },
 			{ "down g", new Action(GetHit) }
 		};
+		
+		gotHit = false;
 	}
 	
 	void LateUpdate()
 	{
 		float IKWeight = animator.GetFloat("IKWeight");
-		solverLeft.SetIKPositionWeight(IKWeight);
-		solverLeft.IKRotationWeight = IKWeight;
-		solverRight.SetIKPositionWeight(IKWeight);
-		solverRight.IKRotationWeight = IKWeight;
+		fullBodyIK.SetIKPositionWeight(IKWeight);
 	}
 	
 	/******************/
@@ -56,11 +54,20 @@ public class RobotAnimation : MonoBehaviour
 	/* ANIMATION STATE CHANGE */
 	/*********************************/
 	
-	void GetHit()
+	public void GetHit()
 	{
-		animator.SetInteger("HitType", hitType);
-		animator.SetTrigger("ExitIdle");
-		animator.SetTrigger("GetHit");
+		if (!gotHit) {
+			animator.SetInteger("HitType", hitType);
+			animator.SetTrigger("ExitIdle");
+			animator.SetTrigger("GetHit");
+			gotHit = true;
+			StartCoroutine(waitForEndOfGetHit());
+		}
+	}
+	
+	private IEnumerator waitForEndOfGetHit() {
+		yield return new WaitForSeconds(0.5f);
+		gotHit = false;
 	}
 	
 	void StartWalk()

@@ -57,6 +57,7 @@ namespace Control
 
         private void AxisUpdate(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
         {
+			Debug.Log("Axis Update!");
             // Movement with left stick
             if (fromSource == SteamVR_Input_Sources.LeftHand)
             {
