@@ -43,7 +43,7 @@ public class VRController : MonoBehaviour
         HandleHeight();
         CalculateMovement();
         SnapRotation();
-        Debug.Log(m_MoveValue.axis);
+        //Debug.Log(m_MoveValue.axis);
     }
 
     void HandleHeight()
