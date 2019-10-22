@@ -13,7 +13,9 @@ namespace Control
         [SerializeField] private SteamVR_Action_Boolean trigger = null;
         [SerializeField] private SteamVR_Action_Boolean gripAction = null;
 
+        [Tooltip("Left controller Game Object transform")]
         [SerializeField] private Transform leftHandTransform = null;
+        [Tooltip("Right controller Game Object transform")]
         [SerializeField] private Transform rightHandTransform = null;
 
         [Tooltip("GameObject that the player will always be facing")]
@@ -22,10 +24,10 @@ namespace Control
         /// <summary>
         /// Values read from SteamVR input actions
         /// </summary>
-        private Vector3 leftGripStartPosition;       // Input from left grip pressed and left hand position
-        private Vector3 rightGripStartPosition;      // Input from right grip pressed and right hand position
-        private Vector3 leftGripEndPosition;         // Input from left grip released and right hand position
-        private Vector3 rightGripEndPosition;        // Input from right grip released and right hand position
+        private Vector3 leftGripDownPosition;       // Input from left grip pressed and left hand position
+        private Vector3 rightGripDownPosition;      // Input from right grip pressed and right hand position
+        private Vector3 leftGripUpPosition;         // Input from left grip released and right hand position
+        private Vector3 rightGripUpPosition;        // Input from right grip released and right hand position
 
         /// <summary>
         /// GameObject components
@@ -46,7 +48,7 @@ namespace Control
         private void Start()
         {
             // Subscribe SteamVR inputs listener events
-            joystick.AddOnAxisListener(AxisUpdate, SteamVR_Input_Sources.LeftHand);
+            joystick.AddOnAxisListener(ControlMovement, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
             gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
@@ -55,7 +57,7 @@ namespace Control
             gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);
         }
 
-        private void AxisUpdate(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
+        private void ControlMovement(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
         {
             // Movement with left stick
             if (fromSource == SteamVR_Input_Sources.LeftHand)
@@ -92,30 +94,53 @@ namespace Control
 
         private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
-            if (fromSource == SteamVR_Input_Sources.LeftHand) leftGripStartPosition = leftHandTransform.position;
-            if (fromSource == SteamVR_Input_Sources.RightHand) rightGripStartPosition = rightHandTransform.position;
+            if (fromSource == SteamVR_Input_Sources.LeftHand)
+            {
+                leftGripDownPosition = leftHandTransform.position;
+                print("Left grip down: " + leftGripDownPosition + ", " + leftGripDownPosition.magnitude);
+            }
+
+            if (fromSource == SteamVR_Input_Sources.RightHand)
+            {
+                rightGripDownPosition = rightHandTransform.position;
+                print("Right grip down: " + rightGripDownPosition + ", " + rightGripDownPosition.magnitude);
+            }
+
             // Begin motion timer
-            projectileAbility.StartMotion();
+            projectileAbility.StartMotionTime();
         }
 
         private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
-            if (fromSource == SteamVR_Input_Sources.LeftHand) leftGripEndPosition = leftHandTransform.position;
-            if (fromSource == SteamVR_Input_Sources.RightHand) rightGripEndPosition = rightHandTransform.position;
+            if (fromSource == SteamVR_Input_Sources.LeftHand)
+            {
+                leftGripUpPosition = leftHandTransform.position;
+                print("Left grip up: " + leftGripUpPosition + ", " + leftGripUpPosition.magnitude);
+            }
+
+            if (fromSource == SteamVR_Input_Sources.RightHand)
+            {
+                rightGripUpPosition = rightHandTransform.position;
+                print("Right grip up: " + rightGripUpPosition + ", " + rightGripUpPosition.magnitude);
+            }
 
             // Shoot projectile if the user does a hadouken motion within the time threshold
-            if (Vector3.Distance(leftGripStartPosition, leftGripEndPosition) > 0.2f &&
-                Vector3.Distance(rightGripStartPosition, rightGripEndPosition) > 0.2f &&
-                projectileAbility.MotionTimeSuccess())
+            if (projectileAbility.IsForwardMotion(
+                    leftGripDownPosition,
+                    leftGripUpPosition,
+                    rightGripDownPosition,
+                    rightGripUpPosition,
+                    opponent.transform.position) &&
+                projectileAbility.IsWithinMotionTimeThreshold())
             {
                 projectileAbility.ShootProjectile(opponent);
             }
 
             // Reset vectors
-            leftGripStartPosition = Vector3.zero;
-            leftGripEndPosition = Vector3.zero;
-            rightGripStartPosition = Vector3.zero;
-            rightGripEndPosition = Vector3.zero;
+            leftGripDownPosition = Vector3.zero;
+            leftGripUpPosition = Vector3.zero;
+            rightGripDownPosition = Vector3.zero;
+            rightGripUpPosition = Vector3.zero;
         }
     }
 }
