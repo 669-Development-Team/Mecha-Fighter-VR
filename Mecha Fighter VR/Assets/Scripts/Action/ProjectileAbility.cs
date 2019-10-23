@@ -9,6 +9,7 @@ namespace Action
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float velocity = 8f;
         [SerializeField] private float cooldown = 1f;
+        [SerializeField] private float motionDistance = 0.2f;
         [SerializeField] private float motionTimeThreshold = 0.5f;
 
         // Time since the projectile was last fired
@@ -57,8 +58,8 @@ namespace Action
         /// <returns></returns>
         public bool IsForwardMotion(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
         {
-            bool checkDistance = Vector3.Distance(leftStartPos, leftEndPos) > 0.2f &&
-                                 Vector3.Distance(rightStartPos, rightEndPos) > 0.2f;
+            bool checkDistance = Vector3.Distance(leftStartPos, leftEndPos) > motionDistance &&
+                                 Vector3.Distance(rightStartPos, rightEndPos) > motionDistance;
 
             bool checkTowardsTarget = Vector3.Distance(leftEndPos, targetPos) < Vector3.Distance(leftStartPos, targetPos) &&
                                       Vector3.Distance(rightEndPos, targetPos) < Vector3.Distance(rightStartPos, targetPos);
