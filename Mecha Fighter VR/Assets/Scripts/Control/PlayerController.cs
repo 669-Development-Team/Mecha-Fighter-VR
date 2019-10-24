@@ -33,6 +33,7 @@ namespace Control
         /// GameObject components
         /// </summary>
         private Animator animator = null;
+        private GestureHandler gestureHandler = null;
         private MovementHandler movementHandler = null;
         private ProjectileAbility projectileAbility = null;
         private ShieldAbility shieldAbility = null;
@@ -40,6 +41,7 @@ namespace Control
         private void Awake()
         {
             animator = GetComponent<Animator>();
+            gestureHandler = GetComponent<GestureHandler>();
             movementHandler = GetComponent<MovementHandler>();
             projectileAbility = GetComponent<ProjectileAbility>();
             shieldAbility = GetComponent<ShieldAbility>();
@@ -49,22 +51,21 @@ namespace Control
         {
             // Subscribe SteamVR inputs listener events
             joystick.AddOnAxisListener(ControlMovement, SteamVR_Input_Sources.LeftHand);
+
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
+
             gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.RightHand);
             gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);
         }
 
+        // Movement with left stick
         private void ControlMovement(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
         {
-            // Movement with left stick
-            if (fromSource == SteamVR_Input_Sources.LeftHand)
-            {
-                Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
-                movementHandler.DoMovement(movementDirection);
-            }
+            Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
+            movementHandler.DoMovement(movementDirection);
 
             // No longer used as the player now uses IK
 //            // Animation
@@ -94,12 +95,14 @@ namespace Control
 
         private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
+            // Record left hand start position
             if (fromSource == SteamVR_Input_Sources.LeftHand)
             {
                 leftGripDownPosition = leftHandTransform.position;
                 print("Left grip down: " + leftGripDownPosition + ", " + leftGripDownPosition.magnitude);
             }
 
+            // Record right hand start position
             if (fromSource == SteamVR_Input_Sources.RightHand)
             {
                 rightGripDownPosition = rightHandTransform.position;
@@ -107,33 +110,50 @@ namespace Control
             }
 
             // Begin motion timer
-            projectileAbility.StartMotionTime();
+            gestureHandler.StartMotionTime();
         }
 
         private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
+            // Record left hand end position
             if (fromSource == SteamVR_Input_Sources.LeftHand)
             {
                 leftGripUpPosition = leftHandTransform.position;
                 print("Left grip up: " + leftGripUpPosition + ", " + leftGripUpPosition.magnitude);
             }
 
+            // Record right hand end position
             if (fromSource == SteamVR_Input_Sources.RightHand)
             {
                 rightGripUpPosition = rightHandTransform.position;
                 print("Right grip up: " + rightGripUpPosition + ", " + rightGripUpPosition.magnitude);
             }
 
-            // Shoot projectile if the user does a hadouken motion within the time threshold
-            if (projectileAbility.IsForwardMotion(
+            // Check if the motion was performed satisfies the maximum time threshold
+            if (gestureHandler.IsWithinMotionTimeThreshold())
+            {
+                // Check which gesture was performed and trigger the correct ability accordingly
+                // Certain abilities may be activated with only one hand
+                switch (gestureHandler.CheckGesture(
                     leftGripDownPosition,
                     leftGripUpPosition,
                     rightGripDownPosition,
                     rightGripUpPosition,
-                    opponent.transform.position) &&
-                projectileAbility.IsWithinMotionTimeThreshold())
-            {
-                projectileAbility.ShootProjectile(opponent);
+                    opponent.transform.position))
+                {
+                    // Shoot projectile if the user does a hadouken motion within the time threshold
+                    case GestureHandler.Gestures.Projectile:
+                        projectileAbility.ShootProjectile(opponent);
+                        break;
+                    // TODO: Uppercut ability
+                    case GestureHandler.Gestures.Uppercut:
+                        break;
+                    // TODO: Ground pound ability
+                    case GestureHandler.Gestures.GroundPound:
+                        break;
+                    default:
+                        break;
+                }
             }
 
             // Reset vectors
