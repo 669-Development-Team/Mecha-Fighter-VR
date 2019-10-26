@@ -18,6 +18,13 @@ namespace Control
 
         private float motionStartTime = 0f;
 
+        // Cached positions
+        private Vector3 leftStart;
+        private Vector3 leftEnd;
+        private Vector3 rightStart;
+        private Vector3 rightEnd;
+        private Vector3 target;
+
         // Record the time at the start of having both grips held down
         public void StartMotionTime()
         {
@@ -41,36 +48,81 @@ namespace Control
         /// <returns>The gesture that the motion satisfied</returns>
         public Gestures CheckGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
         {
-            if (IsProjectileGesture(leftStartPos, leftEndPos, rightStartPos, rightEndPos, targetPos))
+            // Cache positions
+            leftStart = leftStartPos;
+            leftEnd = leftEndPos;
+            rightStart = rightStartPos;
+            rightEnd = rightEndPos;
+            target = targetPos;
+
+            Gestures result = 0;
+
+            // There may be a better way of doing this chain of if statements such as the Visitor Pattern but I can't seem to figure out a way of doing it
+            if (IsProjectileGesture())
             {
-                return Gestures.Projectile;
+                result = Gestures.Projectile;
+            }
+            else if (IsUppercutGesture())
+            {
+                result = Gestures.Uppercut;
+            }
+            else if (IsGroundPoundGesture())
+            {
+                result = Gestures.GroundPound;
             }
 
-            return 0;
+            // Reset cached positions
+            ResetPositions();
+
+            Debug.Log("Gesture triggered: " + result);
+            return result;
         }
 
-        // Checks if the motion is a forward thrust with both hands
-        private bool IsProjectileGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
-        {
-            bool checkDistance = Vector3.Distance(leftStartPos, leftEndPos) > motionDistance &&
-                                 Vector3.Distance(rightStartPos, rightEndPos) > motionDistance;
+        #region GestureCheckers
 
-            bool checkTowardsTarget = Vector3.Distance(leftEndPos, targetPos) < Vector3.Distance(leftStartPos, targetPos) &&
-                                      Vector3.Distance(rightEndPos, targetPos) < Vector3.Distance(rightStartPos, targetPos);
+        // Checks if the motion is a forward thrust with both hands
+        private bool IsProjectileGesture()
+        {
+            bool checkTowardsTarget = Vector3.Distance(leftEnd, target) < Vector3.Distance(leftStart, target) &&
+                                      Vector3.Distance(rightEnd, target) < Vector3.Distance(rightStart, target);
 
             // TODO: check if the motion is within a narrow range (ie. more straight and parallel as opposed to a big hug)
 
-            return checkDistance && checkTowardsTarget;
+            return CheckDistance() && checkTowardsTarget;
         }
 
-        private bool IsUppercutGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
+        // Checks if the motion is a vertical lift with one hand
+        private bool IsUppercutGesture()
         {
-            return false;
+            return CheckDistance() && rightEnd.y - rightStart.y > motionDistance;
         }
 
-        private bool IsGroundPoundGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
+        // Checks if the motion is a vertical slam with both hands
+        private bool IsGroundPoundGesture()
         {
-            return false;
+            bool checkDownwardMotion = leftStart.y - leftEnd.y > motionDistance &&
+                                       rightStart.y - rightEnd.y > motionDistance;
+
+            return CheckDistance() && checkDownwardMotion;
+        }
+
+        #endregion
+
+        // Checks if the motion covers enough distance
+        private bool CheckDistance()
+        {
+            return Vector3.Distance(leftStart, leftEnd) > motionDistance &&
+                   Vector3.Distance(rightStart, rightEnd) > motionDistance;
+        }
+
+        // Reset cached positions
+        private void ResetPositions()
+        {
+            leftStart = Vector3.zero;
+            leftEnd = Vector3.zero;
+            rightStart = Vector3.zero;
+            rightEnd = Vector3.zero;
+            target = Vector3.zero;
         }
     }
 }
