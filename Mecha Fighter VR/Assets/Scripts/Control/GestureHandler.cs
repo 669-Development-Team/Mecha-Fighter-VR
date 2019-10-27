@@ -23,7 +23,6 @@ namespace Control
         private Vector3 leftEnd;
         private Vector3 rightStart;
         private Vector3 rightEnd;
-        private Vector3 target;
 
         // Record the time at the start of having both grips held down
         public void StartMotionTime()
@@ -38,22 +37,20 @@ namespace Control
         }
 
         /// <summary>
-        /// Detect if the motion covers enough distance and is in the direction of the target. Determines which gesture the motion satisfies.
+        /// Detect which gesture was performed based on specific parameters defined by each gesture
         /// </summary>
         /// <param name="leftStartPos">The initial position of the left controller when the grip is first pressed</param>
         /// <param name="leftEndPos">The final position of the left controller when the grip is released</param>
         /// <param name="rightStartPos">The initial position of the right controller when the grip is first pressed</param>
         /// <param name="rightEndPos">The final position of the right controller when the grip is released</param>
-        /// <param name="targetPos">The target position for the motion to be acting towards, like the opponent's position</param>
         /// <returns>The gesture that the motion satisfied</returns>
-        public Gestures CheckGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos, Vector3 targetPos)
+        public Gestures CheckGesture(Vector3 leftStartPos, Vector3 leftEndPos, Vector3 rightStartPos, Vector3 rightEndPos)
         {
             // Cache positions
             leftStart = leftStartPos;
             leftEnd = leftEndPos;
             rightStart = rightStartPos;
             rightEnd = rightEndPos;
-            target = targetPos;
 
             Gestures result = 0;
 
@@ -83,25 +80,24 @@ namespace Control
         // Checks if the motion is a forward thrust with both hands
         private bool IsProjectileGesture()
         {
-            bool checkTowardsTarget = Vector3.Distance(leftEnd, target) < Vector3.Distance(leftStart, target) &&
-                                      Vector3.Distance(rightEnd, target) < Vector3.Distance(rightStart, target);
+            bool checkForwardMotion = leftEnd.z - leftStart.z >= motionDistance && rightEnd.z - rightStart.z >= motionDistance;
 
             // TODO: check if the motion is within a narrow range (ie. more straight and parallel as opposed to a big hug)
 
-            return CheckDistance() && checkTowardsTarget;
+            return CheckDistance() && checkForwardMotion;
         }
 
         // Checks if the motion is a vertical lift with one hand
         private bool IsUppercutGesture()
         {
-            return CheckDistance() && rightEnd.y - rightStart.y > motionDistance;
+            return rightEnd.y - rightStart.y >= motionDistance * 2f;
         }
 
         // Checks if the motion is a vertical slam with both hands
         private bool IsGroundPoundGesture()
         {
-            bool checkDownwardMotion = leftStart.y - leftEnd.y > motionDistance &&
-                                       rightStart.y - rightEnd.y > motionDistance;
+            bool checkDownwardMotion = leftStart.y - leftEnd.y >= motionDistance * 2f &&
+                                       rightStart.y - rightEnd.y >= motionDistance * 2f;
 
             return CheckDistance() && checkDownwardMotion;
         }
@@ -122,7 +118,6 @@ namespace Control
             leftEnd = Vector3.zero;
             rightStart = Vector3.zero;
             rightEnd = Vector3.zero;
-            target = Vector3.zero;
         }
     }
 }

@@ -3,14 +3,11 @@ using UnityEngine;
 
 namespace Action
 {
-    public class ProjectileAbility : MonoBehaviour
+    public class ProjectileAbility : SpecialAbility
     {
         [SerializeField] private Projectile projectilePrefab = null;
         [SerializeField] private Transform shootPoint = null;
-        [SerializeField] private float baseDamage = 10f;
-        [SerializeField] private float energyCost = 100f;
         [SerializeField] private float velocity = 8f;
-        [SerializeField] private float cooldown = 1f;
 
         private Energy energy;
         // Time since the projectile was last fired
@@ -26,8 +23,10 @@ namespace Action
             cooldownTimer += Time.deltaTime;
         }
 
-        public void ShootProjectile(GameObject opponent)
+        public override void ActivateAbility(GameObject opponent)
         {
+            Debug.Log("Projectile gesture performed!");
+
             if (cooldownTimer < cooldown)
             {
                 return;

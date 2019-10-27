@@ -34,23 +34,27 @@ namespace Control
         /// </summary>
         private Animator animator = null;
         private GestureHandler gestureHandler = null;
+        private GroundPoundAbility groundPoundAbility = null;
         private MovementHandler movementHandler = null;
         private ProjectileAbility projectileAbility = null;
         private ShieldAbility shieldAbility = null;
+        private UppercutAbility uppercutAbility = null;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             gestureHandler = GetComponent<GestureHandler>();
+            groundPoundAbility = GetComponent<GroundPoundAbility>();
             movementHandler = GetComponent<MovementHandler>();
             projectileAbility = GetComponent<ProjectileAbility>();
             shieldAbility = GetComponent<ShieldAbility>();
+            uppercutAbility = GetComponent<UppercutAbility>();
         }
 
         private void Start()
         {
             // Subscribe SteamVR inputs listener events
-            joystick.AddOnAxisListener(ControlMovement, SteamVR_Input_Sources.LeftHand);
+            joystick.AddOnUpdateListener(ControlMovement, SteamVR_Input_Sources.LeftHand);
 
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
@@ -69,9 +73,9 @@ namespace Control
 
             // No longer used as the player now uses IK
 //            // Animation
-//            animator.SetFloat("Speed", leftAxis2D.sqrMagnitude);
-//            animator.SetFloat("Horizontal", leftAxis2D.x);
-//            animator.SetFloat("Vertical", leftAxis2D.y);
+//            animator.SetFloat("Speed", axis.sqrMagnitude);
+//            animator.SetFloat("Horizontal", axis.x);
+//            animator.SetFloat("Vertical", axis.y);
 
             // No longer used as the player should always be facing the opponent.
 //            // Rotation with right stick
@@ -98,15 +102,15 @@ namespace Control
             // Record left hand start position
             if (fromSource == SteamVR_Input_Sources.LeftHand)
             {
-                leftGripDownPosition = leftHandTransform.position;
-                print("Left grip down: " + leftGripDownPosition + ", " + leftGripDownPosition.magnitude);
+                leftGripDownPosition = transform.InverseTransformDirection(leftHandTransform.position);
+                Debug.Log("Left grip down: " + leftGripDownPosition + ", " + leftGripDownPosition.magnitude);
             }
 
             // Record right hand start position
             if (fromSource == SteamVR_Input_Sources.RightHand)
             {
-                rightGripDownPosition = rightHandTransform.position;
-                print("Right grip down: " + rightGripDownPosition + ", " + rightGripDownPosition.magnitude);
+                rightGripDownPosition = transform.InverseTransformDirection(rightHandTransform.position);
+                Debug.Log("Right grip down: " + rightGripDownPosition + ", " + rightGripDownPosition.magnitude);
             }
 
             // Begin motion timer
@@ -118,15 +122,15 @@ namespace Control
             // Record left hand end position
             if (fromSource == SteamVR_Input_Sources.LeftHand)
             {
-                leftGripUpPosition = leftHandTransform.position;
-                print("Left grip up: " + leftGripUpPosition + ", " + leftGripUpPosition.magnitude);
+                leftGripUpPosition = transform.InverseTransformDirection(leftHandTransform.position);
+                Debug.Log("Left grip up: " + leftGripUpPosition + ", " + leftGripUpPosition.magnitude);
             }
 
             // Record right hand end position
             if (fromSource == SteamVR_Input_Sources.RightHand)
             {
-                rightGripUpPosition = rightHandTransform.position;
-                print("Right grip up: " + rightGripUpPosition + ", " + rightGripUpPosition.magnitude);
+                rightGripUpPosition = transform.InverseTransformDirection(rightHandTransform.position);
+                Debug.Log("Right grip up: " + rightGripUpPosition + ", " + rightGripUpPosition.magnitude);
             }
 
             // Check if the motion was performed satisfies the maximum time threshold
@@ -134,22 +138,20 @@ namespace Control
             {
                 // Check which gesture was performed and trigger the correct ability accordingly
                 // Certain abilities may be activated with only one hand
-                switch (gestureHandler.CheckGesture(
-                    leftGripDownPosition,
-                    leftGripUpPosition,
-                    rightGripDownPosition,
-                    rightGripUpPosition,
-                    opponent.transform.position))
+                // TODO: There definitely should be a better way of doing this than a switch block
+                switch (gestureHandler.CheckGesture(leftGripDownPosition, leftGripUpPosition, rightGripDownPosition, rightGripUpPosition))
                 {
                     // Shoot projectile if the user does a hadouken motion within the time threshold
                     case GestureHandler.Gestures.Projectile:
-                        projectileAbility.ShootProjectile(opponent);
+                        projectileAbility.ActivateAbility(opponent);
                         break;
                     // TODO: Uppercut ability
                     case GestureHandler.Gestures.Uppercut:
+                        uppercutAbility.ActivateAbility(opponent);
                         break;
                     // TODO: Ground pound ability
                     case GestureHandler.Gestures.GroundPound:
+                        groundPoundAbility.ActivateAbility(opponent);
                         break;
                     default:
                         break;
