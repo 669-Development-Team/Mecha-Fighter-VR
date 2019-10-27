@@ -80,11 +80,7 @@ namespace Control
         // Checks if the motion is a forward thrust with both hands
         private bool IsProjectileGesture()
         {
-            bool checkForwardMotion = leftEnd.z - leftStart.z >= motionDistance && rightEnd.z - rightStart.z >= motionDistance;
-
-            // TODO: check if the motion is within a narrow range (ie. more straight and parallel as opposed to a big hug)
-
-            return CheckDistance() && checkForwardMotion;
+            return leftEnd.z - leftStart.z >= motionDistance && rightEnd.z - rightStart.z >= motionDistance;
         }
 
         // Checks if the motion is a vertical lift with one hand
@@ -96,20 +92,10 @@ namespace Control
         // Checks if the motion is a vertical slam with both hands
         private bool IsGroundPoundGesture()
         {
-            bool checkDownwardMotion = leftStart.y - leftEnd.y >= motionDistance * 2f &&
-                                       rightStart.y - rightEnd.y >= motionDistance * 2f;
-
-            return CheckDistance() && checkDownwardMotion;
+            return leftStart.y - leftEnd.y >= motionDistance * 2f && rightStart.y - rightEnd.y >= motionDistance * 2f;
         }
 
         #endregion
-
-        // Checks if the motion covers enough distance
-        private bool CheckDistance()
-        {
-            return Vector3.Distance(leftStart, leftEnd) > motionDistance &&
-                   Vector3.Distance(rightStart, rightEnd) > motionDistance;
-        }
 
         // Reset cached positions
         private void ResetPositions()

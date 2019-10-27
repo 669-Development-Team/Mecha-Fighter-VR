@@ -10,17 +10,10 @@ namespace Action
         [SerializeField] private float velocity = 8f;
 
         private Energy energy;
-        // Time since the projectile was last fired
-        private float cooldownTimer = Mathf.Infinity;
 
         private void Awake()
         {
             energy = GetComponent<Energy>();
-        }
-
-        private void Update()
-        {
-            cooldownTimer += Time.deltaTime;
         }
 
         public override void ActivateAbility(GameObject opponent)
