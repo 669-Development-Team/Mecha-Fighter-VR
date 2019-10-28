@@ -12,14 +12,20 @@ namespace UI
         // Reference the game objects in the inspector
         public TextMeshProUGUI healthDisplayText;
         public TextMeshProUGUI energyDisplayText;
+        public TextMeshProUGUI leftShieldDisplayText;
+        public TextMeshProUGUI rightShieldDisplayText;
 
         [SerializeField] private Health health = null;
         [SerializeField] private Energy energy = null;
+        [SerializeField] private Shield leftShield = null;
+        [SerializeField] private Shield rightShield = null;
 
         private void Update()
         {
-            healthDisplayText.text = $"Health: {health.GetHealthPercentage():0}%";
-            energyDisplayText.text = $"Energy: {energy.GetEnergyPercentage():0}%";
+            healthDisplayText?.SetText($"Health: {health.GetHealthPercentage():0}%");
+            energyDisplayText?.SetText($"Energy: {energy.GetEnergyPercentage():0}%");
+            leftShieldDisplayText?.SetText($"L Shield: {leftShield.GetDurabilityPercentage():0}%");
+            rightShieldDisplayText?.SetText($"R Shield: {rightShield.GetDurabilityPercentage():0}%");
         }
     }
 }

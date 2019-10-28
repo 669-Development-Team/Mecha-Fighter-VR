@@ -9,12 +9,12 @@ namespace Action
 
         public void ToggleLeftShield(bool shieldTriggered)
         {
-            leftShield.gameObject.SetActive(shieldTriggered);
+            leftShield.ToggleShield(shieldTriggered);
         }
 
         public void ToggleRightShield(bool shieldTriggered)
         {
-            rightShield.gameObject.SetActive(shieldTriggered);
+            rightShield.ToggleShield(shieldTriggered);
         }
     }
 }

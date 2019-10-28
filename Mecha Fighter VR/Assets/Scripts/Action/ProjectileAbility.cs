@@ -16,7 +16,7 @@ namespace Action
             energy = GetComponent<Energy>();
         }
 
-        public override void ActivateAbility(GameObject opponent)
+        public override void ActivateAbility(Health opponent)
         {
             Debug.Log("Projectile gesture performed!");
 
@@ -32,9 +32,7 @@ namespace Action
             }
 
             Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
-            projectile.SetTarget(opponent);
-            projectile.SetBaseDamage(baseDamage);
-            projectile.SetVelocity(velocity);
+            projectile.SetTarget(opponent, gameObject, velocity, baseDamage);
             cooldownTimer = 0f;
         }
     }

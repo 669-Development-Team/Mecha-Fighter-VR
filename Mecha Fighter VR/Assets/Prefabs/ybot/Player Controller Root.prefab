@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 2176678831549537861}
   - component: {fileID: 6993696801511811771}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Shield Durability Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2405,7 +2405,7 @@ GameObject:
   - component: {fileID: 8885235790868200637}
   - component: {fileID: 2168478612577153170}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Shield Durability Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3359,14 +3359,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
         type: 0}
-    - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1000014254142504, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Icon
       value: 
@@ -3408,12 +3400,7 @@ PrefabInstance:
     - target: {fileID: 4107294059824307992, guid: 0d8b523750a4b03498e8a605a3d54a11,
         type: 3}
       propertyPath: m_Name
-      value: Equipped Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 4107294059824307992, guid: 0d8b523750a4b03498e8a605a3d54a11,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: Equipped Shield Right
       objectReference: {fileID: 0}
     - target: {fileID: 4107294059824307995, guid: 0d8b523750a4b03498e8a605a3d54a11,
         type: 3}
@@ -3815,7 +3802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 42dc83c3029b8584ab940b5f26309e3f,
         type: 3}
-      propertyPath: m_UpdateMode
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3187931662991661476, guid: 42dc83c3029b8584ab940b5f26309e3f,
@@ -3973,12 +3960,7 @@ PrefabInstance:
     - target: {fileID: 4107294059824307992, guid: 0d8b523750a4b03498e8a605a3d54a11,
         type: 3}
       propertyPath: m_Name
-      value: Equipped Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 4107294059824307992, guid: 0d8b523750a4b03498e8a605a3d54a11,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: Equipped Shield Left
       objectReference: {fileID: 0}
     - target: {fileID: 4107294059824307995, guid: 0d8b523750a4b03498e8a605a3d54a11,
         type: 3}
@@ -4168,6 +4150,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8493167201945274147, guid: 78838b9e94955744a9e14aae574fcdc7,
         type: 3}
+      propertyPath: leftShieldDisplayText
+      value: 
+      objectReference: {fileID: 1859342549853203202}
+    - target: {fileID: 8493167201945274147, guid: 78838b9e94955744a9e14aae574fcdc7,
+        type: 3}
+      propertyPath: rightShieldDisplayText
+      value: 
+      objectReference: {fileID: 8231039428788990499}
+    - target: {fileID: 8493167201945274147, guid: 78838b9e94955744a9e14aae574fcdc7,
+        type: 3}
       propertyPath: health
       value: 
       objectReference: {fileID: 6322852167272933568}
@@ -4176,5 +4168,15 @@ PrefabInstance:
       propertyPath: energy
       value: 
       objectReference: {fileID: 5617218118442817720}
+    - target: {fileID: 8493167201945274147, guid: 78838b9e94955744a9e14aae574fcdc7,
+        type: 3}
+      propertyPath: leftShield
+      value: 
+      objectReference: {fileID: 6703907135388412825}
+    - target: {fileID: 8493167201945274147, guid: 78838b9e94955744a9e14aae574fcdc7,
+        type: 3}
+      propertyPath: rightShield
+      value: 
+      objectReference: {fileID: 3728184146748821827}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78838b9e94955744a9e14aae574fcdc7, type: 3}

@@ -1,4 +1,5 @@
 ﻿using Action;
+using Stats;
 using UnityEngine;
 using Valve.VR;
 
@@ -18,8 +19,8 @@ namespace Control
         [Tooltip("Right controller Game Object transform")]
         [SerializeField] private Transform rightHandTransform = null;
 
-        [Tooltip("GameObject that the player will always be facing")]
-        [SerializeField] private GameObject opponent = null;
+        [Tooltip("GameObject that the player will always be facing and attacking")]
+        [SerializeField] private Health opponent = null;
 
         /// <summary>
         /// Values read from SteamVR input actions

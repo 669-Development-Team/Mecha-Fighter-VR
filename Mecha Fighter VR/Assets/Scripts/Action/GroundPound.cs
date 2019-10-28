@@ -1,3 +1,4 @@
+using Stats;
 using UnityEngine;
 
 namespace Action
@@ -6,24 +7,27 @@ namespace Action
     {
         [SerializeField] private float maxLifetime = 4f;
 
-        private GameObject target = null;
+        private Health m_target = null;
+        private GameObject m_instigator = null;
+        private float m_baseDamage = 0f;
 
         private void Start()
         {
-            if (target != null)
+            if (m_target != null)
             {
                 // Rotate y-axis to direction of target
-                Vector3 lookDirection = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                Vector3 lookDirection = new Vector3(m_target.transform.position.x, transform.position.y, m_target.transform.position.z);
                 transform.LookAt(lookDirection);
             }
 
             Destroy(gameObject, maxLifetime);
         }
 
-        // This may be removed as I'm sure there's a better way
-        public void SetTarget(GameObject opponent)
+        public void SetTarget(Health opponent, GameObject instigator, float damage)
         {
-            target = opponent;
+            m_target = opponent;
+            m_instigator = instigator;
+            m_baseDamage = damage;
         }
     }
 }

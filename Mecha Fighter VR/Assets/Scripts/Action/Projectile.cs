@@ -1,3 +1,4 @@
+using Stats;
 using UnityEngine;
 
 namespace Action
@@ -7,17 +8,18 @@ namespace Action
         [SerializeField] private GameObject impactVfxPrefab = null;
         [SerializeField] private float maxLifetime = 10f;
 
-        // These values should be passed in from ProjectileAbility
-        private GameObject target = null;
-        private float baseDamage = 0f;
-        private float velocity = 0f;
+        // These values should be passed in
+        private Health m_target = null;
+        private GameObject m_instigator = null;
+        private float m_baseDamage = 0f;
+        private float m_velocity = 0f;
 
         private void Start()
         {
-            if (target != null)
+            if (m_target != null)
             {
                 // Rotate y-axis to direction of target
-                Vector3 lookDirection = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+                Vector3 lookDirection = new Vector3(m_target.transform.position.x, transform.position.y, m_target.transform.position.z);
                 transform.LookAt(lookDirection);
             }
 
@@ -27,39 +29,32 @@ namespace Action
         private void Update()
         {
             // Projectile travels forward
-            transform.Translate(Time.deltaTime * velocity * Vector3.forward);
+            transform.Translate(Time.deltaTime * m_velocity * Vector3.forward);
         }
 
         // This may be removed as I'm sure there's a better way
-        public void SetTarget(GameObject opponent)
+        public void SetTarget(Health target, GameObject instigator, float velocity, float damage)
         {
-            target = opponent;
-        }
-
-        // This may be removed as I'm sure there's a better way
-        public void SetVelocity(float value)
-        {
-            velocity = value;
-        }
-
-        // This may be removed as I'm sure there's a better way
-        public void SetBaseDamage(float value)
-        {
-            baseDamage = value;
+            m_target = target;
+            m_instigator = instigator;
+            m_velocity = velocity;
+            m_baseDamage = damage;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             // TODO: deal damage to other
 
-            if (other != target.GetComponent<Collider>())
+            if (other == m_instigator.GetComponent<Collider>())
             {
                 return;
             }
 
+            other.GetComponent<IDamageable>().TakeDamage(m_baseDamage);
+
             // Create impact effect and destroy
             GameObject impactVfx = Instantiate(impactVfxPrefab, transform.position, Quaternion.identity);
-            Destroy(impactVfx, 1f);
+            Destroy(impactVfx, 1.5f);
             Destroy(gameObject);
         }
     }

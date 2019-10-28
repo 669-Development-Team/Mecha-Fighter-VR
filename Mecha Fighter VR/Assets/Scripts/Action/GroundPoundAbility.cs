@@ -15,7 +15,7 @@ namespace Action
             energy = GetComponent<Energy>();
         }
 
-        public override void ActivateAbility(GameObject opponent)
+        public override void ActivateAbility(Health opponent)
         {
             Debug.Log("Ground Pound gesture performed!");
 
@@ -31,7 +31,7 @@ namespace Action
             }
 
             GroundPound groundPound = Instantiate(groundPoundPrefab, effectSpawnPoint.position, Quaternion.identity);
-            groundPound.SetTarget(opponent);
+            groundPound.SetTarget(opponent, gameObject, baseDamage);
             cooldownTimer = 0f;
         }
     }

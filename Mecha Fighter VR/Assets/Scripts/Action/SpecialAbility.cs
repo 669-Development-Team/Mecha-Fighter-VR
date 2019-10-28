@@ -1,3 +1,4 @@
+using Stats;
 using UnityEngine;
 
 namespace Action
@@ -16,6 +17,6 @@ namespace Action
             cooldownTimer += Time.deltaTime;
         }
 
-        public abstract void ActivateAbility(GameObject opponent);
+        public abstract void ActivateAbility(Health opponent);
     }
 }
