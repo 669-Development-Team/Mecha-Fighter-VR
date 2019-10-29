@@ -74,29 +74,33 @@ namespace Control
         // Movement with left stick
         private void ControlMovement(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
         {
-            Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
-            movementHandler.DoMovement(movementDirection);
-
-            //
-            getMovementValue = movementDirection;
-
-            // No longer used as the player now uses IK
-//            // Animation
-//            animator.SetFloat("Speed", axis.sqrMagnitude);
-//            animator.SetFloat("Horizontal", axis.x);
-//            animator.SetFloat("Vertical", axis.y);
-
-            // No longer used as the player should always be facing the opponent.
-//            // Rotation with right stick
-//            Vector3 rotationVector = new Vector3(0, rightAxis2D.x, 0); // Rotate x on the y-axis
-//            movementHandler.DoRotation(rotationVector);
-
-            // Always look at opponent
-            if (opponent != null)
+            if (animator.GetFloat("IKWeight") != 0)
             {
-                // Only rotate y-axis
-                Vector3 lookDirection = new Vector3(opponent.transform.position.x, transform.position.y, opponent.transform.position.z);
-                transform.LookAt(lookDirection);
+                Debug.Log("yes");
+                Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
+                movementHandler.DoMovement(movementDirection);
+
+                //
+                getMovementValue = movementDirection;
+
+                // No longer used as the player now uses IK
+                //            // Animation
+                //            animator.SetFloat("Speed", axis.sqrMagnitude);
+                //            animator.SetFloat("Horizontal", axis.x);
+                //            animator.SetFloat("Vertical", axis.y);
+
+                // No longer used as the player should always be facing the opponent.
+                //            // Rotation with right stick
+                //            Vector3 rotationVector = new Vector3(0, rightAxis2D.x, 0); // Rotate x on the y-axis
+                //            movementHandler.DoRotation(rotationVector);
+
+                // Always look at opponent
+                if (opponent != null)
+                {
+                    // Only rotate y-axis
+                    Vector3 lookDirection = new Vector3(opponent.transform.position.x, transform.position.y, opponent.transform.position.z);
+                    transform.LookAt(lookDirection);
+                }
             }
         }
 

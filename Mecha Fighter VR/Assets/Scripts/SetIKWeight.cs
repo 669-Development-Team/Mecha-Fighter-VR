@@ -15,16 +15,18 @@ public class SetIKWeight : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        solverVR = (IKSolverVR) vrik.GetIKSolver();
+        solverVR = (IKSolverVR)vrik.GetIKSolver();
     }
 
     // Update is called once per frame
     void Update()
     {
         solverVR.SetIKPositionWeight(animator.GetFloat("IKWeight"));
+
     }
 
-    void ApplyRootMotion(int value) {
+    void ApplyRootMotion(int value)
+    {
         animator.applyRootMotion = value > 0 ? true : false;
     }
 }
