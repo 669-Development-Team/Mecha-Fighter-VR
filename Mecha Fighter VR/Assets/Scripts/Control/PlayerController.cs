@@ -41,6 +41,11 @@ namespace Control
         private ShieldAbility shieldAbility = null;
         private UppercutAbility uppercutAbility = null;
 
+        /// <summary>
+        /// Get values
+        /// </summary>
+        public static Vector3 getMovementValue;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -72,6 +77,9 @@ namespace Control
             Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
             movementHandler.DoMovement(movementDirection);
 
+            //
+            getMovementValue = movementDirection;
+
             // No longer used as the player now uses IK
 //            // Animation
 //            animator.SetFloat("Speed", axis.sqrMagnitude);
@@ -90,6 +98,12 @@ namespace Control
                 Vector3 lookDirection = new Vector3(opponent.transform.position.x, transform.position.y, opponent.transform.position.z);
                 transform.LookAt(lookDirection);
             }
+        }
+
+        // Get movement value
+        Vector3 GetmovementValue()
+        {
+            return getMovementValue;
         }
 
         private void TriggerChange(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)

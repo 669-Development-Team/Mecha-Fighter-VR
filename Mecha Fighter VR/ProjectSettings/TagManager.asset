@@ -12,6 +12,7 @@ TagManager:
   - Button
   - Menu Screen
   - Keyboard Input
+  - Opponent
   layers:
   - Default
   - TransparentFX
