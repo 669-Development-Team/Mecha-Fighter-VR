@@ -15,8 +15,6 @@ public class ControllerInteraction : MonoBehaviour
 
     //The corresponding controller for the script
     public SteamVR_Input_Sources controller;
-    //The state of the trigger on the previous frame
-    private bool triggerWasClicked;
     //Object that controls haptic feedback
     public SteamVR_Action_Vibration hapticController;
 
@@ -26,26 +24,6 @@ public class ControllerInteraction : MonoBehaviour
         source = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
     }
 
-    void Update()
-    {
-        //The position of the trigger (0 is pulled, 1 is fully pulled)
-        float triggerPos = SteamVR_Actions._default.Squeeze.GetAxis(controller);
-
-        //If the controller is in a button and the trigger is clicked, perform the action of the button
-        if (selectedButton != null && selectedButton.activeInHierarchy && triggerWasClicked == false && triggerPos == 1.0f)
-        {
-            selectedButton.GetComponent<ButtonInteraction>().action();
-            hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, source);
-            timeLastScreenChange = Time.time;
-        }
-
-        //Update the status of the previous trigger boolean
-        if (triggerPos == 1.0f)
-            triggerWasClicked = true;
-        else
-            triggerWasClicked = false;
-    }
-
     //If the controller enters a UI button
     void OnTriggerEnter(Collider otherObject)
     {
@@ -53,16 +31,14 @@ public class ControllerInteraction : MonoBehaviour
         {
             pulse(1.0f, source);
             selectedButton = otherObject.gameObject.transform.gameObject;
-        }
-    }
 
-    //If the controller exits a UI button
-    private void OnTriggerExit(Collider otherObject)
-    {
-        if (otherObject.tag == "Button")
-        {
-            pulse(0.2f, source);
-            selectedButton = null;
+            //If the controller is in a button, perform the action of the button
+            if (selectedButton != null && selectedButton.activeInHierarchy)
+            {
+                selectedButton.GetComponent<ButtonInteraction>().action();
+                hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, source);
+                timeLastScreenChange = Time.time;
+            }
         }
     }
 
