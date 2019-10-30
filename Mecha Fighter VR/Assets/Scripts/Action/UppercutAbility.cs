@@ -7,7 +7,6 @@ namespace Action
 
     public class UppercutAbility : SpecialAbility
     {
-        public VRIK ik;
 
         public override void ActivateAbility(Health opponent)
         {

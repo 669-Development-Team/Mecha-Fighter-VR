@@ -31,7 +31,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: MoveAttack1
+    m_ConditionEvent: GroundPound
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8063979269708881203}
@@ -146,6 +146,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Uppercut
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: GroundPound
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -463,7 +469,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MoveAttack1
+  m_Name: GroundPound
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -477,7 +483,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4645b1054fa70aa47bfd6e4c6594b670, type: 3}
+  m_Motion: {fileID: 7400000, guid: e2373cf0b84352646a97168b333182aa, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

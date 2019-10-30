@@ -11,6 +11,7 @@ namespace Action
         public override void ActivateAbility(Health opponent)
         {
             Debug.Log("Ground Pound gesture performed!");
+            m_animator.SetBool("GroundPound", true);
 
             if (cooldownTimer < cooldown)
             {

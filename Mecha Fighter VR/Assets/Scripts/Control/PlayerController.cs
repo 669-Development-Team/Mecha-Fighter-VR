@@ -76,7 +76,6 @@ namespace Control
         {
             if (animator.GetFloat("IKWeight") != 0)
             {
-                Debug.Log("yes");
                 Vector3 movementDirection = axis.x * transform.right + axis.y * transform.forward;
                 movementHandler.DoMovement(movementDirection);
 
