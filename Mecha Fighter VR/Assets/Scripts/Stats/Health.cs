@@ -5,6 +5,7 @@ namespace Stats
     public class Health : MonoBehaviour, IDamageable
     {
         [SerializeField] private float maxHealth = 500f;
+        [SerializeField] private float defense = 0f;
 
         private float currentHealth;
 
@@ -21,7 +22,7 @@ namespace Stats
 
         public void TakeDamage(float damageDealt)
         {
-            currentHealth -= damageDealt;
+            currentHealth -= Mathf.Max(1, damageDealt - defense);
         }
     }
 }

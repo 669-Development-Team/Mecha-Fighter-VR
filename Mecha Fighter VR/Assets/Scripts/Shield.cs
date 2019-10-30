@@ -4,6 +4,7 @@ using UnityEngine;
 public class Shield : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxDurability = 500f;
+    [SerializeField] private float defense = 5f;
 
     private float currentDurability;
 
@@ -26,7 +27,7 @@ public class Shield : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageDealt)
     {
-        currentDurability -= damageDealt;
+        currentDurability -= Mathf.Max(1, damageDealt - defense);
     }
 
     public void ToggleShield(bool triggered)

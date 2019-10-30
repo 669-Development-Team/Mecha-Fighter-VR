@@ -8,13 +8,6 @@ namespace Action
         [SerializeField] private GroundPound groundPoundPrefab = null;
         [SerializeField] private Transform effectSpawnPoint = null;
 
-        private Energy energy;
-
-        private void Awake()
-        {
-            energy = GetComponent<Energy>();
-        }
-
         public override void ActivateAbility(Health opponent)
         {
             Debug.Log("Ground Pound gesture performed!");
@@ -25,14 +18,15 @@ namespace Action
             }
 
             // Check sufficient energy
-            if (!energy.Deplete(energyCost))
+            if (!m_energy.Deplete(energyCost))
             {
                 return;
             }
 
             GroundPound groundPound = Instantiate(groundPoundPrefab, effectSpawnPoint.position, Quaternion.identity);
-            groundPound.SetTarget(opponent, gameObject, baseDamage);
+            groundPound.SetTarget(opponent, gameObject, m_damageStat.GetSpecialDamage() + bonusDamage);
             cooldownTimer = 0f;
+            m_audioSource.PlayOneShot(activationSfx);
         }
     }
 }

@@ -9,13 +9,6 @@ namespace Action
         [SerializeField] private Transform shootPoint = null;
         [SerializeField] private float velocity = 8f;
 
-        private Energy energy;
-
-        private void Awake()
-        {
-            energy = GetComponent<Energy>();
-        }
-
         public override void ActivateAbility(Health opponent)
         {
             Debug.Log("Projectile gesture performed!");
@@ -26,14 +19,15 @@ namespace Action
             }
 
             // Check sufficient energy
-            if (!energy.Deplete(energyCost))
+            if (!m_energy.Deplete(energyCost))
             {
                 return;
             }
 
             Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
-            projectile.SetTarget(opponent, gameObject, velocity, baseDamage);
+            projectile.SetTarget(opponent, gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
             cooldownTimer = 0f;
+            m_audioSource.PlayOneShot(activationSfx);
         }
     }
 }
