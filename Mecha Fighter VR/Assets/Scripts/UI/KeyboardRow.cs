@@ -34,9 +34,6 @@ public class KeyboardRow : MonoBehaviour
         keyboardAnimation = gameObject.GetComponentInParent<KeyboardAnimation>();
         defaultPosition = gameObject.transform.localPosition;
         defaultScale = gameObject.transform.localScale;
-
-        targetPosition = defaultPosition;
-        targetScale = defaultScale;
     }
 
     //Update the position and scale of the row
@@ -49,15 +46,15 @@ public class KeyboardRow : MonoBehaviour
     //Displace the row
     public void displaceRow(Vector3 targetDisplacement)
     {
-        targetPosition += targetDisplacement;
-        distPerFrame = targetDisplacement / (translateTime * 60f);
+        targetPosition = defaultPosition + targetDisplacement;
+        distPerFrame = (targetPosition - gameObject.transform.localPosition) / (translateTime * 60f);
         translating = true;
     }
 
     //Scale the row
     public void scaleRow(float scaleFactor)
     {
-        targetScale *= scaleFactor;
+        targetScale = defaultScale * scaleFactor;
         scalePerFrame = (targetScale - gameObject.transform.localScale) / (scaleTime * 60f);
         scaling = true;
     }
@@ -113,6 +110,13 @@ public class KeyboardRow : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherObject)
     {
-        displaceRow(new Vector3(0, 0.2f, 0.2f));
+        displaceRow(new Vector3(0, 0, -0.4f));
+        scaleRow(1.2f);
+    }
+
+    private void OnTriggerExit(Collider otherObject)
+    {
+        displaceRow(new Vector3(0, 0, 0));
+        scaleRow(1f);
     }
 }
