@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    //Script that loads scenes
+    private LevelManager levelManager;
     //Default, previous, and current screens
     [SerializeField]
     private GameObject defaultScreen;
@@ -39,6 +41,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        levelManager = GameObject.Find("Main Object").GetComponent<LevelManager>();
         //A containing all of the screens for faster screen lookup
         menuScreens = new List<GameObject>();
         //Compute percentage the closing/opening menu scales every frame
@@ -223,5 +226,9 @@ public class UIManager : MonoBehaviour
     public void loadAuthorization() { loadScreen("Authorization"); }
     public void loadLogin() { loadScreen("Login"); }
     public void loadCreateAccount() { loadScreen("Create Account"); }
-    public void loadFindMatch() { loadScreen("Find Match"); }
+    public void loadFindMatch()
+    {
+        //loadScreen("Find Match");
+        levelManager.loadScene("Sandbox");
+    }
 }
