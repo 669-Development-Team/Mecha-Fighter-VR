@@ -110,8 +110,8 @@ public class KeyboardRow : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherObject)
     {
-        displaceRow(new Vector3(0, 0, -0.4f));
-        scaleRow(1.2f);
+        displaceRow(new Vector3(0, 0, -0.05f));
+        scaleRow(1.1f);
     }
 
     private void OnTriggerExit(Collider otherObject)
