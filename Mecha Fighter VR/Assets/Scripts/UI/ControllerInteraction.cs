@@ -72,7 +72,7 @@ public class ControllerInteraction : MonoBehaviour
             }
         }
         //The controller entered the hologram menu canvas
-        else if(otherObject.tag == "Menu Screen")
+        else if(otherObject.tag == "Hologram Menu Canvas")
         {
             inCanvas = true;
         }
@@ -84,7 +84,7 @@ public class ControllerInteraction : MonoBehaviour
         if (otherObject.tag == "Button")
             inButton = false;
         //The controller exited the hologram menu canvas
-        if (otherObject.tag == "Menu Screen")
+        if (otherObject.tag == "Hologram Menu Canvas")
             inCanvas = false;
     }
 

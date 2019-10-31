@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
     private void closeScreen()
     {
         //If the old menu is more than one frame away from having a negative scale, decrese the scale
-        if (previousScreen.transform.localScale.x - scalePerFrame > 0)
+        if (previousScreen.transform.localScale.x - scalePerFrame >= 0)
         {
             float newScale = previousScreen.transform.localScale.x - scalePerFrame;
             previousScreen.transform.localScale = new Vector3(newScale, newScale, newScale);
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
     private void openScreen()
     {
         //If the new menu is more than one frame away from full size, increase the scale
-        if (currentScreen.transform.localScale.x + scalePerFrame < 1)
+        if (currentScreen.transform.localScale.x + scalePerFrame <= 1)
         {
             float newScale = currentScreen.transform.localScale.x + scalePerFrame;
             currentScreen.transform.localScale = new Vector3(newScale, newScale, newScale);
