@@ -15,6 +15,7 @@ TagManager:
   - Opponent
   - Hologram Menu Canvas
   - Row
+  - Keyboard Backing
   layers:
   - Default
   - TransparentFX

@@ -64,9 +64,10 @@ public class ControllerInteraction : MonoBehaviour
     {
         //Get the origin for the raycast from the sphere collider attatched to the glove
         Vector3 raycastOrigin = fingertip.transform.position;
-
         //Find any collisions with a key object
         RaycastHit[] hitList = Physics.RaycastAll(raycastOrigin, Vector3.forward, Mathf.Infinity);
+        //Determine if the old key should be unhighlighted
+        bool unhighlight = true;
 
         foreach(RaycastHit hit in hitList)
         {
@@ -76,7 +77,7 @@ public class ControllerInteraction : MonoBehaviour
                 if (highlightedKey != hit.transform.gameObject)
                 {
                     //Unselect the previously highlighted key if there is one
-                    if(highlightedKey)
+                    if (highlightedKey)
                         highlightedKey.GetComponent<KeyboardButton>().unHighlight();
 
                     //Highlight the new one
@@ -86,10 +87,12 @@ public class ControllerInteraction : MonoBehaviour
 
                 return;
             }
+            else if (hit.transform.gameObject.tag == "Keyboard Backing")
+                unhighlight = false;
         }
 
-        //If no keys were hovered over, unhighlight the old key
-        if(highlightedKey)
+        //If no keys were hovered over and the controller is not over the keyboard, unhighlight the old key
+        if(highlightedKey && unhighlight)
         {
             highlightedKey.GetComponent<KeyboardButton>().unHighlight();
             highlightedKey = null;
