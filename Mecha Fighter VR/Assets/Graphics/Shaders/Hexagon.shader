@@ -30,7 +30,7 @@ struct v2f
 {
 float2 uv : TEXCOORD0;
 float4 vertex : SV_POSITION;
-float4 screenCoord : TEXCOORD1;
+//float4 screenCoord : TEXCOORD1;
 };
 
 v2f vert(appdata v)
@@ -38,7 +38,7 @@ v2f vert(appdata v)
 v2f o;
 o.vertex = UnityObjectToClipPos(v.vertex);
 o.uv = v.uv;
-o.screenCoord.xy = ComputeScreenPos(o.vertex);
+//o.screenCoord.xy = ComputeScreenPos(o.vertex);
 return o;
 }
 // Created by inigo quilez - iq/2014
@@ -107,7 +107,7 @@ fixed4 frag(v2f i) : SV_Target{
 	n = noise( fixed3(0.3*h.xy+_Time.y*0.1,_Time.y) );
 
 	//Color
-	fixed3 colb = 0.9 + 0.8*sin( hash1(h.xy)*1.5 + 2.0 + fixed3(.5 * _Time.y,.5 * _Time.y,.0 * _Time.y));
+	fixed3 colb = 0.9 + 0.8*sin( hash1(h.xy)*1.5 + 2.0 + fixed3(.5 * _Time.y,.0 * _Time.y,.5 * _Time.y));
 	colb *= smoothstep( 0.10, 0.11, h.z );
 	colb *= 1.0 + 0.15*sin(40.0*h.z);
 	colb *= 0.75 + 0.5*h.z*n;
@@ -119,6 +119,7 @@ fixed4 frag(v2f i) : SV_Target{
 
 	
 	col *= pow( 16.0*i.uv.x*(1.0-i.uv.x)*i.uv.y*(1.0-i.uv.y), 0.1 );
+	
 	
 	return fixed4( col, 1.0 );
 }
