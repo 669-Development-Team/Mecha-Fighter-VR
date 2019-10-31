@@ -61,7 +61,7 @@ public class Footstep : MonoBehaviour
 
     public void PlaySfx()
     {
-        audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)], 0.8f);
+        audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)]);
         audioSource.Play();
     }
 }

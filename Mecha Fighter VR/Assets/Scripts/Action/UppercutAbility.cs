@@ -23,7 +23,7 @@ namespace Action
                 return;
             }
 
-            m_animator.SetBool("Uppercut", true);
+            m_animator.SetTrigger("Uppercut");
             m_audioSource.PlayOneShot(activationSfx);
         }
     }

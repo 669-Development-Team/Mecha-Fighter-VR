@@ -50,7 +50,7 @@ namespace Action
                 return;
             }
 
-            other.GetComponent<IDamageable>().TakeDamage(m_baseDamage);
+            other.GetComponent<IDamageable>()?.TakeDamage(m_baseDamage);
 
             // Create impact effect and destroy
             GameObject impactVfx = Instantiate(impactVfxPrefab, transform.position, Quaternion.identity);

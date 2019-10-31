@@ -110347,10 +110347,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.9333333
-    functionName: instantiateGroundPoundFX
+    functionName: InstantiateGroundPoundFx
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 607231a2363043c0a3cd0d1bddf252d1,
-      type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

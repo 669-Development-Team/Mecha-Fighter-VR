@@ -1242,7 +1242,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1450,7 +1450,6 @@ MonoBehaviour:
   energyCost: 100
   cooldown: 1
   activationSfx: {fileID: 8300000, guid: ff7929ad350820b4b8b16989c6f8cf77, type: 3}
-  ik: {fileID: 3396047383698260271}
 --- !u!114 &5062150798890517841
 MonoBehaviour:
   m_ObjectHideFlags: 0
