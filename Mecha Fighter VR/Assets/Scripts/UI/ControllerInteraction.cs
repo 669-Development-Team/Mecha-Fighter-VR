@@ -3,73 +3,94 @@ using Valve.VR;
 
 public class ControllerInteraction : MonoBehaviour
 {
-    //Device that the script is attatched to
-    private SteamVR_Input_Sources source;
+    //A reference to the hologram menu game object
+    [SerializeField]
+    private GameObject hologramMenu = null;
+    //A reference to the UI Manager attatched to the hologram menu
+    private UIManager uiManager;
+    //Controller that the script is attatched to
+    private SteamVR_Input_Sources controller;
+    //The animation controller attatched to the glove model
+    private Animator animController;
     //Button that the controller is currently in
     private GameObject selectedButton;
 
     //The amount of time the controller will vibrate after clicking a button
     private const float clickButtonDuration = 0.1f;
-    //The time at which the screen changed last
-    private float timeLastScreenChange = 0;
+    //Weather or not the controller is inside of the hologram canvas
+    private bool inCanvas = false;
+    //
+    private bool inButton = false;
 
-    //The corresponding controller for the script
-    public SteamVR_Input_Sources controller;
-    //The state of the trigger on the previous frame
-    private bool triggerWasClicked;
     //Object that controls haptic feedback
     public SteamVR_Action_Vibration hapticController;
 
-    //Get the input source from the parent
     void Start()
     {
-        source = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
+        //Get the input controller and animation and ui scripts
+        controller = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
+        animController = GetComponentInChildren<Animator>();
+        uiManager = hologramMenu.GetComponent<UIManager>();
     }
 
-    void Update()
+    private void Update()
     {
-        //The position of the trigger (0 is pulled, 1 is fully pulled)
-        float triggerPos = SteamVR_Actions._default.Squeeze.GetAxis(controller);
-
-        //If the controller is in a button and the trigger is clicked, perform the action of the button
-        if (selectedButton != null && selectedButton.activeInHierarchy && triggerWasClicked == false && triggerPos == 1.0f)
-        {
-            selectedButton.GetComponent<ButtonInteraction>().action();
-            hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, source);
-            timeLastScreenChange = Time.time;
-        }
-
-        //Update the status of the previous trigger boolean
-        if (triggerPos == 1.0f)
-            triggerWasClicked = true;
+        //If the controller is in the canvas, always use the point animation
+        if (inCanvas)
+            animController.SetBool("Point", true);
+        //If the controller is not in the canvas but the grip button is pressed, use the point animation
         else
-            triggerWasClicked = false;
+            animController.SetBool("Point", SteamVR_Actions._default.GrabGrip.GetState(controller));
+
+        //If neither, use a blend between the rest and point animations based on the trigger input
+        animController.SetFloat("Blend", SteamVR_Actions._default.Squeeze.GetAxis(controller));
     }
 
-    //If the controller enters a UI button
+    //If the controller `s a UI element
     void OnTriggerEnter(Collider otherObject)
     {
+        //A button was touched
         if (otherObject.tag == "Button")
         {
-            pulse(1.0f, source);
-            selectedButton = otherObject.gameObject.transform.gameObject;
+            //If a new screen just loaded and the controller is in a button,
+            //don't allow the controller to interact until it has left the button
+            if (uiManager.isFirstFrameOfScreen())
+                inButton = true;
+
+            //Only activate the button if the controller was not already in the button
+            if (inButton == false)
+            {
+                pulse(1.0f, controller);
+                selectedButton = otherObject.gameObject.transform.gameObject;
+
+                //If the controller is in a button, perform the action of the button
+                if (selectedButton != null && selectedButton.activeInHierarchy)
+                {
+                    selectedButton.GetComponent<ButtonInteraction>().action();
+                    hapticController.Execute(0, clickButtonDuration, 100f, 0.3f, controller);
+                }
+            }
+        }
+        //The controller entered the hologram menu canvas
+        else if(otherObject.tag == "Hologram Menu Canvas")
+        {
+            inCanvas = true;
         }
     }
 
-    //If the controller exits a UI button
-    private void OnTriggerExit(Collider otherObject)
+    void OnTriggerExit(Collider otherObject)
     {
+        //The controller exited a button
         if (otherObject.tag == "Button")
-        {
-            pulse(0.2f, source);
-            selectedButton = null;
-        }
+            inButton = false;
+        //The controller exited the hologram menu canvas
+        if (otherObject.tag == "Hologram Menu Canvas")
+            inCanvas = false;
     }
 
     //If the controller isn't still vibrating from clicking a button, play a short vibration
     private void pulse(float amplitude, SteamVR_Input_Sources source)
     {
-        if(Time.time - timeLastScreenChange > clickButtonDuration)
-            hapticController.Execute(0, 0.1f, 0.1f, amplitude, source);
+        hapticController.Execute(0, 0.1f, 0.1f, amplitude, source);
     }
 }

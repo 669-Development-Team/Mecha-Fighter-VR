@@ -13,6 +13,8 @@ TagManager:
   - Menu Screen
   - Keyboard Input
   - Opponent
+  - Hologram Menu Canvas
+  - Row
   layers:
   - Default
   - TransparentFX

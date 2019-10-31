@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hologram Selected Red
+  m_Name: Hologram Disabled
   m_Shader: {fileID: -6465566751694194690, guid: b8517d6875cab5744aad0c41a366c078,
     type: 3}
   m_ShaderKeywords: 
@@ -20,10 +20,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_388317C7:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - Texture2D_A6B3BAD5:
         m_Texture: {fileID: 2800000, guid: df637162ee99e68479b73db905f40a9f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -57,8 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_19F336F4: 0.5
-    - Vector1_68F400A4: 1
+    - Vector1_68F400A4: 0.1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -81,18 +76,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_138773: {r: 222.86098, g: 222.86098, b: 222.86098, a: 0}
-    - Color_2030E652: {r: 0, g: 11.043138, b: 11.984314, a: 0}
-    - Color_6FC997B0: {r: 36.59035, g: 1.9391667, b: 2.391517, a: 0}
-    - Color_E7307E9A: {r: 1, g: 0, b: 0, a: 0}
-    - Vector2_8605CFF3: {r: 2, g: 2, b: 0, a: 0}
+    - Color_6FC997B0: {r: 1.1450981, g: 1.4980392, b: 1.482353, a: 0}
+    - Color_E7307E9A: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
     - Vector2_A2F5E77A: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_CD32910C: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
---- !u!114 &2185040476039300261
+--- !u!114 &542759784108306896
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
