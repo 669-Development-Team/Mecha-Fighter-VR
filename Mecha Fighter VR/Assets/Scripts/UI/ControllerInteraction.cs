@@ -5,6 +5,8 @@ public class ControllerInteraction : MonoBehaviour
 {
     //Device that the script is attatched to
     private SteamVR_Input_Sources source;
+    //The animation controller attatched to the glove model
+    private Animator animController;
     //Button that the controller is currently in
     private GameObject selectedButton;
 
@@ -18,10 +20,21 @@ public class ControllerInteraction : MonoBehaviour
     //Object that controls haptic feedback
     public SteamVR_Action_Vibration hapticController;
 
-    //Get the input source from the parent
+    //Get the input source from the parent and the animation controller from the child
     void Start()
     {
         source = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
+        animController = GetComponentInChildren<Animator>();
+    }
+
+    private void Update()
+    {
+        //If the grip button is pressed, use the point animation
+        //Otherwise, use a blend
+        animController.SetBool("Point", SteamVR_Actions._default.GrabGrip.GetState(controller));
+
+        //Set the blend state between rest and point animations based on the trigger input
+        animController.SetFloat("Blend", SteamVR_Actions._default.Squeeze.GetAxis(controller));
     }
 
     //If the controller enters a UI button

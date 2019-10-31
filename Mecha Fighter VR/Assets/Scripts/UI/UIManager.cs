@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     {
         menuScreens = new List<GameObject>();
 
+        //Ensure that time is enabled
+        Time.timeScale = 1;
+
         //All all of the menu screens to a list
         foreach (Transform screen in gameObject.GetComponentsInChildren<Transform>(true))
             if (screen.gameObject.tag == "Menu Screen")
