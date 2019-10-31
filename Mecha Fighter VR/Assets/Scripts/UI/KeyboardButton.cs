@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class KeyboardButton : MonoBehaviour
 {
+    //The materials for when the button is and isn't highlighted
+    [SerializeField]
+    private Material highlightedMat;
+    [SerializeField]
+    private Material unhighlightedMat;
     //The UI manager script attatched to the root object of the UI
-    UIManager uiManager;
+    private UIManager uiManager;
     //The character that the key butotn is associated with
-    string key;
+    private string key;
 
     void Start()
     {
@@ -21,5 +26,15 @@ public class KeyboardButton : MonoBehaviour
             uiManager.backspace();
         else
             uiManager.enterKey(key);
+    }
+
+    public void highlight()
+    {
+        transform.GetComponent<MeshRenderer>().material = highlightedMat;
+    }
+
+    public void unHighlight()
+    {
+        transform.GetComponent<MeshRenderer>().material = unhighlightedMat;
     }
 }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class KeyboardRow : MonoBehaviour
 {
-    //A reference to the keyboard animation script in the parent object
-    private KeyboardAnimation keyboardAnimation;
-
     //How long it takes to complete the translation
     private const float translateTime = 0.2f;
     //The distance the row should move each frame to translate in the given time
@@ -31,7 +28,6 @@ public class KeyboardRow : MonoBehaviour
 
     void Start()
     {
-        keyboardAnimation = gameObject.GetComponentInParent<KeyboardAnimation>();
         defaultPosition = gameObject.transform.localPosition;
         defaultScale = gameObject.transform.localScale;
     }

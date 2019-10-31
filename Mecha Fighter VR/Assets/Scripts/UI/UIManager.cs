@@ -41,7 +41,12 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        //Get the level manager script form the main object
         levelManager = GameObject.Find("Main Object").GetComponent<LevelManager>();
+
+        if (levelManager == null)
+            Debug.Log("Entry point of the game is 'Dont estroyOnLoad'");
+
         //A containing all of the screens for faster screen lookup
         menuScreens = new List<GameObject>();
         //Compute percentage the closing/opening menu scales every frame

@@ -12,18 +12,23 @@ public class ControllerInteraction : MonoBehaviour
     private SteamVR_Input_Sources controller;
     //The animation controller attatched to the glove model
     private Animator animController;
+    //The keyboard key that the controller is hovering over
+    private GameObject highlightedKey = null;
     //Button that the controller is currently in
     private GameObject selectedButton;
+    //The tip of the glove's finger for casting rays
+    private Transform fingertip;
 
     //The amount of time the controller will vibrate after clicking a button
     private const float clickButtonDuration = 0.1f;
     //Weather or not the controller is inside of the hologram canvas
     private bool inCanvas = false;
-    //
+    //Weather or not the controller is inside a button
     private bool inButton = false;
 
     //Object that controls haptic feedback
     public SteamVR_Action_Vibration hapticController;
+
 
     void Start()
     {
@@ -31,9 +36,17 @@ public class ControllerInteraction : MonoBehaviour
         controller = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
         animController = GetComponentInChildren<Animator>();
         uiManager = hologramMenu.GetComponent<UIManager>();
+        //Find the transform for the fingertip by finding the collider and getting the parent's transform
+        fingertip = gameObject.GetComponentInChildren<SphereCollider>().transform.parent.transform;
     }
 
     private void Update()
+    {
+        updateAnimation();
+        hoverOverKey();
+    }
+
+    private void updateAnimation()
     {
         //If the controller is in the canvas, always use the point animation
         if (inCanvas)
@@ -44,6 +57,43 @@ public class ControllerInteraction : MonoBehaviour
 
         //If neither, use a blend between the rest and point animations based on the trigger input
         animController.SetFloat("Blend", SteamVR_Actions._default.Squeeze.GetAxis(controller));
+    }
+
+    //Check if the controller is hovering over a keyboard key
+    private void hoverOverKey()
+    {
+        //Get the origin for the raycast from the sphere collider attatched to the glove
+        Vector3 raycastOrigin = fingertip.transform.position;
+
+        //Find any collisions with a key object
+        RaycastHit[] hitList = Physics.RaycastAll(raycastOrigin, Vector3.forward, Mathf.Infinity);
+
+        foreach(RaycastHit hit in hitList)
+        {
+            if (hit.transform.parent.tag == "Row")
+            {
+                //If the collided object is different from the previous frame, update the materials
+                if (highlightedKey != hit.transform.gameObject)
+                {
+                    //Unselect the previously highlighted key if there is one
+                    if(highlightedKey)
+                        highlightedKey.GetComponent<KeyboardButton>().unHighlight();
+
+                    //Highlight the new one
+                    hit.transform.GetComponent<KeyboardButton>().highlight();
+                    highlightedKey = hit.transform.gameObject;
+                }
+
+                return;
+            }
+        }
+
+        //If no keys were hovered over, unhighlight the old key
+        if(highlightedKey)
+        {
+            highlightedKey.GetComponent<KeyboardButton>().unHighlight();
+            highlightedKey = null;
+        }
     }
 
     //If the controller `s a UI element
