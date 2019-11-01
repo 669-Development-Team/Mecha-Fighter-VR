@@ -161,7 +161,7 @@ namespace Control
                 {
                     // Shoot projectile if the user does a hadouken motion within the time threshold
                     case GestureHandler.Gestures.Projectile:
-                        projectileAbility.ActivateAbility(opponent);
+                        projectileAbility.ActivateAbility();
                         break;
                     // TODO: Uppercut ability
                     case GestureHandler.Gestures.Uppercut:

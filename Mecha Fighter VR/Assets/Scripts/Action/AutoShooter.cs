@@ -18,7 +18,7 @@ namespace Action
         private void ShootBullet()
         {
             Projectile bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-            bullet.SetTarget(null, gameObject, 10f, 20f);
+            bullet.SetTarget(gameObject, 10f, 20f);
         }
     }
 }

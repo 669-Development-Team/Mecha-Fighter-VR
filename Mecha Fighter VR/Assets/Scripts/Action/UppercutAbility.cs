@@ -4,15 +4,41 @@ using RootMotion.FinalIK;
 
 namespace Action
 {
-
-    public class UppercutAbility : SpecialAbility
+    [RequireComponent(typeof(DamageStat))]
+    public class UppercutAbility : MonoBehaviour
     {
+        [SerializeField] private float bonusDamage = 10f;
+        [SerializeField] private float energyCost = 100f;
+        [SerializeField] private float cooldown = 1f;
+        [SerializeField] private AudioClip activationSfx;
 
-        public override void ActivateAbility(Health opponent)
+        // Time since the projectile was last fired
+        private float m_cooldownTimer = Mathf.Infinity;
+        private Health m_opponent = null;
+
+        private Animator m_animator;
+        private AudioSource m_audioSource;
+        private DamageStat m_damageStat;
+        private Energy m_energy;
+
+        private void Awake()
+        {
+            m_animator = GetComponent<Animator>();
+            m_audioSource = GetComponent<AudioSource>();
+            m_damageStat = GetComponent<DamageStat>();
+            m_energy = GetComponent<Energy>();
+        }
+
+        private void Update()
+        {
+            m_cooldownTimer += Time.deltaTime;
+        }
+
+        public void ActivateAbility(Health opponent)
         {
             Debug.Log("Uppercut gesture performed!");
 
-            if (cooldownTimer < cooldown)
+            if (m_cooldownTimer < cooldown)
             {
                 return;
             }

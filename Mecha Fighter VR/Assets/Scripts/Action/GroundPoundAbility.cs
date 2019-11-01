@@ -3,15 +3,41 @@ using UnityEngine;
 
 namespace Action
 {
-    public class GroundPoundAbility : SpecialAbility
+    [RequireComponent(typeof(DamageStat))]
+    public class GroundPoundAbility : MonoBehaviour
     {
+        [SerializeField] private float bonusDamage = 10f;
+        [SerializeField] private float energyCost = 100f;
+        [SerializeField] private float cooldown = 1f;
+        [SerializeField] private AudioClip activationSfx;
         [SerializeField] private GroundPound groundPoundPrefab = null;
         [SerializeField] private Transform effectSpawnPoint = null;
+
+        // Time since the projectile was last fired
+        private float m_cooldownTimer = Mathf.Infinity;
         private Health m_opponent = null;
 
-        public override void ActivateAbility(Health opponent)
+        private Animator m_animator;
+        private AudioSource m_audioSource;
+        private DamageStat m_damageStat;
+        private Energy m_energy;
+
+        private void Awake()
         {
-            if (cooldownTimer < cooldown)
+            m_animator = GetComponent<Animator>();
+            m_audioSource = GetComponent<AudioSource>();
+            m_damageStat = GetComponent<DamageStat>();
+            m_energy = GetComponent<Energy>();
+        }
+
+        private void Update()
+        {
+            m_cooldownTimer += Time.deltaTime;
+        }
+
+        public void ActivateAbility(Health opponent)
+        {
+            if (m_cooldownTimer < cooldown)
             {
                 return;
             }
@@ -32,7 +58,7 @@ namespace Action
         {
             GroundPound groundPound = Instantiate(groundPoundPrefab, effectSpawnPoint.position, Quaternion.identity);
             groundPound.SetTarget(m_opponent, gameObject, m_damageStat.GetSpecialDamage() + bonusDamage);
-            cooldownTimer = 0f;
+            m_cooldownTimer = 0f;
             m_audioSource.PlayOneShot(activationSfx);
         }
     }
