@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float maxDurability = 500f;
     [SerializeField] private float defense = 5f;
 
+    private float maxDurability;
     private float currentDurability;
 
     private void Start()
@@ -15,14 +15,14 @@ public class Shield : MonoBehaviour, IDamageable
         currentDurability = maxDurability;
     }
 
-    private void Update()
-    {
-        currentDurability += Time.deltaTime;
-    }
-
     public float GetDurabilityPercentage()
     {
         return 100f * (currentDurability / maxDurability);
+    }
+
+    public void SetMaxDurability(float durability)
+    {
+        maxDurability = durability;
     }
 
     public void TakeDamage(float damageDealt)
@@ -37,5 +37,10 @@ public class Shield : MonoBehaviour, IDamageable
         {
             child.gameObject.SetActive(triggered);
         }
+    }
+
+    public void RegenerateDurability(float regenerationRate)
+    {
+        currentDurability = Mathf.Min(maxDurability, currentDurability + regenerationRate * Time.deltaTime);
     }
 }

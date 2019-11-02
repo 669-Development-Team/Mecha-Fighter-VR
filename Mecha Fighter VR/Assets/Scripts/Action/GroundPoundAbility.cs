@@ -9,7 +9,6 @@ namespace Action
         [SerializeField] private float bonusDamage = 10f;
         [SerializeField] private float energyCost = 100f;
         [SerializeField] private float cooldown = 1f;
-        [SerializeField] private AudioClip activationSfx;
         [SerializeField] private GroundPound groundPoundPrefab = null;
         [SerializeField] private Transform effectSpawnPoint = null;
 
@@ -18,14 +17,12 @@ namespace Action
         private Health m_opponent = null;
 
         private Animator m_animator;
-        private AudioSource m_audioSource;
         private DamageStat m_damageStat;
         private Energy m_energy;
 
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
-            m_audioSource = GetComponent<AudioSource>();
             m_damageStat = GetComponent<DamageStat>();
             m_energy = GetComponent<Energy>();
         }
@@ -59,7 +56,6 @@ namespace Action
             GroundPound groundPound = Instantiate(groundPoundPrefab, effectSpawnPoint.position, Quaternion.identity);
             groundPound.SetTarget(m_opponent, gameObject, m_damageStat.GetSpecialDamage() + bonusDamage);
             m_cooldownTimer = 0f;
-            m_audioSource.PlayOneShot(activationSfx);
         }
     }
 }

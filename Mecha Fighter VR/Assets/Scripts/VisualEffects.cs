@@ -13,7 +13,7 @@ public class VisualEffects : MonoBehaviour
     Vector3 previousframe;
     public GameObject Trail;
     public float TrailAppearsWhenGreaterThan;
-    
+
 
     private void Start()
     {
@@ -39,8 +39,9 @@ public class VisualEffects : MonoBehaviour
             Trail.SetActive(false);
         }
 
-        Debug.Log("velocity = " + velocity);
-        Debug.Log("movement value " + PlayerController.getMovementValue);
+        // Haha don't log messages in Update lol :)
+//        Debug.Log("velocity = " + velocity);
+//        Debug.Log("movement value " + PlayerController.getMovementValue);
     }
 
 
@@ -54,7 +55,7 @@ public class VisualEffects : MonoBehaviour
             temp = Instantiate(Hit, transform.position, transform.rotation);
             Destroy(temp, 2f);
         }
-        
+
 
         /*
         if(collision.gameObject.tag == "Burnable")

@@ -1114,7 +1114,7 @@ GameObject:
   - component: {fileID: 2914134077183619199}
   - component: {fileID: 1355755163350481225}
   - component: {fileID: 5062150798890517841}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player Controller Root
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1429,6 +1429,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftShield: {fileID: 6703907135388412825}
   rightShield: {fileID: 3728184146748821827}
+  maxDurability: 200
+  regenerationRate: 4
 --- !u!114 &2914134077183619199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1444,7 +1446,6 @@ MonoBehaviour:
   bonusDamage: 10
   energyCost: 100
   cooldown: 1
-  activationSfx: {fileID: 8300000, guid: 3248c2b7527caad46b102148b978b963, type: 3}
   projectilePrefab: {fileID: 5073867441129137941, guid: d52daa16db2e6dd4d85cc33970a31651,
     type: 3}
   shootPoint: {fileID: 381917952}
@@ -1480,7 +1481,6 @@ MonoBehaviour:
   bonusDamage: 10
   energyCost: 100
   cooldown: 4
-  activationSfx: {fileID: 8300000, guid: 542fe69ff589feb42a53b350c7b6c1b9, type: 3}
   groundPoundPrefab: {fileID: 431573502327755075, guid: 8b74b472c0179c74c8cc8fcb0f344714,
     type: 3}
   effectSpawnPoint: {fileID: 381917952}

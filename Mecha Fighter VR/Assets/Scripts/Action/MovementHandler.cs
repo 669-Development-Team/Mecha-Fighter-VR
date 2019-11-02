@@ -5,7 +5,7 @@ namespace Action
     public class MovementHandler : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private float rotationSpeed = 100f;
+//        [SerializeField] private float rotationSpeed = 100f;
 
         private Rigidbody rigidbody;
 
