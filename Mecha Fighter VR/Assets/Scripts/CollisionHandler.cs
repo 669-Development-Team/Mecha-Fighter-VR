@@ -23,14 +23,14 @@ public class CollisionHandler : MonoBehaviour
     void OnCollisionEnter(Collision cul)
     {
         RobotAnimation controller = gameObject.GetComponent<RobotAnimation>();
-        controller.HandleInput("down a");
+        controller.HandleInput("Attack");
         renderer.sharedMaterial = materials[1];
 
     }
     void OnCollisionExit(Collision cul)
     {
         renderer.sharedMaterial = materials[0];
-
+        transform.localScale = new Vector3(0, 0, 0);
     }
 
 }

@@ -43,6 +43,8 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_TriggerRight;
         
+        private static SteamVR_Action_Vector2 p_default_Axis;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         public static SteamVR_Action_Boolean default_InteractUI
@@ -149,6 +151,14 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Vector2 default_Axis
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_Axis.GetCopy<SteamVR_Action_Vector2>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration default_Haptic
         {
             get
@@ -173,6 +183,7 @@ namespace Valve.VR
                     SteamVR_Actions.default_JoystickRight,
                     SteamVR_Actions.default_TriggerLeft,
                     SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_Axis,
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
@@ -187,7 +198,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_JoystickLeft,
                     SteamVR_Actions.default_JoystickRight,
                     SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight};
+                    SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_Axis};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -206,7 +218,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.default_JoystickLeft,
-                    SteamVR_Actions.default_JoystickRight};
+                    SteamVR_Actions.default_JoystickRight,
+                    SteamVR_Actions.default_Axis};
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
                     SteamVR_Actions.default_SkeletonLeftHand,
@@ -221,7 +234,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_JoystickLeft,
                     SteamVR_Actions.default_JoystickRight,
                     SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight};
+                    SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_Axis};
         }
         
         private static void PreInitActions()
@@ -239,6 +253,7 @@ namespace Valve.VR
             SteamVR_Actions.p_default_JoystickRight = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/JoystickRight")));
             SteamVR_Actions.p_default_TriggerLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/TriggerLeft")));
             SteamVR_Actions.p_default_TriggerRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/TriggerRight")));
+            SteamVR_Actions.p_default_Axis = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/Axis")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
         }
     }

@@ -1,22 +1,25 @@
 using UnityEngine;
 using UnityEngine.Experimental.VFX;
 
+/// <summary>
+/// This script is used with Animator. The public methods may be called from VRIK Unity Events.
+/// </summary>
 public class Footstep : MonoBehaviour
 {
-    [SerializeField] private Transform leftFoot;
-    [SerializeField] private Transform rightFoot;
-    [SerializeField] private VisualEffect footstepVfx;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip[] footstepSfx;
+    [SerializeField] private Transform leftFoot = null;
+    [SerializeField] private Transform rightFoot = null;
+    [SerializeField] private VisualEffect footstepVfx = null;
+    [SerializeField] private AudioSource audioSource = null;
+    [SerializeField] private AudioClip[] footstepSfx = null;
 
-    private Animator animator;
+    private Animator animator = null;
 
-    private float currentFrameFootstepLeft;
-    private float currentFrameFootstepRight;
-    private float lastFrameFootstepLeft;
-    private float lastFrameFootstepRight;
+    private float currentFrameFootstepLeft = 0f;
+    private float currentFrameFootstepRight = 0f;
+    private float lastFrameFootstepLeft = 0f;
+    private float lastFrameFootstepRight = 0f;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
@@ -51,14 +54,14 @@ public class Footstep : MonoBehaviour
         lastFrameFootstepRight = animator.GetFloat("FootstepRight");
     }
 
-    private void PlayVfx(Transform footTransform)
+    public void PlayVfx(Transform footTransform)
     {
         Instantiate(footstepVfx, footTransform.position, Quaternion.identity);
     }
 
-    private void PlaySfx()
+    public void PlaySfx()
     {
-        audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)], 0.8f);
+        audioSource.PlayOneShot(footstepSfx[Random.Range(0, footstepSfx.Length - 1)]);
         audioSource.Play();
     }
 }

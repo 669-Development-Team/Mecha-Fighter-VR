@@ -95,7 +95,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkForward
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3825844364141702473}
@@ -486,7 +486,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 278ea452f678fdb4583fb7ffb0cd79f3, type: 2}
+  m_Motion: {fileID: 7400000, guid: e303e872b44f77e4092044610128cc31, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -534,9 +534,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.22364965
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.13735351
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -577,7 +577,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkBack
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5252597248894918557}
@@ -718,7 +718,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Base Layer
     m_StateMachine: {fileID: -4196262095078167358}
-    m_Mask: {fileID: 31900000, guid: 258f8723d54295244ba2d986fea4fb5a, type: 2}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -833,9 +833,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.19308504
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.25563544
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -876,7 +876,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkLeft
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6614620644035792885}
@@ -884,12 +884,12 @@ AnimatorState:
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 1
   m_WriteDefaultValues: 1
-  m_Mirror: 0
+  m_Mirror: 1
   m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 48c92e3a2483983438df6abc78fefc30, type: 2}
+  m_Motion: {fileID: 7400000, guid: 72e72238004615543a1998d362e99493, type: 2}
   m_Tag: 
   m_SpeedParameter: movementMultiplier
   m_MirrorParameter: 
@@ -903,7 +903,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkRight
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1423519799572842633}
@@ -916,7 +916,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 48c92e3a2483983438df6abc78fefc30, type: 2}
+  m_Motion: {fileID: 7400000, guid: 72e72238004615543a1998d362e99493, type: 2}
   m_Tag: 
   m_SpeedParameter: movementMultiplier
   m_MirrorParameter: 

@@ -5,89 +5,114 @@ using RootMotion.FinalIK;
 
 public class RobotAnimation : MonoBehaviour
 {
-	delegate void Action();
-	
-	public Animator animator;
-	public ArmIK leftArm, rightArm;
-	public float IKWeight { get; set; }
-	public int hitType;
-	
-	IKSolverArm solverLeft, solverRight;
-	Dictionary<string, Action> KeyInputMap;
-	const float defaultFadeTime = 0.3f;
-	
-	void Start()
-	{
-		solverLeft = leftArm.GetIKSolver() as IKSolverArm;
-		solverRight = rightArm.GetIKSolver() as IKSolverArm;
-		IKWeight = solverLeft.GetIKPositionWeight();
-		
-		this.KeyInputMap = new Dictionary<string, Action> () 
-		{
-			{ "up w", 	new Action(StopWalk) },
-			{ "down w", new Action(StartWalk) },
-			{ "down f", new Action(Knockdown) },
-			{ "down a", new Action(Attack) },
-			{ "down s", new Action(ToggleActionIdle) },
-			{ "down g", new Action(GetHit) }
-		};
-	}
-	
-	void LateUpdate()
-	{
-		float IKWeight = animator.GetFloat("IKWeight");
-		solverLeft.SetIKPositionWeight(IKWeight);
-		solverLeft.IKRotationWeight = IKWeight;
-		solverRight.SetIKPositionWeight(IKWeight);
-		solverRight.IKRotationWeight = IKWeight;
-	}
-	
+    delegate void Action();
+
+    public Animator animator;
+    public int hitType;
+
+    public VRIK vrik;
+
+    Dictionary<string, Action> KeyInputMap;
+    const float defaultFadeTime = 0.3f;
+
+    void Start()
+    {
+
+        this.KeyInputMap = new Dictionary<string, Action>()
+        {
+            { "Stop Walk", new Action(StopWalk) },
+            { "Start Walk F", new Action(StartWalkF) },
+            { "Start Walk B", new Action(StartWalkB)},
+            { "Start Walk L", new Action(StartWalkL)},
+            { "Start Walk R", new Action(StartWalkR)},
+            { "Knockdown", new Action(Knockdown) },
+            { "Attack", new Action(Attack) },
+            { "Action", new Action(ToggleActionIdle) },
+            { "GetHit", new Action(GetHit) }
+        };
+    }
+
+    void Update()
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            vrik.solver.IKPositionWeight = 0;
+        }
+        else
+        {
+            vrik.solver.IKPositionWeight = 1;
+        }
+    }
+
+    /******************/
+    /* PUBLIC METHODS *
 	/******************/
-	/* PUBLIC METHODS *
-	/******************/
-	
-	public void HandleInput(string inputName)
-	{
-		Action animationAction = KeyInputMap[inputName];
-		animationAction();
-	}
-	
-	/*********************************/
-	/* ANIMATION STATE CHANGE */
-	/*********************************/
-	
-	void GetHit()
-	{
-		animator.SetInteger("HitType", hitType);
-		animator.SetTrigger("ExitIdle");
-		animator.SetTrigger("GetHit");
-	}
-	
-	void StartWalk()
-	{
-		animator.SetBool("Walking", true);
-		animator.SetTrigger("ExitIdle");
-	}
-	
-	void StopWalk()
-	{
-		animator.SetBool("Walking", false);
-	}
-	
-	void Knockdown()
-	{
-		animator.SetTrigger("ExitIdle");
-		animator.SetTrigger("Knockdown");
-	}
-	
-	void Attack()
-	{
-		animator.SetTrigger("ExitIdle");
-		animator.SetTrigger("Attack");
-	}
-	
-	void ToggleActionIdle()
-	{
-		animator.SetBool("Action", !animator.GetBool("Action"));
-	}
+
+    public void HandleInput(string inputName)
+    {
+        Action animationAction = KeyInputMap[inputName];
+        animationAction();
+    }
+
+    /*********************************/
+    /* ANIMATION STATE CHANGE */
+    /*********************************/
+
+    void GetHit()
+    {
+        animator.SetInteger("HitType", hitType);
+        animator.SetTrigger("ExitIdle");
+        animator.SetTrigger("GetHit");
+    }
+
+    void StartWalkF()
+    {
+        animator.SetTrigger("ExitIdle");
+        animator.SetBool("WalkForward", true);
+    }
+
+    void StartWalkB()
+    {
+        animator.SetTrigger("ExitIdle");
+        animator.SetBool("WalkBack", true);
+    }
+
+    void StartWalkL()
+    {
+        animator.SetTrigger("ExitIdle");
+        animator.SetBool("WalkLeft", true);
+    }
+
+    void StartWalkR()
+    {
+        animator.SetTrigger("ExitIdle");
+        animator.SetBool("WalkRight", true);
+    }
+
+    void StopWalk()
+    {
+        animator.SetBool("WalkForward", false);
+        animator.SetBool("WalkRight", false);
+        animator.SetBool("WalkLeft", false);
+        animator.SetBool("WalkBack", false);
+    }
+
+    void Knockdown()
+    {
+        animator.SetTrigger("ExitIdle");
+        animator.SetTrigger("Knockdown");
+    }
+
+    void Attack()
+    {
+        vrik.solver.IKPositionWeight = 0;
+        animator.SetTrigger("ExitIdle");
+        animator.SetTrigger("Attack");
+    }
+
+    void ToggleActionIdle()
+    {
+        vrik.solver.IKPositionWeight = 0;
+        animator.SetBool("Action", !animator.GetBool("Action"));
+    }
 }

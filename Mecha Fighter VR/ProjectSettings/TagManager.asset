@@ -9,6 +9,13 @@ TagManager:
   - Character 1
   - Character 2
   - Burnable
+  - Button
+  - Menu Screen
+  - Keyboard Input
+  - Opponent
+  - Hologram Menu Canvas
+  - Row
+  - Keyboard Backing
   layers:
   - Default
   - TransparentFX
@@ -22,12 +29,12 @@ TagManager:
   - 
   - 
   - 
+  - Player
+  - Opponent
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerProjectile
+  - OpponentProjectile
   - 
   - 
   - 
