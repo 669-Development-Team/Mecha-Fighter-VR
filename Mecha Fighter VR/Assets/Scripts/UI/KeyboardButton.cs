@@ -24,6 +24,16 @@ public class KeyboardButton : MonoBehaviour
     {
         if (key == "<-")
             uiManager.backspace();
+        else if (key == "Space")
+            uiManager.enterKey(" ");
+        else if (key == "Tab")
+            uiManager.enterKey("\t");
+        else if (key == "Caps")
+            uiManager.enterKey("");
+        else if (key == "Shift")
+            uiManager.enterKey("");
+        else if (key == "Enter")
+            uiManager.enterKey("");
         else
             uiManager.enterKey(key);
     }

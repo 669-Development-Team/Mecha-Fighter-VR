@@ -42,10 +42,12 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         //Get the level manager script form the main object
-        levelManager = GameObject.Find("Main Object").GetComponent<LevelManager>();
+        GameObject mainObject = GameObject.Find("Main Object");
 
-        if (levelManager == null)
-            Debug.Log("Entry point of the game is 'Dont estroyOnLoad'");
+        if (mainObject)
+            levelManager = mainObject.GetComponent<LevelManager>();
+        else
+            Debug.LogError("There is no main object. Did you start the game from DontDestroyOnLoad?");
 
         //A containing all of the screens for faster screen lookup
         menuScreens = new List<GameObject>();
