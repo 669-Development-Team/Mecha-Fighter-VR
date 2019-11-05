@@ -5,7 +5,15 @@ using Action;
 
 public class NetworkPlayerController : MonoBehaviour
 {
-    //The ability scripts attatched to the opponent
+    //Target objects for IK
+    [SerializeField]
+    GameObject headTarget;
+    [SerializeField]
+    GameObject leftArmTarget;
+    [SerializeField]
+    GameObject rightArmTarget;
+
+    //Ability scripts attatched to the opponent
     private ShieldAbility shieldScript;
     private ProjectileAbility projectileScript;
     private UppercutAbility uppercutScript;
@@ -53,5 +61,10 @@ public class NetworkPlayerController : MonoBehaviour
     public void activateGroundPound()
     {
         groundPoundScipt.ActivateAbility(null);
+    }
+
+    public void setPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
     }
 }
