@@ -51,6 +51,8 @@ namespace Action
             // Create impact effect and destroy
             Instantiate(impactVfxPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+
+            other.GetComponent<FightReactions>().ProjectileHit();
         }
     }
 }
