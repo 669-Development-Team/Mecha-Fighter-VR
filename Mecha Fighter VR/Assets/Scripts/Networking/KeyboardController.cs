@@ -30,9 +30,9 @@ public class KeyboardController : MonoBehaviour
         if (Input.GetKey("s"))
             displacement.z -= 1;
         if (Input.GetKey("a"))
-            displacement.x += 1;
-        if (Input.GetKey("d"))
             displacement.x -= 1;
+        if (Input.GetKey("d"))
+            displacement.x += 1;
 
         displacement = displacement * movementSpeed * Time.deltaTime;
 
