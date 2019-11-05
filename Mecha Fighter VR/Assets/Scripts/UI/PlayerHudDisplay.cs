@@ -10,10 +10,6 @@ namespace UI
     public class PlayerHudDisplay : MonoBehaviour
     {
         // Reference the game objects in the inspector
-        public TextMeshProUGUI healthDisplayText;
-        public TextMeshProUGUI energyDisplayText;
-        public TextMeshProUGUI leftShieldDisplayText;
-        public TextMeshProUGUI rightShieldDisplayText;
         public RectTransform HealthBar;
         public RectTransform EnergyBar;
         public RectTransform LShieldBar;
@@ -26,10 +22,6 @@ namespace UI
 
         private void Update()
         {
-            healthDisplayText?.SetText($"Health: {health.GetHealthPercentage():0}%");
-            energyDisplayText?.SetText($"Energy: {energy.GetEnergyPercentage():0}%");
-            leftShieldDisplayText?.SetText($"L Shield: {leftShield.GetDurabilityPercentage():0}%");
-            rightShieldDisplayText?.SetText($"R Shield: {rightShield.GetDurabilityPercentage():0}%");
             HealthBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
             EnergyBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, energy.GetEnergyPercentage());
             LShieldBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, leftShield.GetDurabilityPercentage());
