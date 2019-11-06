@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
-public enum Gestures
+
+public enum Gesture
 {
     NONE = 0,
     UP,
@@ -18,32 +19,58 @@ public class GestureTrackingNode : MonoBehaviour
     [SerializeField] private SteamVR_Action_Boolean grip;
     [SerializeField] private Transform trackingObject;
     [SerializeField] private SteamVR_Input_Sources controller;
-
+	
+	private Vector3[] axes = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
+	
+	private GestureHandlerV2 handler;
+	private Transform head;
     private Vector3 startPosition;
-    private List<Gestures> gesturesThisFrame;
-    private Vector3[] axes;
+	private Matrix4x4 startWorldToLocal;
     private bool isRecording;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        grip.AddOnStateDownListener(GripDown, controller);
+	
+	// handler will initialize each tracking node
+	public void initialize(GestureHandlerV2 handler, Transform head) {
+		
+		this.handler = handler;
+		this.head = head;
+		
+		grip.AddOnStateDownListener(GripDown, controller);
         grip.AddOnStateUpListener(GripUp, controller);
-        gesturesThisFrame = new List<Gestures>();
-        axes = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
         startPosition = Vector3.zero;
         isRecording = false;
-    }
+	}
 
+	// controller grip down starts gesture recording for this tracker
     private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        startPosition = trackingObject.position;
+		startWorldToLocal = head.worldToLocalMatrix;
+        startPosition = startWorldToLocal.MultiplyPoint(trackingObject.localPosition);
         isRecording = true;
     }
 
     private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        Vector3 endPosition = trackingObject.position;
+		if (!isRecording) return; // if recording has been externally terminated, exit this function without doing anything
+		
+		// finalizeGesture will terminate the recording of all trackers
+		handler.finalizeGesture();
+    }
+	
+	public bool currentlyRecording() {
+		return isRecording;
+	}
+	
+	public void terminateRecording() {
+		isRecording = false;
+	}
+
+	// returns the current gesture being recorded
+	// if there is no current gesture being recorded, this function will return Gesture.NONE
+    public Gesture getGesture() {
+		
+		if (!isRecording) return Gesture.NONE;
+		
+		Vector3 endPosition = startWorldToLocal.MultiplyPoint(trackingObject.localPosition);
         Vector3 diffPosition = (endPosition - startPosition).normalized;
 
         int maxGesture = 0;
@@ -56,21 +83,8 @@ public class GestureTrackingNode : MonoBehaviour
             }
         }
         
-        if (maxGesture != 0) gesturesThisFrame.Add((Gestures) maxGesture);
-        isRecording = false;
+        return (Gesture) maxGesture;
     }
-
-    public bool GripHeldDown() {
-        return isRecording;
-    }
-
-    public bool GetGesture(Gestures gesture) {
-        return gesturesThisFrame.Contains(gesture);
-    }
-
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        gesturesThisFrame.Clear();
-    }
+	
+	
 }
