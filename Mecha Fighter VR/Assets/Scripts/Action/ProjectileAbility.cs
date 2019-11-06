@@ -47,10 +47,24 @@ namespace Action
                 return;
             }
 
+            m_animator.SetTrigger("Projectile");
+
+        }
+
+        public void InstantiateProjectileFx()
+        {
             // !! Collision checks are now performed with LAYERS !!
             // !! May need to reconfigure layers when multiplayer is introduced !!
             Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, transform.rotation);
-            projectile.gameObject.layer = LayerMask.NameToLayer("PlayerProjectile");
+
+            if (gameObject.layer == 12)
+            {
+                projectile.gameObject.layer = LayerMask.NameToLayer("PlayerProjectile");
+            }
+            else if (gameObject.layer == 13)
+            {
+                projectile.gameObject.layer = LayerMask.NameToLayer("OpponentProjectile");
+            }
             projectile.SetValues(gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
             m_cooldownTimer = 0f;
         }

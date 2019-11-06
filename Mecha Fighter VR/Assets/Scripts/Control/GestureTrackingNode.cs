@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+public enum Gestures
+{
+    NONE = 0,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    FORWARD,
+    BACK
+}
 
 public class GestureTrackingNode : MonoBehaviour
 {
-    public enum Gestures
-    {
-        NONE = 0,
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        FORWARD,
-        BACK
-    }
-    
     [SerializeField] private SteamVR_Action_Boolean grip;
     [SerializeField] private Transform trackingObject;
     [SerializeField] private SteamVR_Input_Sources controller;
@@ -65,7 +64,7 @@ public class GestureTrackingNode : MonoBehaviour
         return isRecording;
     }
 
-    private bool GetGesture(Gestures gesture) {
+    public bool GetGesture(Gestures gesture) {
         return gesturesThisFrame.Contains(gesture);
     }
 

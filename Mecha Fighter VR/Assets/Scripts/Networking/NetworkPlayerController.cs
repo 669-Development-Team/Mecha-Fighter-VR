@@ -13,6 +13,10 @@ public class NetworkPlayerController : MonoBehaviour
     [SerializeField]
     GameObject rightArmTarget;
 
+    //The player object (for the opponent to face)
+    [SerializeField]
+    GameObject player;
+
     //Ability scripts attatched to the opponent
     private ShieldAbility shieldScript;
     private ProjectileAbility projectileScript;
@@ -28,6 +32,16 @@ public class NetworkPlayerController : MonoBehaviour
         groundPoundScipt = gameObject.GetComponent<GroundPoundAbility>();
     }
 
+    //Set the position of the opponnent
+    public void setPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
+
+        //Update the rotation to face the player
+        transform.LookAt(player.transform.position);
+    }
+
+    //Functions to toggle abilities
     public void enableLeftShield()
     {
         shieldScript.ToggleLeftShield(true);
@@ -61,10 +75,5 @@ public class NetworkPlayerController : MonoBehaviour
     public void activateGroundPound()
     {
         groundPoundScipt.ActivateAbility(null);
-    }
-
-    public void setPosition(Vector3 position)
-    {
-        gameObject.transform.position = position;
     }
 }
