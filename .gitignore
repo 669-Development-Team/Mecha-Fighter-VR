@@ -665,3 +665,4 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/adobe,rider,linux,macos,unity,windows,netbeans,sublimetext,visualstudio,jetbrains+all,visualstudiocode
+Mecha Fighter VR/Assets/Graphics/Lava_Flowing_Shader/Materials/Emission.mat
