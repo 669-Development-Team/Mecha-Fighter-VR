@@ -53,8 +53,6 @@ public class UIManager : MonoBehaviour
         menuScreens = new List<GameObject>();
         //Compute percentage the closing/opening menu scales every frame
         scalePerFrame = 1f / (menuLoadSpeed * 60f);
-        //Ensure that time is enabled
-        Time.timeScale = 1;
 
         //All all of the menu screens to a list
         foreach (Transform screen in gameObject.GetComponentsInChildren<Transform>(true))
