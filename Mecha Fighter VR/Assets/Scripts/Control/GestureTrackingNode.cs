@@ -43,8 +43,8 @@ public class GestureTrackingNode : MonoBehaviour
 	// controller grip down starts gesture recording for this tracker
     private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-		startWorldToLocal = head.worldToLocalMatrix;
-        startPosition = startWorldToLocal.MultiplyPoint(trackingObject.localPosition);
+		var startWorldToLocal = head.worldToLocalMatrix;
+        startPosition = startWorldToLocal.MultiplyPoint(trackingObject.position);
         isRecording = true;
     }
 
@@ -70,7 +70,8 @@ public class GestureTrackingNode : MonoBehaviour
 		
 		if (!isRecording) return Gesture.NONE;
 		
-		Vector3 endPosition = startWorldToLocal.MultiplyPoint(trackingObject.localPosition);
+		var endWorldToLocal = head.worldToLocalMatrix;
+		Vector3 endPosition = endWorldToLocal.MultiplyPoint(trackingObject.position);
         Vector3 diffPosition = (endPosition - startPosition).normalized;
 
         int maxGesture = 0;

@@ -21,12 +21,12 @@ public class Footstep : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        TriggerFootstep();
+        //TriggerFootstep();
     }
 
     private void TriggerFootstep()
@@ -56,7 +56,7 @@ public class Footstep : MonoBehaviour
 
     public void PlayVfx(Transform footTransform)
     {
-        Instantiate(footstepVfx, footTransform.position, Quaternion.identity);
+        Instantiate(footstepVfx, footTransform);
     }
 
     public void PlaySfx()
