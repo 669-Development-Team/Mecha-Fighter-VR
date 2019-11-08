@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GestureHandlerV2 : MonoBehaviour
 {
+    [SerializeField] private Stats.Health opponent;
+
 	public Transform headTransform;
     public GestureTrackingNode leftTracker;
     public GestureTrackingNode rightTracker;
@@ -16,27 +18,34 @@ public class GestureHandlerV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var uppercut    = GetComponent<Action.UppercutAbility>();
+        var projectile  = GetComponent<Action.ProjectileAbility>();
+        var groundPound = GetComponent<Action.GroundPoundAbility>();
+
         gestureActions = new Dictionary<int, GestureAction>();
 		
 		gestureActions.Add(
 			makeGestureHash(Gesture.NONE, Gesture.UP), 
 			delegate() { 
-				Debug.Log("Registered Right Uppercut Gesture!"); 
+				Debug.Log("Registered Right Uppercut Gesture!");
+                uppercut.ActivateAbility(opponent);
 			}
 		);
 		
 		gestureActions.Add(
-			makeGestureHash(Gesture.FORWARD, Gesture.FORWARD), 
+            // Since I only have the right controller at the lab, I've set all gestures to only use the right controller.
+            makeGestureHash(Gesture.NONE, Gesture.FORWARD), 
 			delegate() { 
-				Debug.Log("Registered Projectile Gesture!"); 
-				GetComponent<Action.ProjectileAbility>().ActivateAbility();
+				Debug.Log("Registered Projectile Gesture!");
+                projectile.ActivateAbility();
 			}
 		);
 		
 		gestureActions.Add(
-			makeGestureHash(Gesture.DOWN, Gesture.DOWN), 
+			makeGestureHash(Gesture.NONE, Gesture.DOWN), 
 			delegate() { 
-				Debug.Log("Registered Ground Pound Gesture!"); 
+				Debug.Log("Registered Ground Pound Gesture!");
+                groundPound.ActivateAbility(opponent);
 			}
 		);
 		

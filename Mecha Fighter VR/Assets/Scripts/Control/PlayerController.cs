@@ -55,6 +55,8 @@ namespace Control
             projectileAbility = GetComponent<ProjectileAbility>();
             shieldAbility = GetComponent<ShieldAbility>();
             uppercutAbility = GetComponent<UppercutAbility>();
+
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0));
         }
 
         private void Start()
@@ -65,10 +67,10 @@ namespace Control
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
 
-            gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
+            /*gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.RightHand);
-            gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);
+            gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);*/
         }
 
         // Movement with left stick

@@ -19,6 +19,8 @@ namespace Stats
             {
                 currentEnergy += 10f * Time.deltaTime;
             }
+
+            currentEnergy = maxEnergy;
         }
 
         // Percentage of current / max, used for HUD

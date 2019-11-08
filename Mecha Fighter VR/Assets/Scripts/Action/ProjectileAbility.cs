@@ -15,6 +15,8 @@ namespace Action
 
         // Time since the projectile was last fired
         private float m_cooldownTimer = Mathf.Infinity;
+        private bool m_inAnimation = false;
+        private AnimationListener m_projectileListener;
 
         private Animator m_animator;
         private DamageStat m_damageStat;
@@ -25,6 +27,8 @@ namespace Action
             m_animator = GetComponent<Animator>();
             m_damageStat = GetComponent<DamageStat>();
             m_energy = GetComponent<Energy>();
+
+            m_projectileListener = new AnimationListener(this, "Projectile", null, OnAnimationExit);
         }
 
         private void Update()
@@ -34,7 +38,7 @@ namespace Action
 
         public void ActivateAbility()
         {
-            if (m_cooldownTimer < cooldown)
+            if (m_inAnimation)
             {
                 return;
             }
@@ -45,9 +49,13 @@ namespace Action
                 return;
             }
 
+            m_inAnimation = true;
+
             m_animator.SetTrigger("Projectile");
 			Debug.Log("Projectile gesture performed!");
         }
+
+        private void OnAnimationExit() { m_inAnimation = false;  }
 
         public void InstantiateProjectileFx()
         {

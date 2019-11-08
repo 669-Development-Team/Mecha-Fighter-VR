@@ -15,6 +15,8 @@ namespace Action
         // Time since the projectile was last fired
         private float m_cooldownTimer = Mathf.Infinity;
         private Health m_opponent = null;
+        private AnimationListener m_projectileListener;
+        private bool m_inAnimation;
 
         private Animator m_animator;
         private AudioSource m_audioSource;
@@ -27,6 +29,8 @@ namespace Action
             m_audioSource = GetComponent<AudioSource>();
             m_damageStat = GetComponent<DamageStat>();
             m_energy = GetComponent<Energy>();
+
+            m_projectileListener = new AnimationListener(this, "Uppercut", null, OnAnimationExit);
         }
 
         private void Update()
@@ -38,7 +42,7 @@ namespace Action
         {
             Debug.Log("Uppercut gesture performed!");
 
-            if (m_cooldownTimer < cooldown)
+            if (m_inAnimation)
             {
                 return;
             }
@@ -49,8 +53,15 @@ namespace Action
                 return;
             }
 
+            m_inAnimation = true;
+
             m_animator.SetTrigger("Uppercut");
             m_audioSource.PlayOneShot(activationSfx);
+        }
+
+        private void OnAnimationExit()
+        {
+            m_inAnimation = false;
         }
     }
 }
