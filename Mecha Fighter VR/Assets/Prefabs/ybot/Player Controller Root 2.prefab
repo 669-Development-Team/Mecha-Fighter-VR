@@ -905,7 +905,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -840037777384891287, guid: 42dc83c3029b8584ab940b5f26309e3f, type: 3}
+  - {fileID: 2100000, guid: 60c23b1f5d6e9ce45a07df5e3d6a87a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5034,7 +5034,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.1
   m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!114 &3846349448427567623
 MonoBehaviour:
@@ -6925,7 +6925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a74c25533c946e2a4395b186fcedfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: Health bar from the _ (HUD or mech?)
+  notes: Health bar from the HUD
   healthPercentageText: {fileID: 328392524663538929}
   healthBar: {fileID: 4294347880389365296}
   health: {fileID: 3846349448801649790}
@@ -6941,7 +6941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a74c25533c946e2a4395b186fcedfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: Health bar from the _ (HUD or mech?)
+  notes: Health bar from the Mech
   healthPercentageText: {fileID: 2550772544447589704}
   healthBar: {fileID: 2049159797691361161}
   health: {fileID: 3846349448801649790}
@@ -7323,7 +7323,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -840037777384891287, guid: 42dc83c3029b8584ab940b5f26309e3f, type: 3}
+  - {fileID: 2100000, guid: 32c1d4195199c754095240583f5e56a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9197,6 +9197,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3846349447912078846}
     m_Modifications:
+    - target: {fileID: 4475587391408497984, guid: 136236182b68ca142a56834955411bcc,
+        type: 3}
+      propertyPath: m_Name
+      value: Shield Left HUD
+      objectReference: {fileID: 0}
     - target: {fileID: 3133580172400913317, guid: 136236182b68ca142a56834955411bcc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9301,11 +9306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4475587391408497984, guid: 136236182b68ca142a56834955411bcc,
-        type: 3}
-      propertyPath: m_Name
-      value: Shield Left HUD
       objectReference: {fileID: 0}
     - target: {fileID: 1665724699430250362, guid: 136236182b68ca142a56834955411bcc,
         type: 3}
