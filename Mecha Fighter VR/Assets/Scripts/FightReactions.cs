@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RootMotion.FinalIK;
+using Stats;
 
 public class FightReactions : MonoBehaviour
 {
     public HitReactionVRIK hitReaction;
     [SerializeField] float hitForce = 60f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private Health m_health;
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        m_health = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,8 @@ public class FightReactions : MonoBehaviour
             Vector3 dir = collision.contacts[0].point - transform.position;
             dir = -dir.normalized;
             hitReaction.Hit(gameObject.GetComponent<Collider>(), dir * hitForce, collision.GetContact(0).point);
+
+            m_health.PlaySfx();
         }
         else if (collision.collider.gameObject == gameObject)
         {
@@ -35,9 +40,8 @@ public class FightReactions : MonoBehaviour
     public void ProjectileHit()
     {
         Animator animator = GetComponent<Animator>();
-        if (animator.GetCurrentAnimatorStateInfo(0).Equals("Idle"))
-        {
+      
             animator.SetTrigger("HitH");
-        }
+        
     }
 }
