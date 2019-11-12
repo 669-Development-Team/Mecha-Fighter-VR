@@ -18,19 +18,19 @@ public class NetworkPlayerController : MonoBehaviour
     GameObject player;
 
     //Ability scripts attatched to the opponent
-    private ShieldAbility shieldScript;
+    /*private ShieldAbility shieldScript;
     private ProjectileAbility projectileScript;
     private UppercutAbility uppercutScript;
-    private GroundPoundAbility groundPoundScipt;
+    private GroundPoundAbility groundPoundScipt;*/
 
-    private void Start()
+    /*private void Start()
     {
         //Get references to all of the ability scripts
         shieldScript = gameObject.GetComponent<ShieldAbility>();
         projectileScript = gameObject.GetComponent<ProjectileAbility>();
         uppercutScript = gameObject.GetComponent<UppercutAbility>();
         groundPoundScipt = gameObject.GetComponent<GroundPoundAbility>();
-    }
+    }*/
 
     //Set the position of the opponnent
     public void setPosition(Vector3 position)
@@ -44,36 +44,36 @@ public class NetworkPlayerController : MonoBehaviour
     //Functions to toggle abilities
     public void enableLeftShield()
     {
-        shieldScript.ToggleLeftShield(true);
+        //shieldScript.ToggleLeftShield(true);
     }
 
     public void disableLeftShield()
     {
-        shieldScript.ToggleLeftShield(false);
+        //shieldScript.ToggleLeftShield(false);
     }
 
     public void enableRightShield()
     {
-        shieldScript.ToggleRightShield(true);
+        //shieldScript.ToggleRightShield(true);
     }
 
     public void disableRightShield()
     {
-        shieldScript.ToggleRightShield(false);
+        //shieldScript.ToggleRightShield(false);
     }
 
     public void activateProjectile()
     {
-        projectileScript.ActivateAbility();
+        //projectileScript.ActivateAbility();
     }
 
     public void activateUppercut()
     {
-        uppercutScript.ActivateAbility(null);
+        //uppercutScript.ActivateAbility(null);
     }
 
     public void activateGroundPound()
     {
-        groundPoundScipt.ActivateAbility(null);
+        //groundPoundScipt.ActivateAbility(null);
     }
 }

@@ -2,64 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 public class GestureHandlerV2 : MonoBehaviour
 {
-    [SerializeField] private Stats.Health opponent;
-
 	public Transform headTransform;
-    public GestureTrackingNode leftTracker;
-    public GestureTrackingNode rightTracker;
+	public Transform leftControllerTransform;
+	public Transform rightControllerTransform;
+	public SteamVR_Action_Boolean grip;
 
-	private delegate void GestureAction();
-	private Dictionary<int, GestureAction> gestureActions;
-	private GestureAction currentAction = null;
+	private Dictionary<int, GestureAbility> abilityMap;
+	private GestureTrackingNode leftTracker;
+    private GestureTrackingNode rightTracker;
 
     // Start is called before the first frame update
     void Start()
     {
-        var uppercut    = GetComponent<Action.UppercutAbility>();
-        var projectile  = GetComponent<Action.ProjectileAbility>();
-        var groundPound = GetComponent<Action.GroundPoundAbility>();
-
-        gestureActions = new Dictionary<int, GestureAction>();
+		abilityMap = new Dictionary<int, GestureAbility>();
 		
-		gestureActions.Add(
-			makeGestureHash(Gesture.NONE, Gesture.UP), 
-			delegate() { 
-				Debug.Log("Registered Right Uppercut Gesture!");
-                uppercut.ActivateAbility(opponent);
-			}
-		);
-		
-		gestureActions.Add(
-            // Since I only have the right controller at the lab, I've set all gestures to only use the right controller.
-            makeGestureHash(Gesture.NONE, Gesture.FORWARD), 
-			delegate() { 
-				Debug.Log("Registered Projectile Gesture!");
-                projectile.ActivateAbility();
-			}
-		);
-		
-		gestureActions.Add(
-			makeGestureHash(Gesture.NONE, Gesture.DOWN), 
-			delegate() { 
-				Debug.Log("Registered Ground Pound Gesture!");
-                groundPound.ActivateAbility(opponent);
-			}
-		);
-		
-		leftTracker.initialize(this, headTransform);
-		rightTracker.initialize(this, headTransform);
-    }
-	
-	void Update() {
-		
-		if (currentAction != null) {
-			currentAction();
-			currentAction = null;
+		foreach (GestureAbility gestureAbility in GetComponents<GestureAbility>()) {
+			
+			int gestureHash = makeGestureHash(gestureAbility.leftGesture, gestureAbility.rightGesture);
+			
+			abilityMap.Add(gestureHash, gestureAbility);
 		}
-	}
+		
+		leftTracker  = new GestureTrackingNode(this, leftControllerTransform, SteamVR_Input_Sources.LeftHand);
+		rightTracker = new GestureTrackingNode(this, rightControllerTransform, SteamVR_Input_Sources.RightHand);
+    }
 
     public void finalizeGesture() {
 		
@@ -69,15 +39,15 @@ public class GestureHandlerV2 : MonoBehaviour
 		
 		int gestureHash = makeGestureHash(gestureLeft, gestureRight);
 		
+		GestureAbility ability;
 		try {
-			currentAction = gestureActions[gestureHash];
+			ability = abilityMap[gestureHash];
 		}
 		catch (KeyNotFoundException e) {
-			currentAction = null;
+			ability = null;
 		}
 		
-		leftTracker.terminateRecording();
-		rightTracker.terminateRecording();
+		ability?.ActivateAbility();
 	}
 	
 	private int makeGestureHash(Gesture g1, Gesture g2) {

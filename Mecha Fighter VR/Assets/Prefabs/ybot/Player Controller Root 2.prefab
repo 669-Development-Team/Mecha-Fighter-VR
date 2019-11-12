@@ -6979,11 +6979,6 @@ MonoBehaviour:
   trigger:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
-  gripAction:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
-  leftHandTransform: {fileID: 3846349449019223287}
-  rightHandTransform: {fileID: 3846349447224422436}
   opponent: {fileID: 0}
 --- !u!114 &1381926226097654709
 MonoBehaviour:
@@ -6999,8 +6994,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opponent: {fileID: 0}
   headTransform: {fileID: 5739555308278188522}
-  leftTracker: {fileID: 7809612402997712284}
-  rightTracker: {fileID: 4568289278603198475}
+  leftControllerTransform: {fileID: 0}
+  rightControllerTransform: {fileID: 0}
+  grip:
+    actionPath: 
+    needsReinit: 0
 --- !u!114 &7809612402997712284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7013,11 +7011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3791326d522a84f935958ed3138618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grip:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
-  trackingObject: {fileID: 3846349449019223287}
-  controller: 1
 --- !u!114 &4568289278603198475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7030,11 +7023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3791326d522a84f935958ed3138618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grip:
-    actionPath: /actions/default/in/GrabGrip
-    needsReinit: 0
-  trackingObject: {fileID: 3846349447224422436}
-  controller: 2
 --- !u!114 &3846349448801649789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9224,6 +9212,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 44061505990465086, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_text
+      value: 0%
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54b33982596c094caa72f2dcb038c84, type: 3}
 --- !u!224 &7296146419633823023 stripped
@@ -9437,6 +9435,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shield Right HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 8016402306210386666, guid: fb9b095e67e5cf040bea5ae0d64878c0,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482883811344368796, guid: fb9b095e67e5cf040bea5ae0d64878c0,
+        type: 3}
+      propertyPath: m_text
+      value: NaN%
+      objectReference: {fileID: 0}
     - target: {fileID: 4415889959828371509, guid: fb9b095e67e5cf040bea5ae0d64878c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9584,6 +9592,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shield Left HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165441427776437260, guid: 136236182b68ca142a56834955411bcc,
+        type: 3}
+      propertyPath: m_text
+      value: NaN%
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676633196021971396, guid: 136236182b68ca142a56834955411bcc,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 3133580172400913317, guid: 136236182b68ca142a56834955411bcc,
         type: 3}

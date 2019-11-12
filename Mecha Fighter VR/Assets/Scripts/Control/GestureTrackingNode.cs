@@ -14,28 +14,28 @@ public enum Gesture
     BACK
 }
 
-public class GestureTrackingNode : MonoBehaviour
+public class GestureTrackingNode
 {
-    [SerializeField] private SteamVR_Action_Boolean grip;
-    [SerializeField] private Transform trackingObject;
-    [SerializeField] private SteamVR_Input_Sources controller;
+	static private Vector3[] axes = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 	
-	private Vector3[] axes = new Vector3[] { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
-	
+    private SteamVR_Input_Sources controller;
 	private GestureHandlerV2 handler;
 	private Transform head;
+	private Transform trackingObject;
+	
     private Vector3 startPosition;
 	private Matrix4x4 startWorldToLocal;
     private bool isRecording;
 	
-	// handler will initialize each tracking node
-	public void initialize(GestureHandlerV2 handler, Transform head) {
+	public GestureTrackingNode(GestureHandlerV2 handler, Transform trackingObject, SteamVR_Input_Sources controller) {
 		
 		this.handler = handler;
-		this.head = head;
+		this.head = handler.headTransform;
+		this.trackingObject = trackingObject;
 		
-		grip.AddOnStateDownListener(GripDown, controller);
-        grip.AddOnStateUpListener(GripUp, controller);
+		handler.grip.AddOnStateDownListener(GripDown, controller);
+        handler.grip.AddOnStateUpListener(GripUp, controller);
+		
         startPosition = Vector3.zero;
         isRecording = false;
 	}
@@ -60,11 +60,11 @@ public class GestureTrackingNode : MonoBehaviour
 		return isRecording;
 	}
 	
-	public void terminateRecording() {
+	private void terminateRecording() {
 		isRecording = false;
 	}
 
-	// returns the current gesture being recorded
+	// returns the current gesture being recorded, and terminates the recording session
 	// if there is no current gesture being recorded, this function will return Gesture.NONE
     public Gesture getGesture() {
 		
@@ -83,6 +83,8 @@ public class GestureTrackingNode : MonoBehaviour
                 maxGesture = i + 1;
             }
         }
+		
+		terminateRecording();
         
         return (Gesture) maxGesture;
     }

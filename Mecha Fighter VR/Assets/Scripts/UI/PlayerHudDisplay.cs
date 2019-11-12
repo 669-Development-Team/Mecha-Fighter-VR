@@ -23,8 +23,7 @@ namespace UI
         public TextMeshProUGUI mechHealthPercentageText;
         public RectTransform mechHealthBar;
 
-        [SerializeField] private Health health = null;
-        [SerializeField] private Energy energy = null;
+        [SerializeField] private PlayerStats stats = null;
         [SerializeField] private Shield leftShield = null;
         [SerializeField] private Shield rightShield = null;
 
@@ -33,17 +32,17 @@ namespace UI
             /*
              * The question marks "?" is a shorthand way of checking each component for null before calling a function on them
              */
-            healthPercentageText?.SetText($"{health.GetHealthPercentage():0}%");
-            energyPercentageText?.SetText($"{energy.GetEnergyPercentage():0}%");
+            healthPercentageText?.SetText($"{stats.GetHealthPercentage():0}%");
+            energyPercentageText?.SetText($"{stats.GetEnergyPercentage():0}%");
             shieldLPercentageText?.SetText($"{leftShield.GetDurabilityPercentage():0}%");
             shieldRPercentageText?.SetText($"{rightShield.GetDurabilityPercentage():0}%");
-            HealthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
-            EnergyBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, energy.GetEnergyPercentage());
+            HealthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, stats.GetHealthPercentage());
+            EnergyBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, stats.GetEnergyPercentage());
             LShieldBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, leftShield.GetDurabilityPercentage());
             RShieldBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rightShield.GetDurabilityPercentage());
 
-            mechHealthPercentageText?.SetText($"{health.GetHealthPercentage():0}%");
-            mechHealthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
+            mechHealthPercentageText?.SetText($"{stats.GetHealthPercentage():0}%");
+            mechHealthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, stats.GetHealthPercentage());
         }
     }
 }
