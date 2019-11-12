@@ -6,7 +6,7 @@ using RootMotion.FinalIK;
 public class FightReactions : MonoBehaviour
 {
     public HitReactionVRIK hitReaction;
-    [SerializeField] float hitForce = 1f;
+    [SerializeField] float hitForce = 60f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,6 @@ public class FightReactions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void OnCollisionEnter(Collision collision)
@@ -26,7 +25,7 @@ public class FightReactions : MonoBehaviour
         {
             Vector3 dir = collision.contacts[0].point - transform.position;
             dir = -dir.normalized;
-            hitReaction.Hit(collision.collider, dir * hitForce, collision.GetContact(0).point);
+            hitReaction.Hit(gameObject.GetComponent<Collider>(), dir * hitForce, collision.GetContact(0).point);
         }
         else if (collision.collider.gameObject == gameObject)
         {
@@ -35,6 +34,10 @@ public class FightReactions : MonoBehaviour
     }
     public void ProjectileHit()
     {
-        gameObject.GetComponent<Animator>().SetTrigger("HitH");
+        Animator animator = GetComponent<Animator>();
+        if (animator.GetCurrentAnimatorStateInfo(0).Equals("Idle"))
+        {
+            animator.SetTrigger("HitH");
+        }
     }
 }
