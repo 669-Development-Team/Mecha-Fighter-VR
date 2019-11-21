@@ -23,7 +23,7 @@ public class povHandler : MonoBehaviour
     private PositionConstraint leftHandTargetContraint;
     private PositionConstraint rightHandTargetContraint;
 
-    private bool thirdPerson = true;
+    private POV pointOfView = POV.third;
     private bool transitioning = false;
     private Vector3 transitionTarget;
 
@@ -31,6 +31,12 @@ public class povHandler : MonoBehaviour
     private bool currLeftStickState = false;
     private bool prevRightStickState = false;
     private bool currRightStickState = false;
+
+    public enum POV
+    {
+        first,
+        third
+    }
 
     void Start()
     {
@@ -68,19 +74,10 @@ public class povHandler : MonoBehaviour
         //When both sticks are clicked in, start the transition to the new pov
         if (currLeftStickState && currRightStickState && (!prevLeftStickState || !prevRightStickState))
         {
-            //When moving to first person, start by hiding the pilot
-            if (thirdPerson)
-            {
-                pilot.SetActive(false);
-                transitionTarget = Vector3.zero;
-            }
+            if (pointOfView == POV.third)
+                setPOV(POV.first);
             else
-            {
-                transitionTarget = thirdPersonCameraDisplacement;
-            }
-
-            //Indicate that the transition is taking place
-            transitioning = true;
+                setPOV(POV.third);
         }
 
         //If transitioning, move the camera rig closer to the target
@@ -90,7 +87,7 @@ public class povHandler : MonoBehaviour
             cameraRig.transform.position = Vector3.Lerp(cameraRig.transform.position, transitionTarget, transitionSpeed);
             
             //Update the target offsets to maintain their local position
-            if(thirdPerson)
+            if(pointOfView == POV.third)
                 setTargetOffsets(cameraRig.transform.position);
             else
                 setTargetOffsets(-cameraRig.transform.position);
@@ -102,17 +99,17 @@ public class povHandler : MonoBehaviour
             if (distance.magnitude < 0.01f)
             {
                 //Switch to first person
-                if (thirdPerson)
+                if (pointOfView == POV.third)
                 {
                     setTargetOffsets(Vector3.zero);
-                    thirdPerson = false;
+                    pointOfView = POV.first;
                 }
                 //Switch to third person
                 else
                 {
                     setTargetOffsets(-thirdPersonCameraDisplacement);
                     pilot.SetActive(true);
-                    thirdPerson = true;
+                    pointOfView = POV.third;
                 }
 
                 transitioning = false;
@@ -125,5 +122,25 @@ public class povHandler : MonoBehaviour
         headTargetContraint.translationOffset = newOffset;
         leftHandTargetContraint.translationOffset = newOffset;
         rightHandTargetContraint.translationOffset = newOffset;
+    }
+
+    public POV getPOV()
+    {
+        return pointOfView;
+    }
+
+    public void setPOV(POV newPOV)
+    {
+        //When moving to first person, start by hiding the pilot
+        if (newPOV == POV.first)
+        {
+            pilot.SetActive(false);
+            transitionTarget = Vector3.zero;
+        }
+        else
+            transitionTarget = thirdPersonCameraDisplacement;
+
+        //Indicate that the transition is taking place
+        transitioning = true;
     }
 }
