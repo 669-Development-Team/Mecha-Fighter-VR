@@ -9,6 +9,7 @@ public class povHandler : MonoBehaviour
 {
     [SerializeField] private SteamVR_Action_Boolean joystickClick;
     [SerializeField] private Vector3 thirdPersonCameraDisplacement;
+    [SerializeField] private float transitionSpeed;
 
     private GameObject cameraRig;
     private GameObject pilot;
@@ -21,6 +22,9 @@ public class povHandler : MonoBehaviour
     private GameObject thirdPersonRightHandTarget;
 
     private bool thirdPerson = true;
+    private bool transitioning = false;
+    private Vector3 transitionTarget;
+
     private bool prevLeftStickState = false;
     private bool currLeftStickState = false;
     private bool prevRightStickState = false;
@@ -60,38 +64,63 @@ public class povHandler : MonoBehaviour
 
     void Update()
     {
+        //When both sticks are clicked in, set the location to lerp to
         if (currLeftStickState && currRightStickState && (!prevLeftStickState || !prevRightStickState))
         {
             if (thirdPerson)
             {
-                firstPersonPOV();
-                thirdPerson = false;
+                transitionTarget = Vector3.zero;
+                pilot.SetActive(false);
             }
             else
             {
-                thirdPersonPOV();
-                thirdPerson = true;
+                transitionTarget = thirdPersonCameraDisplacement;
+            }
+
+            transitioning = true;
+        }
+
+        //If transitioning, move the camera rig closer to the target
+        if (transitioning)
+        {
+            cameraRig.transform.position = Vector3.Lerp(cameraRig.transform.position, transitionTarget, transitionSpeed);
+            Vector3 distance = transitionTarget - cameraRig.transform.position;
+
+            //If the camera rig is within 0.1 units of the target, switch pov
+            if (distance.magnitude < 0.1f)
+            {
+                //Switch to first person
+                if (thirdPerson)
+                {
+                    setFirstPersonTargets();
+                    thirdPerson = false;
+                }
+                //Switch to third person
+                else
+                {
+                    setThirdPersonTargets();
+                    thirdPerson = true;
+                    pilot.SetActive(true);
+                }
+
+                transitioning = false;
             }
         }
     }
 
-    private void firstPersonPOV()
+    private void setFirstPersonTargets()
     {
         cameraRig.transform.position = Vector3.zero;
         mechIKScript.solver.spine.headTarget = firstPersonHeadTarget.transform;
         mechIKScript.solver.leftArm.target = firstPersonLeftHandTarget.transform;
         mechIKScript.solver.rightArm.target = firstPersonRightHandTarget.transform;
-
-        pilot.SetActive(false);
     }
 
-    private void thirdPersonPOV()
+    private void setThirdPersonTargets()
     {
         cameraRig.transform.position = thirdPersonCameraDisplacement;
         mechIKScript.solver.spine.headTarget = thirdPersonHeadTarget.transform;
         mechIKScript.solver.leftArm.target = thirdPersonLeftHandTarget.transform;
         mechIKScript.solver.rightArm.target = thirdPersonRightHandTarget.transform;
-
-        pilot.SetActive(true);
     }
 }
