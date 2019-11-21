@@ -27,6 +27,9 @@ public class povHandler : MonoBehaviour
     private bool transitioning = false;
     private Vector3 transitionTarget;
 
+    private bool acceptInputs = true;
+    private bool transitionAfterSpecial;
+
     private bool prevLeftStickState = false;
     private bool currLeftStickState = false;
     private bool prevRightStickState = false;
@@ -69,10 +72,12 @@ public class povHandler : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //When both sticks are clicked in, start the transition to the new pov
-        if (currLeftStickState && currRightStickState && (!prevLeftStickState || !prevRightStickState))
+        if (currLeftStickState && currRightStickState
+            && (!prevLeftStickState || !prevRightStickState)
+            && acceptInputs && !transitioning)
         {
             if (pointOfView == POV.third)
                 setPOV(POV.first);
@@ -88,9 +93,9 @@ public class povHandler : MonoBehaviour
             
             //Update the target offsets to maintain their local position
             if(pointOfView == POV.third)
-                setTargetOffsets(cameraRig.transform.position);
+                setTargetOffsets(transitionTarget - cameraRig.transform.position);
             else
-                setTargetOffsets(-cameraRig.transform.position);
+                setTargetOffsets((transitionTarget - cameraRig.transform.position) - thirdPersonCameraDisplacement);
 
             //Find the offset between the camera rig and the target
             Vector3 distance = transitionTarget - cameraRig.transform.position;
@@ -135,12 +140,31 @@ public class povHandler : MonoBehaviour
         if (newPOV == POV.first)
         {
             pilot.SetActive(false);
-            transitionTarget = Vector3.zero;
+            transitionTarget = cameraRig.transform.position - thirdPersonCameraDisplacement;
         }
         else
-            transitionTarget = thirdPersonCameraDisplacement;
+            transitionTarget = cameraRig.transform.position + thirdPersonCameraDisplacement;
 
         //Indicate that the transition is taking place
         transitioning = true;
+    }
+
+    public void startSpecialAttack()
+    {
+        if (pointOfView == POV.first)
+        {
+            setPOV(POV.third);
+            transitionAfterSpecial = true;
+        }
+
+        acceptInputs = false;
+    }
+
+    public void endSpecialAttack()
+    {
+        if (transitionAfterSpecial)
+            setPOV(POV.first);
+
+        acceptInputs = true;
     }
 }
