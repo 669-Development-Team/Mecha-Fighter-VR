@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using Valve.VR;
 
 public class povHandler : MonoBehaviour
@@ -13,13 +14,14 @@ public class povHandler : MonoBehaviour
 
     private GameObject cameraRig;
     private GameObject pilot;
-    private VRIK mechIKScript;
-    private GameObject firstPersonHeadTarget;
-    private GameObject firstPersonLeftHandTarget;
-    private GameObject firstPersonRightHandTarget;
-    private GameObject thirdPersonHeadTarget;
-    private GameObject thirdPersonLeftHandTarget;
-    private GameObject thirdPersonRightHandTarget;
+
+    private GameObject headTarget;
+    private GameObject leftHandTarget;
+    private GameObject rightHandTarget;
+
+    private PositionConstraint headTargetContraint;
+    private PositionConstraint leftHandTargetContraint;
+    private PositionConstraint rightHandTargetContraint;
 
     private bool thirdPerson = true;
     private bool transitioning = false;
@@ -37,15 +39,14 @@ public class povHandler : MonoBehaviour
 
         cameraRig = GameObject.Find("[CameraRig]");
         pilot = GameObject.Find("Pilot");
-        mechIKScript = gameObject.GetComponentInChildren<VRIK>();
 
-        firstPersonHeadTarget = GameObject.Find("Camera");
-        firstPersonLeftHandTarget = GameObject.Find("Controller (left)");
-        firstPersonRightHandTarget = GameObject.Find("Controller (right)");
+        headTarget = GameObject.Find("Head Target for Mech IK");
+        leftHandTarget = GameObject.Find("Left Hand Target for Mech IK");
+        rightHandTarget = GameObject.Find("Right Hand Target for Mech IK");
 
-        thirdPersonHeadTarget = GameObject.Find("Head Target for Mech IK");
-        thirdPersonLeftHandTarget = GameObject.Find("Left Hand Target for Mech IK");
-        thirdPersonRightHandTarget = GameObject.Find("Right Hand Target for Mech IK");
+        headTargetContraint = headTarget.GetComponent<PositionConstraint>();
+        leftHandTargetContraint = leftHandTarget.GetComponent<PositionConstraint>();
+        rightHandTargetContraint = rightHandTarget.GetComponent<PositionConstraint>();
     }
 
     private void joystickClicked(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource, bool newState)
@@ -64,43 +65,54 @@ public class povHandler : MonoBehaviour
 
     void Update()
     {
-        //When both sticks are clicked in, set the location to lerp to
+        //When both sticks are clicked in, start the transition to the new pov
         if (currLeftStickState && currRightStickState && (!prevLeftStickState || !prevRightStickState))
         {
+            //When moving to first person, start by hiding the pilot
             if (thirdPerson)
             {
-                transitionTarget = Vector3.zero;
                 pilot.SetActive(false);
+                transitionTarget = Vector3.zero;
             }
             else
             {
                 transitionTarget = thirdPersonCameraDisplacement;
             }
 
+            //Indicate that the transition is taking place
             transitioning = true;
         }
 
         //If transitioning, move the camera rig closer to the target
         if (transitioning)
         {
+            //Move the camera rig
             cameraRig.transform.position = Vector3.Lerp(cameraRig.transform.position, transitionTarget, transitionSpeed);
+            
+            //Update the target offsets to maintain their local position
+            if(thirdPerson)
+                setTargetOffsets(cameraRig.transform.position);
+            else
+                setTargetOffsets(-cameraRig.transform.position);
+
+            //Find the offset between the camera rig and the target
             Vector3 distance = transitionTarget - cameraRig.transform.position;
 
-            //If the camera rig is within 0.1 units of the target, switch pov
-            if (distance.magnitude < 0.1f)
+            //If the camera rig is within 0.01 units of the target, switch pov
+            if (distance.magnitude < 0.01f)
             {
                 //Switch to first person
                 if (thirdPerson)
                 {
-                    setFirstPersonTargets();
+                    setTargetOffsets(Vector3.zero);
                     thirdPerson = false;
                 }
                 //Switch to third person
                 else
                 {
-                    setThirdPersonTargets();
-                    thirdPerson = true;
+                    setTargetOffsets(-thirdPersonCameraDisplacement);
                     pilot.SetActive(true);
+                    thirdPerson = true;
                 }
 
                 transitioning = false;
@@ -108,19 +120,10 @@ public class povHandler : MonoBehaviour
         }
     }
 
-    private void setFirstPersonTargets()
+    private void setTargetOffsets(Vector3 newOffset)
     {
-        cameraRig.transform.position = Vector3.zero;
-        mechIKScript.solver.spine.headTarget = firstPersonHeadTarget.transform;
-        mechIKScript.solver.leftArm.target = firstPersonLeftHandTarget.transform;
-        mechIKScript.solver.rightArm.target = firstPersonRightHandTarget.transform;
-    }
-
-    private void setThirdPersonTargets()
-    {
-        cameraRig.transform.position = thirdPersonCameraDisplacement;
-        mechIKScript.solver.spine.headTarget = thirdPersonHeadTarget.transform;
-        mechIKScript.solver.leftArm.target = thirdPersonLeftHandTarget.transform;
-        mechIKScript.solver.rightArm.target = thirdPersonRightHandTarget.transform;
+        headTargetContraint.translationOffset = newOffset;
+        leftHandTargetContraint.translationOffset = newOffset;
+        rightHandTargetContraint.translationOffset = newOffset;
     }
 }
