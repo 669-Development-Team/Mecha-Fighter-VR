@@ -17,7 +17,7 @@ namespace Stats
         {
             if (currentEnergy < maxEnergy)
             {
-                currentEnergy += 10f * Time.deltaTime;
+                currentEnergy = Mathf.Min(currentEnergy + 10f * Time.deltaTime, maxEnergy);
             }
         }
 
@@ -37,6 +37,14 @@ namespace Stats
 
             currentEnergy -= energyCost;
             return true;
+        }
+
+        public void Replenish(float energyToRestore)
+        {
+            if (currentEnergy < maxEnergy)
+            {
+                currentEnergy = Mathf.Min(currentEnergy + energyToRestore, maxEnergy);
+            }
         }
     }
 }

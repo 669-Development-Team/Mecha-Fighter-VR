@@ -28,6 +28,14 @@ namespace Stats
             PlaySfx();
         }
 
+        public void Heal(float healthToRestore)
+        {
+            if (currentHealth < maxHealth)
+            {
+                currentHealth = Mathf.Min(currentHealth + healthToRestore, maxHealth);
+            }
+        }
+
         public void PlaySfx()
         {
             audioSource.PlayOneShot(hitImpactSfx[Random.Range(0, hitImpactSfx.Length - 1)]);
