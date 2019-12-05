@@ -16,6 +16,7 @@ TagManager:
   - Hologram Menu Canvas
   - Row
   - Keyboard Backing
+  - Powerup
   layers:
   - Default
   - TransparentFX
