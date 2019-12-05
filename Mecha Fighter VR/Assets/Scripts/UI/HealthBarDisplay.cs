@@ -24,5 +24,25 @@ namespace UI
             healthPercentageText?.SetText($"{health.GetHealthPercentage():0}%");
             healthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
         }
+
+        // Only Opponent has a collider
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Lava")
+            {
+                healthPercentageText?.SetText("0%");
+                healthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,0f);
+            }
+        }
+
+        // Only Player has a trigger
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Lava")
+            {
+                healthPercentageText?.SetText("0%");
+                healthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 0f);
+            }
+        }
     }
 }
