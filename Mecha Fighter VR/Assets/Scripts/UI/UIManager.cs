@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
             levelManager = mainObject.GetComponent<LevelManager>();
         else
             Debug.LogError("There is no main object. Did you start the game from DontDestroyOnLoad?");
-
         //A containing all of the screens for faster screen lookup
         menuScreens = new List<GameObject>();
         //Compute percentage the closing/opening menu scales every frame
