@@ -26,6 +26,11 @@ namespace Stats
         {
             currentHealth -= Mathf.Max(1, damageDealt - defense);
             PlaySfx();
+
+            if (currentHealth <= 0f)
+            {
+                FindObjectOfType<GameStateManager>().GameOver(transform.root.gameObject.name);
+            }
         }
 
         public void Heal(float healthToRestore)
