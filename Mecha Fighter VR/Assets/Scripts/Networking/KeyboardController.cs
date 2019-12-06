@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardController : MonoBehaviour
 {
-    private NetworkPlayerController playerController;
+    private Action.MovementHandler playerController;
     [SerializeField]
     private float movementSpeed;
     private bool leftShieldActive = false;
@@ -12,7 +12,7 @@ public class KeyboardController : MonoBehaviour
 
     void Start()
     {
-        playerController = gameObject.GetComponent<NetworkPlayerController>();
+        playerController = gameObject.GetComponent<Action.MovementHandler>();
     }
 
     void Update()
@@ -36,12 +36,12 @@ public class KeyboardController : MonoBehaviour
 
         displacement = displacement * movementSpeed * Time.deltaTime;
 
-        playerController.setPosition(gameObject.transform.position + displacement);
+        playerController.DoMovement(displacement);
     }
 
     private void checkAbilities()
     {
-        if (Input.GetKeyDown("l"))
+        /*if (Input.GetKeyDown("l"))
         {
             if (!leftShieldActive)
                 playerController.enableLeftShield();
@@ -68,6 +68,6 @@ public class KeyboardController : MonoBehaviour
             playerController.activateUppercut();
 
         if (Input.GetKeyDown("g"))
-            playerController.activateGroundPound();
+            playerController.activateGroundPound();*/
     }
 }

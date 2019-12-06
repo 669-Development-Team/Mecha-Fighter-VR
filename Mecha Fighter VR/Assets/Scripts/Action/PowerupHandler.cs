@@ -16,7 +16,6 @@ public class PowerupHandler : MonoBehaviour
         if (other.gameObject.tag == "Powerup") {
             Powerup powerup = other.GetComponent<Powerup>();
             powerup.Apply(stats);
-            Debug.Log("Deleting " + other.gameObject.name);
             Destroy(other.gameObject);
         }
     }

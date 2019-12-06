@@ -20,6 +20,10 @@ public class PlayerStats : MonoBehaviour, Stats.IDamageable
 	}
 	
 	void Update() {
+		if (currentHealth <= 0 && !GameStateManager.instance.gameOver) {
+			GameStateManager.instance.GameOver(gameObject.tag);
+		}
+
 		currentHealth = Mathf.Clamp(currentHealth + healthRegen, 0, maxHealth);
 		currentEnergy = Mathf.Clamp(currentEnergy + energyRegen, 0, maxEnergy);
 		hitStunTimer  = Mathf.Clamp(hitStunTimer - Time.deltaTime, 0, 10);

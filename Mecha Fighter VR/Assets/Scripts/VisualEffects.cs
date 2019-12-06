@@ -15,6 +15,7 @@ public class VisualEffects : MonoBehaviour
     public float TrailAppearsWhenGreaterThan;
 
 
+
     private void Start()
     {
         previousframe = transform.position;
@@ -54,6 +55,16 @@ public class VisualEffects : MonoBehaviour
         temp = Instantiate(Hit, transform.position, transform.rotation);
         Destroy(temp, 2f);
 
+        GameObject root = getRootObject(collision.gameObject);
+
+        if (root.tag == "Opponent") {
+            root.GetComponent<PlayerStats>().TakeDamage(1);
+            GameStateManager.instance.addPoints(false, 100);
+        }
+        else if (root.tag == "Player") {
+            root.GetComponent<PlayerStats>().TakeDamage(1);
+            GameStateManager.instance.addPoints(true, 100);
+        }
 
         /*
         if(collision.gameObject.tag == "Burnable")
@@ -64,5 +75,13 @@ public class VisualEffects : MonoBehaviour
             Destroy(burnable, 3f);
         }
         */
+    }
+
+    GameObject getRootObject(GameObject o) {
+        Transform curr = o.transform;
+        while (curr.parent != null) {
+            curr = curr.parent;
+        }
+        return curr.gameObject;
     }
 }
