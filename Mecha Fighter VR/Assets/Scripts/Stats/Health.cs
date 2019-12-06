@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Stats
 {
@@ -8,6 +9,7 @@ namespace Stats
         [SerializeField] private float defense = 0f;
         [SerializeField] private AudioSource audioSource = null;
         [SerializeField] private AudioClip[] hitImpactSfx;
+        [SerializeField] private UnityEvent onTakeDamage = null;
 
         private float currentHealth;
 
@@ -31,6 +33,8 @@ namespace Stats
             {
                 FindObjectOfType<GameStateManager>().GameOver(transform.root.gameObject.name);
             }
+
+            onTakeDamage.Invoke();
         }
 
         public void Heal(float healthToRestore)

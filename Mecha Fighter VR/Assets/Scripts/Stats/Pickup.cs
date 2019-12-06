@@ -9,6 +9,13 @@ namespace Stats
         [SerializeField] private float energyToRestore = 0f;
         [SerializeField] private float respawnTime = 10f;
 
+        private Animation animation = null;
+
+        private void Awake()
+        {
+            animation = GetComponent<Animation>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             // Player picks up the pickup
@@ -39,6 +46,7 @@ namespace Stats
             ShowPickup(false);
             yield return new WaitForSeconds(seconds);
             ShowPickup(true);
+            animation.Play();
         }
 
         private void ShowPickup(bool shouldShow)

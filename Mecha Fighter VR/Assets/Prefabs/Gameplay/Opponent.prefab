@@ -2973,8 +2973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc076f99f9a0a4345b086e230ac0b10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftFoot: {fileID: 6463317802044997120}
-  rightFoot: {fileID: 6463317800208491624}
   footstepVfx: {fileID: 5149216914936091411, guid: 2c93b59d7e771374b9efeeceb868d74d,
     type: 3}
   audioSource: {fileID: 6463317801387422664}
@@ -3007,6 +3005,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c81cfc2994a52a145ae356d06bb0b3f9, type: 3}
   - {fileID: 8300000, guid: d43f7c3034d81eb4eb42df83d4484986, type: 3}
   - {fileID: 8300000, guid: 7660ce51fb662cb498d963514122524f, type: 3}
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6463317801387422668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3020,6 +3021,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxEnergy: 500
+  replenishEffect: {fileID: 0}
+  mechRoot: {fileID: 0}
+  onReplenish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6463317801387422669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3050,6 +3056,12 @@ MonoBehaviour:
   rightShield: {fileID: 6463317800643064349}
   maxDurability: 200
   regenerationRate: 4
+  onActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6463317801387422671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3442,7 +3454,7 @@ MonoBehaviour:
       maxVelocity: 3.5
       velocityFactor: 0.3
       maxLegStretch: 0.9
-      rootSpeed: 1
+      rootSpeed: 20
       stepSpeed: 2
       stepHeight:
         serializedVersion: 2
@@ -5016,26 +5028,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -5052,6 +5044,26 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1

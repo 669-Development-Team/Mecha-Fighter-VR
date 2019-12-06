@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Action
 {
@@ -8,6 +9,8 @@ namespace Action
         [SerializeField] private Shield rightShield = null;
         [SerializeField] private float maxDurability = 200f;
         [SerializeField] private float regenerationRate = 4f;
+        [SerializeField] private UnityEvent onActivate = null;
+        [SerializeField] private UnityEvent onDeactivate = null;
 
         void Awake()
         {
@@ -25,11 +28,29 @@ namespace Action
         public void ToggleLeftShield(bool shieldTriggered)
         {
             leftShield.ToggleShield(shieldTriggered);
+
+            if (shieldTriggered)
+            {
+                onActivate.Invoke();
+            }
+            else
+            {
+                onDeactivate.Invoke();
+            }
         }
 
         public void ToggleRightShield(bool shieldTriggered)
         {
             rightShield.ToggleShield(shieldTriggered);
+
+            if (shieldTriggered)
+            {
+                onActivate.Invoke();
+            }
+            else
+            {
+                onDeactivate.Invoke();
+            }
         }
     }
 }
