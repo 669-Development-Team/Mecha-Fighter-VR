@@ -12,9 +12,9 @@ namespace Stats
         private void OnTriggerEnter(Collider other)
         {
             // Player picks up the pickup
-            if (other.CompareTag("Player"))
+            if (other.transform.root.CompareTag("Player"))
             {
-                GrantPickup(other.gameObject);
+                GrantPickup(other.transform.root.gameObject);
             }
         }
 

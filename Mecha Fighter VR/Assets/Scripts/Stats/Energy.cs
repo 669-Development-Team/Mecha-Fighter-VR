@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Stats
 {
     public class Energy : MonoBehaviour
     {
         [SerializeField] private float maxEnergy = 500f;
+        [SerializeField] private GameObject replenishEffect = null;
+        [Tooltip("Transform of the mech so that the effect spawns at the mech's feet")]
+        [SerializeField] private Transform mechRoot = null;
+
+        [SerializeField] private UnityEvent onReplenish = null;
 
         private float currentEnergy;
 
@@ -45,6 +51,10 @@ namespace Stats
             {
                 currentEnergy = Mathf.Min(currentEnergy + energyToRestore, maxEnergy);
             }
+
+            GameObject effect = Instantiate(replenishEffect, mechRoot);
+            Destroy(effect, 1f);
+            onReplenish.Invoke();
         }
     }
 }
