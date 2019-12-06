@@ -3623,7 +3623,7 @@ MonoBehaviour:
       maxVelocity: 3.5
       velocityFactor: 0.3
       maxLegStretch: 0.9
-      rootSpeed: 1
+      rootSpeed: 20
       stepSpeed: 2
       stepHeight:
         serializedVersion: 2
@@ -9174,11 +9174,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3846349447912078846}
     m_Modifications:
-    - target: {fileID: 4475587391408497984, guid: 136236182b68ca142a56834955411bcc,
-        type: 3}
-      propertyPath: m_Name
-      value: Shield Left HUD
-      objectReference: {fileID: 0}
     - target: {fileID: 3133580172400913317, guid: 136236182b68ca142a56834955411bcc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9284,6 +9279,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4475587391408497984, guid: 136236182b68ca142a56834955411bcc,
+        type: 3}
+      propertyPath: m_Name
+      value: Shield Left HUD
+      objectReference: {fileID: 0}
     - target: {fileID: 1665724699430250362, guid: 136236182b68ca142a56834955411bcc,
         type: 3}
       propertyPath: m_Camera
@@ -9322,11 +9322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3846349448427567622}
     m_Modifications:
-    - target: {fileID: 5863218635746173824, guid: dc20779f1d089c04eacf9c82d3926293,
-        type: 3}
-      propertyPath: m_Name
-      value: Equipped Shield Left
-      objectReference: {fileID: 0}
     - target: {fileID: 5863218635746173825, guid: dc20779f1d089c04eacf9c82d3926293,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9382,6 +9377,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 5863218635746173824, guid: dc20779f1d089c04eacf9c82d3926293,
+        type: 3}
+      propertyPath: m_Name
+      value: Equipped Shield Left
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc20779f1d089c04eacf9c82d3926293, type: 3}
 --- !u!4 &3846349447745610995 stripped
@@ -9409,11 +9409,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3846349448298758048}
     m_Modifications:
-    - target: {fileID: 4709077356972338465, guid: 69a085bfaac62bd4e909db8812e9ca2e,
-        type: 3}
-      propertyPath: m_Name
-      value: Equipped Shield Right
-      objectReference: {fileID: 0}
     - target: {fileID: 4709077356972338492, guid: 69a085bfaac62bd4e909db8812e9ca2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9468,6 +9463,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709077356972338465, guid: 69a085bfaac62bd4e909db8812e9ca2e,
+        type: 3}
+      propertyPath: m_Name
+      value: Equipped Shield Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69a085bfaac62bd4e909db8812e9ca2e, type: 3}
