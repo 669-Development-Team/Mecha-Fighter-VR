@@ -6,8 +6,8 @@ public class Constants
 
     //Constants
     public static readonly string CLIENT_VERSION = "1.00";
-    //public static readonly string REMOTE_HOST = "13.52.133.88";
-    public static readonly string REMOTE_HOST = "localhost";
+    public static readonly string REMOTE_HOST = "54.185.56.184";
+    //public static readonly string REMOTE_HOST = "localhost";
     public static readonly int REMOTE_PORT = 9252;
     public static readonly int updatesPerSecond = 30;
     public static readonly int maxUpdateNumber = 10000;
@@ -34,6 +34,8 @@ public class Constants
     public static readonly short SMSG_STARTGAME = 221;
     public static readonly short CMSG_JOINGAME = 122;
     public static readonly short SMSG_JOINGAME = 222;
+    public static readonly short CMSG_ENDGAME = 223;
+    public static readonly short SMSG_ENDGAME = 123;
 
 
     //Actions

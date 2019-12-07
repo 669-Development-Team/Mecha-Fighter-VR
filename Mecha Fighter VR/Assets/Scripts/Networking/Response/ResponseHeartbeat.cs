@@ -5,6 +5,9 @@ using UnityEngine;
 public class ResponseHeartbeat : NetworkResponse
 {
     private ConnectionManager connectionManager;
+    private GameObject opponentCamera;
+    private GameObject opponentLeftController;
+    private GameObject opponentRightController;
 
     public ResponseHeartbeat()
     {
@@ -14,6 +17,19 @@ public class ResponseHeartbeat : NetworkResponse
     override
     public void parse()
     {
+    }
+
+    //Get new references to the opponent's IK targets
+    public void init()
+    {
+        opponentCamera = GameObject.Find("Head Target");
+        opponentLeftController = GameObject.Find("Left Arm Target");
+        opponentRightController = GameObject.Find("Right Arm Target");
+    }
+
+    private Vector3 readVector3()
+    {
+        return new Vector3(DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream));
     }
 
     override
@@ -40,12 +56,13 @@ public class ResponseHeartbeat : NetworkResponse
         {
             if (!dropPacket)
             {
-                //Get the character this update is for
-                //Get the parameters for the character model
-                Vector3 position = new Vector3(DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream));
-                Vector3 lookAngle = new Vector3(DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream), DataReader.ReadFloat(dataStream));
-                float rotation = DataReader.ReadFloat(dataStream);
-                //Update the model
+                //Set the position and angles of the opponent's IK targets.
+                opponentCamera.transform.position = readVector3();
+                opponentCamera.transform.rotation = Quaternion.Euler(readVector3());
+                opponentLeftController.transform.position = readVector3();
+                opponentLeftController.transform.rotation = Quaternion.Euler(readVector3());
+                opponentRightController.transform.position = readVector3();
+                opponentRightController.transform.rotation = Quaternion.Euler(readVector3());
 
                 //Get the animator for the player
                 //Animator animator = Constants.components[character].animController;
@@ -56,22 +73,7 @@ public class ResponseHeartbeat : NetworkResponse
                 //Set the animation parameters based on the player
                 //foreach (string parameter in Constants.characterAnimations[character])
                 //    animator.SetBool(parameter, DataReader.ReadBool(dataStream));
-
-
-                //Get the length of the inventory array
-                int inventoryLength = DataReader.ReadShort(dataStream);
-
-                //Read all of the intentory items
-                for (int j = 0; j < inventoryLength; j++)
-                    DataReader.ReadShort(dataStream);
             }
-
-            //Get the length of the actions array
-            int actionsLength = DataReader.ReadShort(dataStream);
-
-            //Read all of the actions
-            for (int j = 0; j < actionsLength; j++)
-                DataReader.ReadShort(dataStream);
         }
 
         return null;
