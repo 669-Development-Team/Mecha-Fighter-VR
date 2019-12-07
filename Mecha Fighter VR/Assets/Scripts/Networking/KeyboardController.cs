@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Action;
 using UnityEngine;
 
 public class KeyboardController : MonoBehaviour
 {
-    private Action.MovementHandler playerController;
+    private MovementHandler playerController;
     [SerializeField]
     private float movementSpeed;
     private bool leftShieldActive = false;
@@ -12,7 +13,7 @@ public class KeyboardController : MonoBehaviour
 
     void Start()
     {
-        playerController = gameObject.GetComponent<Action.MovementHandler>();
+        playerController = GetComponent<MovementHandler>();
     }
 
     void Update()

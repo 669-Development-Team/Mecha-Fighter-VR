@@ -56,7 +56,7 @@ namespace Action
             // !! Collision checks are now performed with LAYERS !!
             Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, transform.rotation);
             projectile.gameObject.layer = gameObject.layer;
-            projectile.SetValues(gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
+//            projectile.SetValues(gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
             m_cooldownTimer = 0f;
         }
     }

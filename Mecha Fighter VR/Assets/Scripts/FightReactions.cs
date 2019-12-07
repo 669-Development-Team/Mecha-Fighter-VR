@@ -9,11 +9,12 @@ public class FightReactions : MonoBehaviour
 {
     public HitReactionVRIK hitReaction;
     [SerializeField] float hitForce = 1f;
+    private PlayerStats player;
 
     // Start is called before the first frame update
     void Awake()
     {
-        m_health = GetComponent<Health>();
+        player = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
