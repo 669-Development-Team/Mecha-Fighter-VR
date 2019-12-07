@@ -71,7 +71,7 @@ public class ControllerInteraction : MonoBehaviour
 
         foreach(RaycastHit hit in hitList)
         {
-            if (hit.transform.parent.tag == "Row")
+            if (hit.transform.parent != null && hit.transform.parent.tag == "Row")
             {
                 //If the collided object is different from the previous frame, update the materials
                 if (highlightedKey != hit.transform.gameObject)

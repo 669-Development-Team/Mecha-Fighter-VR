@@ -4,11 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class LoginUserManager : MonoBehaviour
 {
-    public TextMesh usernameText;
-    public TextMesh passwordText;
-
-    private string username = "";
-    private string password = "";
     private GameObject mainObject;
     private MessageQueue msgQueue;
     private ConnectionManager cManager;
@@ -29,10 +24,8 @@ public class LoginUserManager : MonoBehaviour
         }
     }
 
-    public void Login()
+    public void Login(string username, string password)
     {
-        username = usernameText.text.Trim();
-        password = passwordText.text.Trim();
         RequestLogin request = new RequestLogin();
         request.send(username, password);
         cManager.send(request);

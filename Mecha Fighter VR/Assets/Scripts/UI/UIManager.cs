@@ -16,15 +16,12 @@ public class UIManager : MonoBehaviour
     //Text field being edited if the onscreen keyboard is active
     private TextMesh textField;
     //Text field to display the name of the field being edited
-    [SerializeField]
-    private TextMesh fieldDisplay;
+    [SerializeField] private TextMesh fieldDisplay;
     //Text field to display what the onscreen keyboard types
-    [SerializeField]
-    private TextMesh keyboardInput;
+    [SerializeField] private TextMesh keyboardInput;
 
     //Speed at which menus open and close in seconds
-    [SerializeField]
-    private float menuLoadSpeed;
+    [SerializeField] private float menuLoadSpeed;
     //The percentage the menu needs to scale down every frame in order to dissapear in the specified time
     private float scalePerFrame;
     //A menu can be opening, closing, or neither
@@ -39,10 +36,24 @@ public class UIManager : MonoBehaviour
     //True if this is the first frame after the new screen loaded
     private bool firstFrameOfScreen = false;
 
+    //References to the login info
+    [SerializeField] private GameObject loginUser;
+    [SerializeField] private GameObject loginPass;
+    //Refereces to the registration info
+    [SerializeField] private GameObject registerUser;
+    [SerializeField] private GameObject registerEmail;
+    [SerializeField] private GameObject registerPass;
+
+    private RegisterUserManager registerManager;
+    private LoginUserManager loginManager;
+
     void Start()
     {
         //Get the level manager script form the main object
         GameObject mainObject = GameObject.Find("Main Object");
+        GameObject core = GameObject.Find("Core");
+        registerManager = core.GetComponent<RegisterUserManager>();
+        loginManager = core.GetComponent<LoginUserManager>();
 
         if (mainObject)
             levelManager = mainObject.GetComponent<LevelManager>();
@@ -216,12 +227,9 @@ public class UIManager : MonoBehaviour
     public void applySettings() { back(); }
     //Functions for loading the onscreen keyboard
     public void loadInputUser() { loadOnscreenKeyboard("Username"); }
+    public void loadInputEmail() { loadOnscreenKeyboard("Email"); }
     public void loadInputPass() { loadOnscreenKeyboard("Password"); }
-    public void loadInputPassConfirm() { loadOnscreenKeyboard("Confirm"); }
     public void confirmInput() { textField.text = keyboardInput.text; back(); }
-    //Make calls to the database for login and account creation
-    public void submitLogin() { clearInputs(); loadMainMenuSignedIn(); }
-    public void submitCreateAccount() { clearInputs(); loadMainMenuSignedIn(); }
     //Functions for only changing the menu screen
     public void loadMainMenuSignedOut() { loadScreen("Main Menu Signed Out"); }
     public void loadMainMenuSignedIn() { loadScreen("Main Menu Signed In"); }
@@ -230,9 +238,36 @@ public class UIManager : MonoBehaviour
     public void loadAuthorization() { loadScreen("Authorization"); }
     public void loadLogin() { loadScreen("Login"); }
     public void loadCreateAccount() { loadScreen("Create Account"); }
+
     public void loadFindMatch()
     {
         //loadScreen("Find Match");
         levelManager.loadScene("Sandbox");
+    }
+
+    //Make calls to the database for login and account creation
+    public void submitLogin()
+    {
+        //Verify
+
+        string username = loginUser.GetComponent<TextMesh>().text;
+        string password = loginPass.GetComponent<TextMesh>().text;
+
+        loginManager.Login(username, password);
+        clearInputs();
+        loadMainMenuSignedIn();
+    }
+
+    public void submitCreateAccount()
+    {
+        //Verify
+
+        string username = registerUser.GetComponent<TextMesh>().text;
+        string email = registerEmail.GetComponent<TextMesh>().text;
+        string password = registerPass.GetComponent<TextMesh>().text;
+
+        registerManager.Register(username, email, password);
+        clearInputs();
+        loadMainMenuSignedIn();
     }
 }
