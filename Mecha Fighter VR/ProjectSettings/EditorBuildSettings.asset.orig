@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/DontDestroyOnLoad.unity
+    guid: 211ee31e7222f4742af4b2b884aae055
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: d1c3109bdb54ad54c8a2b2838528e640
+<<<<<<< HEAD
+  - enabled: 1
+    path: Assets/Scenes/Sandbox.unity
+    guid: 99555dc595a88c948a8e194ad57f5b5b
+=======
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+>>>>>>> LabDev
+  m_configObjects: {}
