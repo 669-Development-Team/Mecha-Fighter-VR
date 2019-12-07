@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Action;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class KeyboardController : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class KeyboardController : MonoBehaviour
     private float movementSpeed;
     private bool leftShieldActive = false;
     private bool rightShieldActive = false;
+
+    [SerializeField] private UnityEvent projectileButtonDown = null;
+    [SerializeField] private UnityEvent groundPoundButtonDown = null;
+    [SerializeField] private UnityEvent uppercutButtonDown = null;
 
     void Start()
     {
@@ -35,40 +40,40 @@ public class KeyboardController : MonoBehaviour
         if (Input.GetKey("d"))
             displacement.x += 1;
 
-        displacement = displacement * movementSpeed * Time.deltaTime;
+        displacement = Time.deltaTime * movementSpeed * displacement;
 
         playerController.DoMovement(displacement);
     }
 
     private void checkAbilities()
     {
-        /*if (Input.GetKeyDown("l"))
-        {
-            if (!leftShieldActive)
-                playerController.enableLeftShield();
-            else
-                playerController.disableLeftShield();
-
-            leftShieldActive = !leftShieldActive;
-        }
-
-        if (Input.GetKeyDown("r"))
-        {
-            if (!rightShieldActive)
-                playerController.enableRightShield();
-            else
-                playerController.disableRightShield();
-
-            rightShieldActive = !rightShieldActive;
-        }
-
+//        if (Input.GetKeyDown("l"))
+//        {
+//            if (!leftShieldActive)
+//                playerController.enableLeftShield();
+//            else
+//                playerController.disableLeftShield();
+//
+//            leftShieldActive = !leftShieldActive;
+//        }
+//
+//        if (Input.GetKeyDown("r"))
+//        {
+//            if (!rightShieldActive)
+//                playerController.enableRightShield();
+//            else
+//                playerController.disableRightShield();
+//
+//            rightShieldActive = !rightShieldActive;
+//        }
+//
         if (Input.GetKeyDown("p"))
-            playerController.activateProjectile();
-
-        if (Input.GetKeyDown("u"))
-            playerController.activateUppercut();
+            projectileButtonDown.Invoke();
 
         if (Input.GetKeyDown("g"))
-            playerController.activateGroundPound();*/
+            groundPoundButtonDown.Invoke();
+
+        if (Input.GetKeyDown("u"))
+            uppercutButtonDown.Invoke();
     }
 }

@@ -1209,9 +1209,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusDamage: 10
-  energyCost: 100
+  energyCost: 20
   cooldown: 1
-  projectilePrefab: {fileID: 5073867441129137941, guid: d52daa16db2e6dd4d85cc33970a31651,
+  projectilePrefab: {fileID: 1109714676637891823, guid: 511201f62f45a5a49ad32d0248d8f3e3,
     type: 3}
   shootPoint: {fileID: 4534458764888900928}
   velocity: 8
@@ -1244,6 +1244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  projectileButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
+  groundPoundButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
+  uppercutButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4534458763952427801
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,13 +16,13 @@ public class AnimatedGestureAbility : GestureAbility
 	[SerializeField] private AudioClip activationSFX;
 	[Tooltip("Optional field: Sound effect that is played upon ability prefab instantiation")]
 	[SerializeField] private AudioClip instantiationSFX;
-	
+
 	private PlayerStats stats;
 	private AudioSource audioSource;
 	private Animator animator;
 	private AnimationListener animListener;
 	private bool isAnimating;
-	
+
 	void Start() {
 		stats = GetComponent<PlayerStats>();
 		audioSource = GetComponent<AudioSource>();
@@ -30,29 +30,30 @@ public class AnimatedGestureAbility : GestureAbility
 		animListener = new AnimationListener(this, animStateName, null, OnAnimationExit);
 		isAnimating = false;
 	}
-	
+
 	public override void ActivateAbility() { if (isAnimating) return;
-	
+
 		Debug.Log(animStateName + " ability was activated!");
-		
+
 		if (stats.DepleteEnergy(energyCost)) {
 			if (activationSFX != null) 	audioSource.PlayOneShot(activationSFX);
-			animator.SetTrigger(animStateName); 
+			animator.SetTrigger(animStateName);
 			isAnimating = true;
 		}
 	}
-	
+
 	void InstantiateFX(string stateName) { if (stateName != animStateName) return;
-	
+
 		if (abilityPrefab != null && spawnPoint != null) 	{
 			var prefab = Instantiate(abilityPrefab, spawnPoint.position, spawnPoint.rotation);
 			// set the prefab layer according to which player this is
-			prefab.layer = gameObject.layer == 12 ? LayerMask.NameToLayer("PlayerProjectile") : LayerMask.NameToLayer("OpponentProjectile");
-			
+//			prefab.layer = gameObject.layer == 12 ? LayerMask.NameToLayer("PlayerProjectile") : LayerMask.NameToLayer("OpponentProjectile");
+			prefab.layer = gameObject.layer;
+
 			if (instantiationSFX != null) audioSource.PlayOneShot(instantiationSFX);
 		}
 	}
-	
+
 	private void OnAnimationExit() {
 		isAnimating = false;
 	}
