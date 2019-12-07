@@ -7,54 +7,60 @@ namespace Control
 {
     public class PlayerController : MonoBehaviour
     {
+		
         /// <summary>
         /// SteamVR input actions
         /// </summary>
         [SerializeField] private SteamVR_Action_Vector2 joystick = null;
         [SerializeField] private SteamVR_Action_Boolean trigger = null;
-        [SerializeField] private SteamVR_Action_Boolean gripAction = null;
+        //[SerializeField] private SteamVR_Action_Boolean gripAction = null;
 
-        [Tooltip("Left controller Game Object transform")]
-        [SerializeField] private Transform leftHandTransform = null;
-        [Tooltip("Right controller Game Object transform")]
-        [SerializeField] private Transform rightHandTransform = null;
+        //[Tooltip("Left controller Game Object transform")]
+        //[SerializeField] private Transform leftHandTransform = null;
+        //[Tooltip("Right controller Game Object transform")]
+        //[SerializeField] private Transform rightHandTransform = null;
 
         [Tooltip("GameObject that the player will always be facing and attacking")]
-        [SerializeField] private Health opponent = null;
+        [SerializeField] private PlayerStats opponent = null;
 
         /// <summary>
         /// Values read from SteamVR input actions
         /// </summary>
-        private Vector3 leftGripDownPosition;       // Input from left grip pressed and left hand position
-        private Vector3 rightGripDownPosition;      // Input from right grip pressed and right hand position
-        private Vector3 leftGripUpPosition;         // Input from left grip released and right hand position
-        private Vector3 rightGripUpPosition;        // Input from right grip released and right hand position
+        //private Vector3 leftGripDownPosition;       // Input from left grip pressed and left hand position
+        //private Vector3 rightGripDownPosition;      // Input from right grip pressed and right hand position
+        //private Vector3 leftGripUpPosition;         // Input from left grip released and right hand position
+        //private Vector3 rightGripUpPosition;        // Input from right grip released and right hand position
 
         /// <summary>
         /// GameObject components
         /// </summary>
-        private Animator animator = null;
+        /*
         private GestureHandler gestureHandler = null;
         private GroundPoundAbility groundPoundAbility = null;
-        private MovementHandler movementHandler = null;
         private ProjectileAbility projectileAbility = null;
-        private ShieldAbility shieldAbility = null;
-        private UppercutAbility uppercutAbility = null;
+        private UppercutAbility uppercutAbility = null;*/
 
         /// <summary>
         /// Get values
         /// </summary>
         public static Vector3 getMovementValue;
+		
+		private Animator animator = null;
+		private ShieldAbility shieldAbility = null;
+		private MovementHandler movementHandler = null;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            gestureHandler = GetComponent<GestureHandler>();
+            /*gestureHandler = GetComponent<GestureHandler>();
             groundPoundAbility = GetComponent<GroundPoundAbility>();
-            movementHandler = GetComponent<MovementHandler>();
             projectileAbility = GetComponent<ProjectileAbility>();
-            shieldAbility = GetComponent<ShieldAbility>();
-            uppercutAbility = GetComponent<UppercutAbility>();
+            uppercutAbility = GetComponent<UppercutAbility>();*/
+			
+			shieldAbility = GetComponent<ShieldAbility>();
+			movementHandler = GetComponent<MovementHandler>();
+
+            //Debug.Log(animator.GetCurrentAnimatorStateInfo(0));
         }
 
         private void Start()
@@ -65,10 +71,10 @@ namespace Control
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.LeftHand);
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
 
-            gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
+            /*gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.LeftHand);
             gripAction.AddOnStateDownListener(GripDown, SteamVR_Input_Sources.RightHand);
-            gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);
+            gripAction.AddOnStateUpListener(GripUp, SteamVR_Input_Sources.RightHand);*/
         }
 
         // Movement with left stick
@@ -115,7 +121,7 @@ namespace Control
             if (fromSource == SteamVR_Input_Sources.RightHand) shieldAbility.ToggleRightShield(newState);
         }
 
-        private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
+        /*private void GripDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
         {
             // Record left hand start position
             if (fromSource == SteamVR_Input_Sources.LeftHand)
@@ -181,6 +187,6 @@ namespace Control
             leftGripUpPosition = Vector3.zero;
             rightGripDownPosition = Vector3.zero;
             rightGripUpPosition = Vector3.zero;
-        }
+        }*/
     }
 }

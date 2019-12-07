@@ -29,12 +29,12 @@ namespace Stats
         {
             if (healthToRestore > 0f)
             {
-                subject.GetComponent<Health>().Heal(healthToRestore);
+                subject.GetComponent<PlayerStats>().Heal(healthToRestore);
             }
 
             if (energyToRestore > 0f)
             {
-                subject.GetComponent<Energy>().Replenish(energyToRestore);
+                subject.GetComponent<PlayerStats>().Replenish(energyToRestore);
             }
 
             // Weapon pickup disappears for some time and respawns after

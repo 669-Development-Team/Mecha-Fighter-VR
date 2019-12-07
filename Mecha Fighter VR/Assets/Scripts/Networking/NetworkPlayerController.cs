@@ -19,17 +19,17 @@ public class NetworkPlayerController : MonoBehaviour
 
     //Ability scripts attatched to the opponent
     private ShieldAbility shieldScript;
-    private ProjectileAbility projectileScript;
-    private UppercutAbility uppercutScript;
-    private GroundPoundAbility groundPoundScipt;
+    //private ProjectileAbility projectileScript;
+    //private UppercutAbility uppercutScript;
+    //private GroundPoundAbility groundPoundScipt;
 
     private void Start()
     {
         //Get references to all of the ability scripts
         shieldScript = gameObject.GetComponent<ShieldAbility>();
-        projectileScript = gameObject.GetComponent<ProjectileAbility>();
-        uppercutScript = gameObject.GetComponent<UppercutAbility>();
-        groundPoundScipt = gameObject.GetComponent<GroundPoundAbility>();
+        //projectileScript = gameObject.GetComponent<ProjectileAbility>();
+        //uppercutScript = gameObject.GetComponent<UppercutAbility>();
+        //roundPoundScipt = gameObject.GetComponent<GroundPoundAbility>();
     }
 
     //Set the position of the opponnent
@@ -64,16 +64,16 @@ public class NetworkPlayerController : MonoBehaviour
 
     public void activateProjectile()
     {
-        projectileScript.ActivateAbility();
+        //projectileScript.ActivateAbility();
     }
 
     public void activateUppercut()
     {
-        uppercutScript.ActivateAbility(null);
+        //uppercutScript.ActivateAbility(null);
     }
 
     public void activateGroundPound()
     {
-        groundPoundScipt.ActivateAbility(null);
+        //groundPoundScipt.ActivateAbility(null);
     }
 }

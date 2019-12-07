@@ -6,8 +6,8 @@ using Stats;
 public class GameStateManager : MonoBehaviour
 {
     public float slowdownFactor = .005f;
-    public float slowdownLength = 10f;
-    private bool gameOver = false;
+    public float slowdownLength = 3f;
+    public bool gameOver = false;
     private string winner;
 
     private int pointsPlayer = 0;
@@ -16,14 +16,20 @@ public class GameStateManager : MonoBehaviour
     public AudioSource startSound;
     public AudioSource koSound;
 
+    public static GameStateManager instance;
+
 
     void Start()
     {
+        instance = this;
         startSound.Play();
     }
+
+    bool stopTime = false;
+
     void Update()
     {
-        if (gameOver == true)
+        if (gameOver == true && !stopTime)
         {
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
@@ -55,8 +61,9 @@ public class GameStateManager : MonoBehaviour
 
     void EndGame()
     {
-        koSound.Play();
+    
         gameOver = false;
+        stopTime = true;
         Time.timeScale = 0;
     }
 

@@ -21,7 +21,7 @@ namespace Action
             // !! May need to reconfigure layers when multiplayer is introduced !!
             Projectile bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
             bullet.gameObject.layer = LayerMask.NameToLayer("OpponentProjectile");
-            bullet.SetValues(gameObject, 10f, 20f);
+            //bullet.SetValues(gameObject, 10f, 20f);
         }
     }
 }

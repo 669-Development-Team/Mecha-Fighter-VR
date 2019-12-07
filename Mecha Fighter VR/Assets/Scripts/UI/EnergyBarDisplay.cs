@@ -17,7 +17,7 @@ namespace UI
         public TextMeshProUGUI energyPercentageText;
         public RectTransform energyBar;
 
-        [SerializeField] private Energy energy = null;
+        [SerializeField] private PlayerStats energy = null;
 
         void Update()
         {

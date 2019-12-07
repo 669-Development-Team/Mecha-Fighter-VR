@@ -1,12 +1,9 @@
-using Stats;
 using UnityEngine;
 
 namespace Action
 {
-    [RequireComponent(typeof(DamageStat))]
     public class ProjectileAbility : MonoBehaviour
     {
-        [SerializeField] private float bonusDamage = 10f;
         [SerializeField] private float energyCost = 100f;
         [SerializeField] private float cooldown = 1f;
         [SerializeField] private Projectile projectilePrefab = null;
@@ -17,14 +14,12 @@ namespace Action
         private float m_cooldownTimer = Mathf.Infinity;
 
         private Animator m_animator;
-        private DamageStat m_damageStat;
-        private Energy m_energy;
+        private PlayerStats m_playerStats;
 
         private void Awake()
         {
             m_animator = GetComponent<Animator>();
-            m_damageStat = GetComponent<DamageStat>();
-            m_energy = GetComponent<Energy>();
+            m_playerStats = GetComponent<PlayerStats>();
         }
 
         private void Update()
@@ -40,7 +35,7 @@ namespace Action
             }
 
             // Check sufficient energy
-            if (!m_energy.Deplete(energyCost))
+            if (!m_playerStats.DepleteEnergy(energyCost))
             {
                 return;
             }
@@ -49,14 +44,15 @@ namespace Action
             Debug.Log("Projectile gesture performed!");
         }
 
-        public void InstantiateProjectileFx()
+        // Animation event, called at a certain point in the animation
+        public void InstantiateFX()
         {
             Debug.Log("instantiating");
 
             // !! Collision checks are now performed with LAYERS !!
             Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, transform.rotation);
             projectile.gameObject.layer = gameObject.layer;
-            projectile.SetValues(gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
+//            projectile.SetValues(gameObject, velocity, m_damageStat.GetSpecialDamage() + bonusDamage);
             m_cooldownTimer = 0f;
         }
     }

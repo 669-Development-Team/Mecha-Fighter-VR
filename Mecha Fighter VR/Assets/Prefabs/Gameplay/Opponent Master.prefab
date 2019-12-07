@@ -917,18 +917,16 @@ GameObject:
   - component: {fileID: 4534458763952427810}
   - component: {fileID: 4534458763952427811}
   - component: {fileID: 4534458763952427808}
-  - component: {fileID: 4534458763952427809}
-  - component: {fileID: 4534458763952427814}
   - component: {fileID: 4534458763952427815}
   - component: {fileID: 4534458763952427812}
   - component: {fileID: 4534458763952427813}
-  - component: {fileID: 4534458763952427818}
-  - component: {fileID: 4534458763952427819}
   - component: {fileID: 4534458763952427816}
   - component: {fileID: 4534458763952427817}
   - component: {fileID: 4534458763952427801}
   - component: {fileID: 4534458763952427800}
   - component: {fileID: 4534458763952427804}
+  - component: {fileID: 49794928}
+  - component: {fileID: 49794929}
   m_Layer: 13
   m_Name: Opponent Master
   m_TagString: Opponent
@@ -943,7 +941,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4534458763952427823}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 7.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -972,7 +970,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &4534458763952427822
 CapsuleCollider:
@@ -1140,69 +1138,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 41af3b845d0a506458871575368184a6, type: 3}
   - {fileID: 8300000, guid: 46e8736298f2c154e9df8af45a6944a1, type: 3}
   - {fileID: 8300000, guid: 4b682e69030509e41829aa5f9cde66a5, type: 3}
---- !u!114 &4534458763952427809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4534458763952427823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d621ba0cfaae43f6ad53f8b99a9f088d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 500
-  defense: 0
-  audioSource: {fileID: 4534458763952427810}
-  hitImpactSfx:
-  - {fileID: 8300000, guid: 6ec412fbfa94ea048998455dfd8b2d0a, type: 3}
-  - {fileID: 8300000, guid: c81cfc2994a52a145ae356d06bb0b3f9, type: 3}
-  - {fileID: 8300000, guid: d43f7c3034d81eb4eb42df83d4484986, type: 3}
-  - {fileID: 8300000, guid: 7660ce51fb662cb498d963514122524f, type: 3}
-  onTakeDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1296858684559261256}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4534458763952427814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4534458763952427823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5099a12fa4a4867b80ef706703cfed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxEnergy: 500
-  replenishEffect: {fileID: 0}
-  mechRoot: {fileID: 0}
-  onReplenish:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1296858683532713118}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4534458763952427815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,46 +1209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusDamage: 10
-  energyCost: 100
+  energyCost: 20
   cooldown: 1
-  projectilePrefab: {fileID: 5073867441129137941, guid: d52daa16db2e6dd4d85cc33970a31651,
+  projectilePrefab: {fileID: 1109714676637891823, guid: 511201f62f45a5a49ad32d0248d8f3e3,
     type: 3}
   shootPoint: {fileID: 4534458764888900928}
   velocity: 8
---- !u!114 &4534458763952427818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4534458763952427823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae11ed5d197442ff93cda5f1dbd3ae56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusDamage: 10
-  energyCost: 100
-  cooldown: 1
-  activationSfx: {fileID: 8300000, guid: ff7929ad350820b4b8b16989c6f8cf77, type: 3}
---- !u!114 &4534458763952427819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4534458763952427823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607231a2363043c0a3cd0d1bddf252d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusDamage: 10
-  energyCost: 100
-  cooldown: 4
-  groundPoundPrefab: {fileID: 431573502327755075, guid: 8b74b472c0179c74c8cc8fcb0f344714,
-    type: 3}
-  effectSpawnPoint: {fileID: 4534458764888900928}
 --- !u!114 &4534458763952427816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  projectileButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
+  groundPoundButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
+  uppercutButtonDown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4534458763952427801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,7 +1268,7 @@ MonoBehaviour:
   notes: Health bar from the _ (HUD or mech?)
   healthPercentageText: {fileID: 101069770512304548}
   healthBar: {fileID: 4499425384274789221}
-  health: {fileID: 4534458763952427809}
+  health: {fileID: 49794929}
 --- !u!114 &4534458763952427800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,6 +1705,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitReaction: {fileID: 4534458765005019416}
   hitForce: 1
+--- !u!114 &49794928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534458763952427823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820f36beb67840af809eeaec929106a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+--- !u!114 &49794929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534458763952427823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6c86d0758c82e4195a243025bba437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthRegen: 0.01
+  maxEnergy: 100
+  energyRegen: 0.01
+  baseDamage: 10
+  audioSource: {fileID: 4534458763952427810}
+  hitImpactSfx:
+  - {fileID: 8300000, guid: 6ec412fbfa94ea048998455dfd8b2d0a, type: 3}
+  - {fileID: 8300000, guid: c81cfc2994a52a145ae356d06bb0b3f9, type: 3}
+  - {fileID: 8300000, guid: d43f7c3034d81eb4eb42df83d4484986, type: 3}
+  - {fileID: 8300000, guid: 7660ce51fb662cb498d963514122524f, type: 3}
+  replenishEffect: {fileID: 3902317475345271782, guid: e0547933e279f7243981f71b13515e32,
+    type: 3}
+  mechRoot: {fileID: 4534458763634672927}
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1296858684559261256}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onReplenish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1296858683532713118}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4534458763963481650
 GameObject:
   m_ObjectHideFlags: 0
@@ -5073,54 +5050,8 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1529239252991785560, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578665842764225791, guid: f54b33982596c094caa72f2dcb038c84,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54b33982596c094caa72f2dcb038c84, type: 3}
---- !u!224 &5134146413172079043 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8767810067613363352, guid: f54b33982596c094caa72f2dcb038c84,
-    type: 3}
-  m_PrefabInstance: {fileID: 4534458763511829851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4499425384274789221 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 44061505990465086, guid: f54b33982596c094caa72f2dcb038c84,
@@ -5139,6 +5070,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &5134146413172079043 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8767810067613363352, guid: f54b33982596c094caa72f2dcb038c84,
+    type: 3}
+  m_PrefabInstance: {fileID: 4534458763511829851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4534458763971035914
 PrefabInstance:
   m_ObjectHideFlags: 0
