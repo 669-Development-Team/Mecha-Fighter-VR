@@ -2,6 +2,7 @@ using Stats;
 using TMPro;
 using UnityEngine;
 
+
 namespace UI
 {
     public class HealthBarDisplay : MonoBehaviour
@@ -14,28 +15,20 @@ namespace UI
         public TextMeshProUGUI healthPercentageText;
         public RectTransform healthBar;
 
-        [SerializeField] private Health health = null;
+        public PlayerStats health;
 
         void Update()
         {
             /*
              * The question marks "?" is a shorthand way of checking each component for null before calling a function on them
              */
-            //healthPercentageText?.SetText($"{health.GetHealthPercentage():0}%");
-            //healthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
-        }
-
-        private void Start()
-        {
-            // Starts with default size and % Text
-            healthPercentageText?.SetText("100%");
-            
+            healthPercentageText?.SetText($"{health.GetHealthPercentage():0}%");
+            healthBar?.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health.GetHealthPercentage());
         }
 
         // Only Opponent has a collider
         private void OnCollisionEnter(Collision collision)
         {
-            //Reduce Enemy's bar size and health text to 0 when touching lava
             if (collision.gameObject.tag == "Lava")
             {
                 healthPercentageText?.SetText("0%");
@@ -46,7 +39,6 @@ namespace UI
         // Only Player has a trigger
         private void OnTriggerEnter(Collider other)
         {
-            //Reduce Player's bar size and health text to 0 when touching lava
             if (other.gameObject.tag == "Lava")
             {
                 healthPercentageText?.SetText("0%");

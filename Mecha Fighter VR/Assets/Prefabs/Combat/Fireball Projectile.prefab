@@ -262,7 +262,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8890110617953900304}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
@@ -375,9 +375,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91163a46ed7c450d987c3dfd6982878a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 10
+  damage: 50
+  hitStun: 0.5
+  velocity: 8
   impactVfxPrefab: {fileID: 4484318258963729763, guid: f4a5478a2b4bae84db3bf1a92636a6c9,
     type: 3}
-  maxLifetime: 10
 --- !u!1 &8890110618436946636
 GameObject:
   m_ObjectHideFlags: 0

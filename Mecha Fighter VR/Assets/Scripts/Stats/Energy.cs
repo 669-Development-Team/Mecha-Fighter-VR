@@ -25,6 +25,8 @@ namespace Stats
             {
                 currentEnergy = Mathf.Min(currentEnergy + 10f * Time.deltaTime, maxEnergy);
             }
+
+            currentEnergy = maxEnergy;
         }
 
         // Percentage of current / max, used for HUD

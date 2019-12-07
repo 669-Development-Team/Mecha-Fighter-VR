@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - projectile
+  - FxTemporaire
+  - Character 1
+  - Character 2
+  - Burnable
+  - Button
+  - Menu Screen
+  - Keyboard Input
+  - Opponent
+  - Hologram Menu Canvas
+  - Row
+  - Keyboard Backing
+<<<<<<< HEAD
+  - Lava
+=======
+  - Powerup
+>>>>>>> LabDev
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - 
+  - 
+  - 
+  - Player
+  - Opponent
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

@@ -15,6 +15,7 @@ public class VisualEffects : MonoBehaviour
     public float TrailAppearsWhenGreaterThan;
 
 
+
     private void Start()
     {
         previousframe = transform.position;
@@ -26,8 +27,6 @@ public class VisualEffects : MonoBehaviour
         float movementPerFrame = Vector3.Distance(previousframe, transform.position);
         velocity = movementPerFrame / Time.deltaTime;
         previousframe = transform.position;
-
-
 
         //Make trails appear whenever you swing fast with the controller && not moving the player with joystick
         if (velocity > TrailAppearsWhenGreaterThan && PlayerController.getMovementValue == new Vector3(0,0,0))
@@ -48,14 +47,24 @@ public class VisualEffects : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Opponent")
-        {
-            GameObject temp;
-            Hit.transform.localScale = new Vector3(velocity / 10f, velocity / 10f, velocity / 10f);
-            temp = Instantiate(Hit, transform.position, transform.rotation);
-            Destroy(temp, 2f);
-        }
+        float force = (collision.impulse / Time.deltaTime).magnitude;
 
+        force *= 0.001f;
+        GameObject temp;
+        Hit.transform.localScale = new Vector3(force, force, force);
+        temp = Instantiate(Hit, transform.position, transform.rotation);
+        Destroy(temp, 2f);
+
+        GameObject root = getRootObject(collision.gameObject);
+
+        if (root.tag == "Opponent") {
+            root.GetComponent<PlayerStats>().TakeDamage(1);
+            GameStateManager.instance.addPoints(false, 100);
+        }
+        else if (root.tag == "Player") {
+            root.GetComponent<PlayerStats>().TakeDamage(1);
+            GameStateManager.instance.addPoints(true, 100);
+        }
 
         /*
         if(collision.gameObject.tag == "Burnable")
@@ -66,5 +75,13 @@ public class VisualEffects : MonoBehaviour
             Destroy(burnable, 3f);
         }
         */
+    }
+
+    GameObject getRootObject(GameObject o) {
+        Transform curr = o.transform;
+        while (curr.parent != null) {
+            curr = curr.parent;
+        }
+        return curr.gameObject;
     }
 }
