@@ -58,10 +58,12 @@ public class CameraEffects : MonoBehaviour
         if (isEffectStarted)
         {
             timer = Mathf.Min(timer + Time.deltaTime * effectSpeed, 1f);
+            depthOfFieldLayer.enabled.value = true;
         }
         else
         {
             timer = Mathf.Max(timer - Time.deltaTime * restoreSpeed, 0f);
+            depthOfFieldLayer.enabled.value = false;
         }
 
         // Increase or decrease intensity of vignette, chromatic aberration, saturation, and depth of field
