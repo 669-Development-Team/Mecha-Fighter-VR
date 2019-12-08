@@ -5,6 +5,9 @@ using UnityEngine;
 public class ResponseHeartbeat : NetworkResponse
 {
     private ConnectionManager connectionManager;
+    //The opponent and player's animators
+    private static Animator opponentAnim;
+    //Opponent references
     private static GameObject opponentRoot;
     private static GameObject opponentCamera;
     private static GameObject opponentLeftController;
@@ -24,6 +27,7 @@ public class ResponseHeartbeat : NetworkResponse
     public static void init()
     {
         opponentRoot = GameObject.FindGameObjectWithTag("Opponent");
+        opponentAnim = opponentRoot.GetComponent<Animator>();
         opponentCamera = GameObject.Find("Head Target");
         opponentLeftController = GameObject.Find("Left Arm Target");
         opponentRightController = GameObject.Find("Right Arm Target");
@@ -67,15 +71,11 @@ public class ResponseHeartbeat : NetworkResponse
             opponentRightController.transform.position = readVector3();
             opponentRightController.transform.rotation = Quaternion.Euler(readVector3());
 
-            //Get the animator for the player
-            //Animator animator = Constants.components[character].animController;
+            //Get any triggers and apply them to the opponent
+            Constants.animParam trigger = (Constants.animParam)DataReader.ReadInt(dataStream);
 
-            //Set the speed of the animation
-            //animator.SetFloat("Speed", DataReader.ReadFloat(dataStream));
-
-            //Set the animation parameters based on the player
-            //foreach (string parameter in Constants.characterAnimations[character])
-            //    animator.SetBool(parameter, DataReader.ReadBool(dataStream));
+            if (trigger != Constants.animParam.None)
+                opponentAnim.SetTrigger(trigger.ToString());
         }
 
         return null;

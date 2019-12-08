@@ -31,9 +31,18 @@ public class AnimatedGestureAbility : GestureAbility
 		isAnimating = false;
 	}
 
+    public string getAnimName()
+    {
+        return animStateName;
+    }
+
 	public override void ActivateAbility() { if (isAnimating) return;
 
 		Debug.Log(animStateName + " ability was activated!");
+
+        //Send the trigger to the opponent over the net
+        Constants.animParam trigger = (Constants.animParam)System.Enum.Parse(typeof(Constants.animParam), animStateName);
+        RequestPushUpdate.setTrigger(trigger);
 
 		if (stats.DepleteEnergy(energyCost)) {
 			if (activationSFX != null) 	audioSource.PlayOneShot(activationSFX);

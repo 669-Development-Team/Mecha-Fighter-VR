@@ -55,6 +55,8 @@ public class Constants
 
     public static int USER_ID = -1;
 
-    //Animation Parameters
-    public static readonly string[] animParams = { "isJumping", "isWalking", "isShooting", "isRunning", "isForward", "isBackward", "isLeft", "isRight" };
+    public enum animParam
+    {
+        None, Uppercut, GroundPound, Projectile, HitH
+    }
 }

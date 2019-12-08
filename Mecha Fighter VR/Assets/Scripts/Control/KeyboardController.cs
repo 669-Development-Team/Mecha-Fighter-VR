@@ -12,10 +12,6 @@ public class KeyboardController : MonoBehaviour
     private bool leftShieldActive = false;
     private bool rightShieldActive = false;
 
-    [SerializeField] private UnityEvent projectileButtonDown = null;
-    [SerializeField] private UnityEvent groundPoundButtonDown = null;
-    [SerializeField] private UnityEvent uppercutButtonDown = null;
-
     void Start()
     {
         playerController = GetComponent<MovementHandler>();
@@ -56,33 +52,21 @@ public class KeyboardController : MonoBehaviour
 
     private void checkAbilities()
     {
-//        if (Input.GetKeyDown("l"))
-//        {
-//            if (!leftShieldActive)
-//                playerController.enableLeftShield();
-//            else
-//                playerController.disableLeftShield();
-//
-//            leftShieldActive = !leftShieldActive;
-//        }
-//
-//        if (Input.GetKeyDown("r"))
-//        {
-//            if (!rightShieldActive)
-//                playerController.enableRightShield();
-//            else
-//                playerController.disableRightShield();
-//
-//            rightShieldActive = !rightShieldActive;
-//        }
-//
+        string abilityToActivate = "";
+
         if (Input.GetKeyDown("p"))
-            projectileButtonDown.Invoke();
-
+            abilityToActivate = "Projectile";
         if (Input.GetKeyDown("g"))
-            groundPoundButtonDown.Invoke();
-
+            abilityToActivate = "GroundPound";
         if (Input.GetKeyDown("u"))
-            uppercutButtonDown.Invoke();
+            abilityToActivate = "Uppercut";
+
+        AnimatedGestureAbility[] guestureScripts = GetComponents<AnimatedGestureAbility>();
+
+        foreach(AnimatedGestureAbility script in guestureScripts)
+        {
+            if (script.getAnimName() == abilityToActivate)
+                script.ActivateAbility();
+        }
     }
 }

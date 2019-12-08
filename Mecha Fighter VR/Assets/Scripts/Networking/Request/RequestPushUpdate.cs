@@ -7,6 +7,8 @@ public class RequestPushUpdate : NetworkRequest
     private static GameObject playerCamera;
     private static GameObject playerLeftController;
     private static GameObject playerRightController;
+    //Temporarily store  trigger before it is sent
+    private static Constants.animParam trigger = Constants.animParam.None;
 
     public RequestPushUpdate()
     {
@@ -19,6 +21,12 @@ public class RequestPushUpdate : NetworkRequest
         playerCamera = GameObject.Find("Head Target for Mech IK");
         playerLeftController = GameObject.Find("Left Hand Target for Mech IK");
         playerRightController = GameObject.Find("Right Hand Target for Mech IK");
+    }
+
+    //Store a trigger to be sent
+    public static void setTrigger(Constants.animParam newTrigger)
+    {
+        trigger = newTrigger;
     }
 
     //Add the position of the given object to the packet
@@ -49,15 +57,10 @@ public class RequestPushUpdate : NetworkRequest
         addPosition(packet, playerRightController);
         addRotation(packet, playerRightController);
 
-        ////Get the animation controller
-        //Animator animator = player.GetComponent<Animator>();
-
-        ////Add the speed of the animation
-        //packet.addFloat32(animator.GetFloat("Speed"));
-
-        ////Add the parameters for the specific character
-        //foreach (string param in Constants.animParams)
-        //    packet.addBool(animator.GetBool(param));
+        //Send the trigger if there is one
+        packet.addInt32((int)trigger);
+        //Reset the trigger
+        trigger = Constants.animParam.None;
 
         return;
     }
