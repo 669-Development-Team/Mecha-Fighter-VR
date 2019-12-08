@@ -7,8 +7,8 @@ using UnityEngine.Events;
 public class KeyboardController : MonoBehaviour
 {
     private MovementHandler playerController;
-    [SerializeField]
-    private float movementSpeed;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private PlayerStats opponent = null;
     private bool leftShieldActive = false;
     private bool rightShieldActive = false;
 
@@ -40,9 +40,18 @@ public class KeyboardController : MonoBehaviour
         if (Input.GetKey("d"))
             displacement.x += 1;
 
-        displacement = Time.deltaTime * movementSpeed * displacement;
+        displacement = displacement.x * transform.right + displacement.z * transform.forward;
+        displacement *= Time.deltaTime * movementSpeed;
 
         playerController.DoMovement(displacement);
+
+        // Always look at opponent
+        if (opponent != null)
+        {
+            // Only rotate y-axis
+            Vector3 lookDirection = new Vector3(opponent.transform.position.x, transform.position.y, opponent.transform.position.z);
+            transform.LookAt(lookDirection);
+        }
     }
 
     private void checkAbilities()
