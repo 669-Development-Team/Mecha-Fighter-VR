@@ -65,6 +65,8 @@ public class NetworkManager : MonoBehaviour
                         yield return null;
 
                     gameState = GameState.INGAME;
+                    RequestPushUpdate.init();
+                    ResponseHeartbeat.init();
 
                     break;
 

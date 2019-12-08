@@ -5,9 +5,9 @@ using UnityEngine;
 public class ResponseHeartbeat : NetworkResponse
 {
     private ConnectionManager connectionManager;
-    private GameObject opponentCamera;
-    private GameObject opponentLeftController;
-    private GameObject opponentRightController;
+    private static GameObject opponentCamera;
+    private static GameObject opponentLeftController;
+    private static GameObject opponentRightController;
 
     public ResponseHeartbeat()
     {
@@ -20,7 +20,7 @@ public class ResponseHeartbeat : NetworkResponse
     }
 
     //Get new references to the opponent's IK targets
-    public void init()
+    public static void init()
     {
         opponentCamera = GameObject.Find("Head Target");
         opponentLeftController = GameObject.Find("Left Arm Target");
@@ -40,7 +40,7 @@ public class ResponseHeartbeat : NetworkResponse
 
         //The number of the incomming update
         int updateNumber = DataReader.ReadShort(dataStream);
-        int lastUpdateNumber = GameObject.Find("MainObject").GetComponent<ConnectionManager>().getUpdateNumber();
+        int lastUpdateNumber = GameObject.Find("Main Object").GetComponent<ConnectionManager>().getUpdateNumber();
 
         if (updateNumber <= lastUpdateNumber && (lastUpdateNumber - updateNumber) <= Constants.maxUpdateDistance)
         {

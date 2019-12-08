@@ -4,9 +4,9 @@ using System;
 public class RequestPushUpdate : NetworkRequest
 {
     //A reference to the IK targets of the player
-    private GameObject playerCamera;
-    private GameObject playerLeftController;
-    private GameObject playerRightController;
+    private static GameObject playerCamera;
+    private static GameObject playerLeftController;
+    private static GameObject playerRightController;
 
     public RequestPushUpdate()
     {
@@ -14,7 +14,7 @@ public class RequestPushUpdate : NetworkRequest
     }
 
     //Get new references to the player's IK targets
-    public void init()
+    public static void init()
     {
         playerCamera = GameObject.Find("Camera");
         playerLeftController = GameObject.Find("Controller (left)");
