@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResponseHeartbeat : NetworkResponse
 {
     private ConnectionManager connectionManager;
+    private static GameObject opponentRoot;
     private static GameObject opponentCamera;
     private static GameObject opponentLeftController;
     private static GameObject opponentRightController;
@@ -22,6 +23,7 @@ public class ResponseHeartbeat : NetworkResponse
     //Get new references to the opponent's IK targets
     public static void init()
     {
+        opponentRoot = GameObject.FindGameObjectWithTag("Opponent");
         opponentCamera = GameObject.Find("Head Target");
         opponentLeftController = GameObject.Find("Left Arm Target");
         opponentRightController = GameObject.Find("Right Arm Target");
@@ -52,8 +54,13 @@ public class ResponseHeartbeat : NetworkResponse
 
         if (!dropPacket)
         {
+            Vector3 headPosition = readVector3();
+
+            //Set the position of the opponent's root
+            opponentRoot.transform.position = new Vector3(headPosition.x, 0, headPosition.z);
+
             //Set the position and angles of the opponent's IK targets.
-            opponentCamera.transform.position = readVector3();
+            opponentCamera.transform.position = headPosition;
             opponentCamera.transform.rotation = Quaternion.Euler(readVector3());
             opponentLeftController.transform.position = readVector3();
             opponentLeftController.transform.rotation = Quaternion.Euler(readVector3());
