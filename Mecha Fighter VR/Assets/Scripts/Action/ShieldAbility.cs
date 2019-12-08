@@ -9,6 +9,7 @@ namespace Action
         [SerializeField] private Shield rightShield = null;
         [SerializeField] private float maxDurability = 200f;
         [SerializeField] private float regenerationRate = 4f;
+        [SerializeField] private float shieldRecoveryTime = 5f;
         [SerializeField] private UnityEvent onActivate = null;
         [SerializeField] private UnityEvent onDeactivate = null;
 
@@ -17,6 +18,8 @@ namespace Action
             // Awake is called before Start
             leftShield.SetMaxDurability(maxDurability);
             rightShield.SetMaxDurability(maxDurability);
+            leftShield.SetShieldRecoveryTime(shieldRecoveryTime);
+            rightShield.SetShieldRecoveryTime(shieldRecoveryTime);
         }
 
         void Update()
