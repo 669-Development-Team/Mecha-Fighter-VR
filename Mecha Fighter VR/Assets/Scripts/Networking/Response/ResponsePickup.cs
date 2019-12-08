@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Stats;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class ResponsePickup : NetworkResponse
         string pickupItem = DataReader.ReadString(dataStream);
 
         //Disable the object
-        GameObject.Find(pickupItem).SetActive(false);
+        GameObject.Find(pickupItem).GetComponent<Pickup>().disablePickup();
 
         Debug.Log(pickupItem + " was picked up");
 

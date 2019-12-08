@@ -9,7 +9,7 @@ public class Constants
     public static readonly string REMOTE_HOST = "54.185.56.184";
     //public static readonly string REMOTE_HOST = "localhost";
     public static readonly int REMOTE_PORT = 9252;
-    public static readonly int updatesPerSecond = 30;
+    public static readonly int updatesPerSecond = 60;
     public static readonly int maxUpdateNumber = 10000;
     public static readonly int maxUpdateDistance = 1000;
 
