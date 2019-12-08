@@ -77,8 +77,7 @@ public class CameraEffects : MonoBehaviour
     public void TakeDamageEffect(Camera cameraPos)
     {
         StartCoroutine(EffectSequence());
-        Instantiate(impactEffectVfx, cameraPos.transform.position,
-            cameraPos.transform.rotation);
+        Instantiate(impactEffectVfx, cameraPos.transform.position, cameraPos.transform.rotation);
     }
 
     private IEnumerator EffectSequence()

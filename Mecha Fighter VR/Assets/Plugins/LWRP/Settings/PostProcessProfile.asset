@@ -132,6 +132,7 @@ MonoBehaviour:
   - {fileID: -2892500371160676011}
   - {fileID: -5447646471582592071}
   - {fileID: 1298753533727488632}
+  - {fileID: 8053612447623262980}
 --- !u!114 &114252324386167986
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1561,4 +1562,36 @@ MonoBehaviour:
     value: 50
   kernelSize:
     overrideState: 0
+    value: 1
+--- !u!114 &2115610349494985940
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fd30766c22df44fb374d66a49e70dd, type: 3}
+  m_Name: ScreenShakeVR
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+--- !u!114 &8053612447623262980
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fd30766c22df44fb374d66a49e70dd, type: 3}
+  m_Name: ScreenShakeVR
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
     value: 1
