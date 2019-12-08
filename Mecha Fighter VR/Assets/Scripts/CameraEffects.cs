@@ -2,72 +2,81 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
+// This script is attached to the post-process volume object
 [RequireComponent(typeof(PostProcessVolume))]
 public class CameraEffects : MonoBehaviour
 {
+    // Effect sequence parameters
     [SerializeField] private float effectSpeed = 5f;
     [SerializeField] private float restoreSpeed = 2f;
     [SerializeField] private float delayInSeconds = 1f;
+
+    // Post-processing effects
     [SerializeField, Range(0f, 1f)] private float vignetteHitIntensity = 0.5f;
     [SerializeField, Range(0, 5)] private int chromaticAberrationHitIntensity = 3;
     [SerializeField, Range(-100, 100)] private int saturationHitIntensity = -60;
+    [SerializeField, Range(0.1f, 20f)] private float depthOfFieldHitDistance = 4f;
 
+    // VFX prefab that will spawn in front of the camera
+    [SerializeField] private GameObject impactEffectVfx = null;
+
+    // Post-processing volume and layers
     private PostProcessVolume volume = null;
     private Vignette vignetteLayer = null;
     private ChromaticAberration chromaticAberrationLayer = null;
     private ColorGrading colorGradingLayer = null;
-    private float originalVignetteIntensity;
-    private float originalSaturationIntensity;
-    private float originalChromaticAberrationIntensity;
+    private DepthOfField depthOfFieldLayer = null;
 
+    // Original post-processing values
+    private float originalVignetteIntensity;
+    private float originalChromaticAberrationIntensity;
+    private float originalSaturationIntensity;
+    private float originalDepthOfFieldDistance;
+
+    // Internal properties
     private bool isEffectStarted = false;
     private float timer = 0f;
 
     private void Awake()
     {
+        // Initialize
         volume = GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings(out vignetteLayer);
         volume.profile.TryGetSettings(out chromaticAberrationLayer);
         volume.profile.TryGetSettings(out colorGradingLayer);
+        volume.profile.TryGetSettings(out depthOfFieldLayer);
+
+        // Cache original values
         originalVignetteIntensity = vignetteLayer.intensity.value;
         originalChromaticAberrationIntensity = chromaticAberrationLayer.intensity.value;
         originalSaturationIntensity = colorGradingLayer.saturation.value;
+        originalDepthOfFieldDistance = depthOfFieldLayer.focusDistance.value;
     }
 
     private void Update()
     {
-        if (isEffectStarted && timer < 1f)
+        if (isEffectStarted)
         {
-            // Increase intensity of vignette, chromatic aberration, and saturation
-            vignetteLayer.intensity.value = Mathf.Lerp(originalVignetteIntensity, vignetteHitIntensity, timer);
-            chromaticAberrationLayer.intensity.value = Mathf.Lerp(originalChromaticAberrationIntensity, chromaticAberrationHitIntensity, timer);
-            colorGradingLayer.saturation.value = Mathf.Lerp(originalSaturationIntensity, saturationHitIntensity, timer);
-            timer += Time.deltaTime * effectSpeed;
+            timer = Mathf.Min(timer + Time.deltaTime * effectSpeed, 1f);
         }
-        else if (!isEffectStarted && timer < 1f)
+        else
         {
-            // Return effects back to normal
-            if (vignetteLayer.intensity.value > originalVignetteIntensity)
-            {
-                vignetteLayer.intensity.value = Mathf.Lerp(vignetteHitIntensity, originalVignetteIntensity, timer);
-            }
-
-            if (chromaticAberrationLayer.intensity.value > originalChromaticAberrationIntensity)
-            {
-                chromaticAberrationLayer.intensity.value = Mathf.Lerp(chromaticAberrationHitIntensity, originalChromaticAberrationIntensity, timer);
-            }
-
-            if (colorGradingLayer.saturation.value < originalSaturationIntensity)
-            {
-                colorGradingLayer.saturation.value = Mathf.Lerp(saturationHitIntensity, originalSaturationIntensity, timer);
-            }
-            timer += Time.deltaTime * restoreSpeed;
+            timer = Mathf.Max(timer - Time.deltaTime * restoreSpeed, 0f);
         }
+
+        // Increase or decrease intensity of vignette, chromatic aberration, saturation, and depth of field
+        vignetteLayer.intensity.value = Mathf.Lerp(originalVignetteIntensity, vignetteHitIntensity, timer);
+        chromaticAberrationLayer.intensity.value = Mathf.Lerp(originalChromaticAberrationIntensity, chromaticAberrationHitIntensity, timer);
+        colorGradingLayer.saturation.value = Mathf.Lerp(originalSaturationIntensity, saturationHitIntensity, timer);
+        depthOfFieldLayer.focusDistance.value = Mathf.Lerp(originalDepthOfFieldDistance, depthOfFieldHitDistance, timer);
     }
 
-    public void TakeDamageEffect()
+    // Called from a Unity Event when the player takes damage
+    public void TakeDamageEffect(Camera cameraPos)
     {
         StartCoroutine(EffectSequence());
+        Instantiate(impactEffectVfx, cameraPos.transform.position,
+            cameraPos.transform.rotation);
     }
 
     private IEnumerator EffectSequence()
@@ -76,7 +85,6 @@ public class CameraEffects : MonoBehaviour
         isEffectStarted = true;
         // Wait for seconds before returning to normal
         yield return new WaitForSeconds(delayInSeconds);
-        timer = 0f;
         isEffectStarted = false;
     }
 }
