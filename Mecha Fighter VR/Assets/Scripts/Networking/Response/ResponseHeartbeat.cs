@@ -50,30 +50,25 @@ public class ResponseHeartbeat : NetworkResponse
         else
             connectionManager.setUpdateNumber(updateNumber);
 
-        short numPlayers = DataReader.ReadShort(dataStream);
-
-        for (int i = 0; i < numPlayers; i++)
+        if (!dropPacket)
         {
-            if (!dropPacket)
-            {
-                //Set the position and angles of the opponent's IK targets.
-                opponentCamera.transform.position = readVector3();
-                opponentCamera.transform.rotation = Quaternion.Euler(readVector3());
-                opponentLeftController.transform.position = readVector3();
-                opponentLeftController.transform.rotation = Quaternion.Euler(readVector3());
-                opponentRightController.transform.position = readVector3();
-                opponentRightController.transform.rotation = Quaternion.Euler(readVector3());
+            //Set the position and angles of the opponent's IK targets.
+            opponentCamera.transform.position = readVector3();
+            opponentCamera.transform.rotation = Quaternion.Euler(readVector3());
+            opponentLeftController.transform.position = readVector3();
+            opponentLeftController.transform.rotation = Quaternion.Euler(readVector3());
+            opponentRightController.transform.position = readVector3();
+            opponentRightController.transform.rotation = Quaternion.Euler(readVector3());
 
-                //Get the animator for the player
-                //Animator animator = Constants.components[character].animController;
+            //Get the animator for the player
+            //Animator animator = Constants.components[character].animController;
 
-                //Set the speed of the animation
-                //animator.SetFloat("Speed", DataReader.ReadFloat(dataStream));
+            //Set the speed of the animation
+            //animator.SetFloat("Speed", DataReader.ReadFloat(dataStream));
 
-                //Set the animation parameters based on the player
-                //foreach (string parameter in Constants.characterAnimations[character])
-                //    animator.SetBool(parameter, DataReader.ReadBool(dataStream));
-            }
+            //Set the animation parameters based on the player
+            //foreach (string parameter in Constants.characterAnimations[character])
+            //    animator.SetBool(parameter, DataReader.ReadBool(dataStream));
         }
 
         return null;

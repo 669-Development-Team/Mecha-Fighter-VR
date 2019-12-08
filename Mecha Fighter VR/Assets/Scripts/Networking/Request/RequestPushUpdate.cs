@@ -16,9 +16,9 @@ public class RequestPushUpdate : NetworkRequest
     //Get new references to the player's IK targets
     public static void init()
     {
-        playerCamera = GameObject.Find("Camera");
-        playerLeftController = GameObject.Find("Controller (left)");
-        playerRightController = GameObject.Find("Controller (right)");
+        playerCamera = GameObject.Find("Head Target for Mech IK");
+        playerLeftController = GameObject.Find("Left Hand Target for Mech IK");
+        playerRightController = GameObject.Find("Right Hand Target for Mech IK");
     }
 
     //Add the position of the given object to the packet
