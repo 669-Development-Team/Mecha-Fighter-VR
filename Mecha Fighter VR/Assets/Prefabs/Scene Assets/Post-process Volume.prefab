@@ -61,11 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89cf88add694448eac6cb1f94dc5e71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectSpeed: 20
-  restoreSpeed: 20
-  delayInSeconds: 0.1
+  effectSpeed: 10
+  restoreSpeed: 1
+  delayInSeconds: 0.25
   vignetteHitIntensity: 0.3
-  chromaticAberrationHitIntensity: 4
+  chromaticAberrationHitIntensity: 5
   saturationHitIntensity: -60
   depthOfFieldHitDistance: 2.5
   impactEffectVfx: {fileID: 686689185494121609, guid: 0eef0337379ccfc41ad1ffdf1f4e50da,
