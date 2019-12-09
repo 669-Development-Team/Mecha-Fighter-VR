@@ -49,7 +49,13 @@ public class AnimatedGestureAbility : GestureAbility
 			animator.SetTrigger(animStateName);
 			isAnimating = true;
 		}
-	}
+
+        // Replacement method of moving player forward towards enemy during an Uppercut
+        if (animStateName == "Uppercut")
+        {
+            this.gameObject.transform.localPosition += new Vector3(0f, 0f, .8f);
+        }
+    }
 
 	void InstantiateFX(string stateName) { if (stateName != animStateName) return;
 
