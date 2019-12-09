@@ -3,27 +3,32 @@ using UnityEngine;
 
 namespace Action
 {
-    public class Uppercut : MonoBehaviour
+    public class Uppercut : DamageHitbox
     {
-        private Health m_target = null;
-        private GameObject m_instigator = null;
-        private float m_baseDamage = 0f;
 
-        private void Start()
+        private Transform hand;
+
+        public override bool Apply(PlayerStats other)
         {
-            if (m_target != null)
+            return base.Apply(other);
+        }
+
+        private void Update()
+        {
+            transform.position = hand.position;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.transform.root.CompareTag("Player"))
             {
-                // Rotate y-axis to direction of target
-                Vector3 lookDirection = new Vector3(m_target.transform.position.x, transform.position.y, m_target.transform.position.z);
-                transform.LookAt(lookDirection);
+                base.Apply(other.transform.root.GetComponent<PlayerStats>());
             }
         }
 
-        public void SetTarget(Health opponent, GameObject instigator, float damage)
+        public void setFollow(Transform hand)
         {
-            m_target = opponent;
-            m_instigator = instigator;
-            m_baseDamage = damage;
+            this.hand = hand;
         }
     }
 }
