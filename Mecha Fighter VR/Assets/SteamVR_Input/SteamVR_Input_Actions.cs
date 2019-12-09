@@ -35,13 +35,9 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_default_HeadsetOnHead;
         
-        private static SteamVR_Action_Vector2 p_default_JoystickLeft;
+        private static SteamVR_Action_Boolean p_default_SnapTurnLeft;
         
-        private static SteamVR_Action_Vector2 p_default_JoystickRight;
-        
-        private static SteamVR_Action_Boolean p_default_TriggerLeft;
-        
-        private static SteamVR_Action_Boolean p_default_TriggerRight;
+        private static SteamVR_Action_Boolean p_default_SnapTurnRight;
         
         private static SteamVR_Action_Vector2 p_default_Axis;
         
@@ -119,35 +115,19 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Vector2 default_JoystickLeft
+        public static SteamVR_Action_Boolean default_SnapTurnLeft
         {
             get
             {
-                return SteamVR_Actions.p_default_JoystickLeft.GetCopy<SteamVR_Action_Vector2>();
+                return SteamVR_Actions.p_default_SnapTurnLeft.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Vector2 default_JoystickRight
+        public static SteamVR_Action_Boolean default_SnapTurnRight
         {
             get
             {
-                return SteamVR_Actions.p_default_JoystickRight.GetCopy<SteamVR_Action_Vector2>();
-            }
-        }
-        
-        public static SteamVR_Action_Boolean default_TriggerLeft
-        {
-            get
-            {
-                return SteamVR_Actions.p_default_TriggerLeft.GetCopy<SteamVR_Action_Boolean>();
-            }
-        }
-        
-        public static SteamVR_Action_Boolean default_TriggerRight
-        {
-            get
-            {
-                return SteamVR_Actions.p_default_TriggerRight.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_default_SnapTurnRight.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
@@ -179,10 +159,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_SkeletonRightHand,
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_JoystickLeft,
-                    SteamVR_Actions.default_JoystickRight,
-                    SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_SnapTurnLeft,
+                    SteamVR_Actions.default_SnapTurnRight,
                     SteamVR_Actions.default_Axis,
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
@@ -195,10 +173,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_SkeletonRightHand,
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_JoystickLeft,
-                    SteamVR_Actions.default_JoystickRight,
-                    SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_SnapTurnLeft,
+                    SteamVR_Actions.default_SnapTurnRight,
                     SteamVR_Actions.default_Axis};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
@@ -212,13 +188,11 @@ namespace Valve.VR
                     SteamVR_Actions.default_GrabPinch,
                     SteamVR_Actions.default_GrabGrip,
                     SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight};
+                    SteamVR_Actions.default_SnapTurnLeft,
+                    SteamVR_Actions.default_SnapTurnRight};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
-                    SteamVR_Actions.default_JoystickLeft,
-                    SteamVR_Actions.default_JoystickRight,
                     SteamVR_Actions.default_Axis};
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
@@ -231,10 +205,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_GrabGrip,
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_JoystickLeft,
-                    SteamVR_Actions.default_JoystickRight,
-                    SteamVR_Actions.default_TriggerLeft,
-                    SteamVR_Actions.default_TriggerRight,
+                    SteamVR_Actions.default_SnapTurnLeft,
+                    SteamVR_Actions.default_SnapTurnRight,
                     SteamVR_Actions.default_Axis};
         }
         
@@ -249,10 +221,8 @@ namespace Valve.VR
             SteamVR_Actions.p_default_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/default/in/SkeletonRightHand")));
             SteamVR_Actions.p_default_Squeeze = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/default/in/Squeeze")));
             SteamVR_Actions.p_default_HeadsetOnHead = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/HeadsetOnHead")));
-            SteamVR_Actions.p_default_JoystickLeft = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/JoystickLeft")));
-            SteamVR_Actions.p_default_JoystickRight = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/JoystickRight")));
-            SteamVR_Actions.p_default_TriggerLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/TriggerLeft")));
-            SteamVR_Actions.p_default_TriggerRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/TriggerRight")));
+            SteamVR_Actions.p_default_SnapTurnLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SnapTurnLeft")));
+            SteamVR_Actions.p_default_SnapTurnRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/SnapTurnRight")));
             SteamVR_Actions.p_default_Axis = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/Axis")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
         }
