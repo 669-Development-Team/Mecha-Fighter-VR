@@ -15,6 +15,8 @@ public class GestureHandlerV2 : MonoBehaviour
 	private GestureTrackingNode leftTracker;
     private GestureTrackingNode rightTracker;
 
+	private List<GestureListener> listeners = new List<GestureListener>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,9 +50,22 @@ public class GestureHandlerV2 : MonoBehaviour
 		}
 		
 		ability?.ActivateAbility();
+		
+		foreach (GestureListener listener in listeners) {
+			listener.OnGestureConfirm();
+		}
+	}
+
+	public void addGestureConfirmListener(GestureListener listener) {
+		listeners.Add(listener);
 	}
 	
 	private int makeGestureHash(Gesture g1, Gesture g2) {
 		return ((int) g1) << 16 | ((int) g2);
+	}
+
+	public GestureTrackingNode GetTrackingNode(bool left) {
+		if (left) return leftTracker;
+		else return rightTracker;
 	}
 }

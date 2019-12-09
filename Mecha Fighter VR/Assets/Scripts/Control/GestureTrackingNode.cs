@@ -26,7 +26,7 @@ public class GestureTrackingNode
     private Vector3 startPosition;
 	private Matrix4x4 startWorldToLocal;
     private bool isRecording;
-	
+    public Vector3 currentDisplacement = Vector3.zero;
 	public GestureTrackingNode(GestureHandlerV2 handler, Transform trackingObject, SteamVR_Input_Sources controller) {
 		
 		this.handler = handler;
@@ -48,6 +48,17 @@ public class GestureTrackingNode
         isRecording = true;
     }
 
+    private void Update() {
+        if (isRecording) {
+            var worldToLocal = head.worldToLocalMatrix;
+            var trackerPosition = worldToLocal.MultiplyPoint(trackingObject.position);
+            currentDisplacement = (trackerPosition - startPosition).normalized;
+        }
+        else {
+            currentDisplacement = Vector3.zero;
+        }
+    }
+
     private void GripUp(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
 		if (!isRecording) return; // if recording has been externally terminated, exit this function without doing anything
@@ -64,15 +75,34 @@ public class GestureTrackingNode
 		isRecording = false;
 	}
 
-	// returns the current gesture being recorded, and terminates the recording session
-	// if there is no current gesture being recorded, this function will return Gesture.NONE
-    public Gesture getGesture() {
-		
-		if (!isRecording) return Gesture.NONE;
-		
-		var endWorldToLocal = head.worldToLocalMatrix;
+    public Vector3 currentGestureDirection() {
+        if (!isRecording) return Vector3.zero;
+
+        int gestureIndex = (int) currentGesture();
+        if (gestureIndex == 0) {
+            return Vector3.zero;
+        }
+        else return axes[gestureIndex - 1];
+    }
+
+    public float currentGestureMagnitude() {
+        if (!isRecording) {
+            return 0;
+        }
+
+        return getDisplacement().magnitude;
+    }
+
+    private Vector3 getDisplacement() {
+        var endWorldToLocal = head.worldToLocalMatrix;
 		Vector3 endPosition = endWorldToLocal.MultiplyPoint(trackingObject.position);
-        Vector3 diffPosition = (endPosition - startPosition).normalized;
+        Vector3 diffPosition = (endPosition - startPosition);
+        return diffPosition;
+    }
+
+    private Gesture currentGesture() {
+        
+        var diffPosition = getDisplacement();
 
         int maxGesture = 0;
         float maxDot = 0;
@@ -83,11 +113,17 @@ public class GestureTrackingNode
                 maxGesture = i + 1;
             }
         }
-		
-		terminateRecording();
         
         return (Gesture) maxGesture;
     }
-	
-	
+
+	// returns the current gesture being recorded, and terminates the recording session
+	// if there is no current gesture being recorded, this function will return Gesture.NONE
+    public Gesture getGesture() {
+		
+		if (!isRecording) return Gesture.NONE;
+        terminateRecording();
+
+        return currentGesture();
+    }
 }
