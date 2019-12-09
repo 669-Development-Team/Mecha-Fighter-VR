@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public class KeyboardController : MonoBehaviour
 {
     private MovementHandler playerController;
-    [SerializeField] private float movementSpeed;
     [SerializeField] private PlayerStats opponent = null;
     private bool leftShieldActive = false;
     private bool rightShieldActive = false;
@@ -28,9 +27,9 @@ public class KeyboardController : MonoBehaviour
     private void updatePosition()
     {
         displacement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        displacement *= movementSpeed;
         displacement.Normalize();
         // Multiplying by Time.deltaTime is already done in MovementHandler.cs
+        // Movement speed is handled in MovementHandler.cs
 
 //        if (Input.GetKey("w"))
 //            displacement.z += 1;
