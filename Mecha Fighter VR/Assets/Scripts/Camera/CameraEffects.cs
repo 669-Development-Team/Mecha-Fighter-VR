@@ -45,7 +45,6 @@ public class CameraEffects : MonoBehaviour
 
     private void Awake()
     {
-        controller = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
         // Initialize
         volume = GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings(out vignetteLayer);
@@ -58,6 +57,11 @@ public class CameraEffects : MonoBehaviour
         originalChromaticAberrationIntensity = chromaticAberrationLayer.intensity.value;
         originalSaturationIntensity = colorGradingLayer.saturation.value;
         originalDepthOfFieldDistance = depthOfFieldLayer.focusDistance.value;
+    }
+
+    private void Start()
+    {
+        controller = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
     }
 
     private void Update()
