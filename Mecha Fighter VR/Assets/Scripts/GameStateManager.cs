@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Stats;
 
@@ -35,6 +36,7 @@ public class GameStateManager : MonoBehaviour
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             YouWinText.SetActive(true);
+            Invoke("ReturnToLobby", 5f);
         }
     }
 
@@ -96,5 +98,13 @@ public class GameStateManager : MonoBehaviour
         {
             return pointsOpponent;
         }
+    }
+
+    public void ReturnToLobby()
+    {
+        int current = SceneManager.GetActiveScene().buildIndex;
+        
+        SceneManager.LoadScene("Lobby");
+        SceneManager.UnloadSceneAsync(current);
     }
 }
