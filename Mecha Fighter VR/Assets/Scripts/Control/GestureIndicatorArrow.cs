@@ -6,6 +6,7 @@ public class GestureIndicatorArrow : MonoBehaviour, GestureListener
 {
     public bool isLeft;
     public GestureHandlerV2 gestureHandler;
+    public Vector3 baseScale;
 
     private GestureTrackingNode trackingNode;
 
@@ -53,14 +54,16 @@ public class GestureIndicatorArrow : MonoBehaviour, GestureListener
                 arrow.gameObject.SetActive(true);
             }
 
+            float displacementRatio = Mathf.Clamp((displacementMagnitude / maxDisplacementMagnitude) * 2, 0, 2);
+
             arrowTarget.localPosition = displacementDir;
-            arrow.localScale = new Vector3(0.05f, 0.05f, displacementMagnitude);
+            arrow.localScale = new Vector3(baseScale.x, baseScale.y, displacementRatio * baseScale.z);
             arrow.LookAt(arrowTarget);
 
             arrowMaterial.SetColor("_BaseColor", Color.Lerp(minColor, maxColor, displacementMagnitude / maxDisplacementMagnitude));
         }
         else {
-            arrow.localScale = new Vector3(0.05f, 0.05f, maxDisplacementMagnitude);
+            arrow.localScale = new Vector3(baseScale.x, baseScale.y, baseScale.z * 2);
             arrowMaterial.SetColor("_BaseColor", maxColor);
         }
     }
