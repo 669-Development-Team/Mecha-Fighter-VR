@@ -5,40 +5,51 @@ using Action;
 
 public class NetworkPlayerController : MonoBehaviour
 {
-    //Target objects for IK
-    [SerializeField]
-    GameObject headTarget;
-    [SerializeField]
-    GameObject leftArmTarget;
-    [SerializeField]
-    GameObject rightArmTarget;
+    //The opponent and player's animators
+    private static Animator opponentAnim;
 
-    //The player object (for the opponent to face)
-    [SerializeField]
-    GameObject player;
+    //Target objects for IK
+    [SerializeField] GameObject headTarget;
+    [SerializeField] GameObject leftArmTarget;
+    [SerializeField] GameObject rightArmTarget;
 
     //Ability scripts attatched to the opponent
     private ShieldAbility shieldScript;
-    //private ProjectileAbility projectileScript;
-    //private UppercutAbility uppercutScript;
-    //private GroundPoundAbility groundPoundScipt;
 
     private void Start()
     {
         //Get references to all of the ability scripts
         shieldScript = gameObject.GetComponent<ShieldAbility>();
-        //projectileScript = gameObject.GetComponent<ProjectileAbility>();
-        //uppercutScript = gameObject.GetComponent<UppercutAbility>();
-        //roundPoundScipt = gameObject.GetComponent<GroundPoundAbility>();
+
+        opponentAnim = GetComponent<Animator>();
+        headTarget = GameObject.Find("Head Target");
+        leftArmTarget = GameObject.Find("Left Arm Target");
+        rightArmTarget = GameObject.Find("Right Arm Target");
     }
 
-    //Set the position of the opponnent
-    public void setPosition(Vector3 position)
+    //Set the positions of the root and IK targets
+    public void updatePositions(Vector3 cameraPos, Vector3 lHandPos, Vector3 rHandPos)
     {
-        gameObject.transform.position = position;
+        //Set the position of the opponent's root
+        transform.position = new Vector3(cameraPos.x, 0, cameraPos.z);
+        
+        headTarget.transform.position = cameraPos;
+        leftArmTarget.transform.position = lHandPos;
+        rightArmTarget.transform.position = rHandPos;
+    }
 
-        //Update the rotation to face the player
-        transform.LookAt(player.transform.position);
+    //Set the rotations of the IK targets
+    public void updateRotations(Quaternion cameraRot, Quaternion lHandRot, Quaternion rHandRot)
+    {
+        headTarget.transform.rotation = cameraRot;
+        leftArmTarget.transform.rotation = lHandRot;
+        rightArmTarget.transform.rotation = rHandRot;
+    }
+
+    //Set any animations
+    public void setAnimation(Constants.animParam trigger)
+    {
+        opponentAnim.SetTrigger(trigger.ToString());
     }
 
     //Functions to toggle abilities
@@ -60,20 +71,5 @@ public class NetworkPlayerController : MonoBehaviour
     public void disableRightShield()
     {
         shieldScript.ToggleRightShield(false);
-    }
-
-    public void activateProjectile()
-    {
-        //projectileScript.ActivateAbility();
-    }
-
-    public void activateUppercut()
-    {
-        //uppercutScript.ActivateAbility(null);
-    }
-
-    public void activateGroundPound()
-    {
-        //groundPoundScipt.ActivateAbility(null);
     }
 }
