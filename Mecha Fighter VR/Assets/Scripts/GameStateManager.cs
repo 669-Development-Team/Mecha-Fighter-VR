@@ -64,7 +64,8 @@ public class GameStateManager : MonoBehaviour
             print(gameCase);
             Invoke("EndGame", slowdownLength);
             Invoke("playKO", 1f);
-            Invoke("ReturnToLobby", 1f);
+            
+            //Invoke("ReturnToLobby", 1f);
         }
     }
 

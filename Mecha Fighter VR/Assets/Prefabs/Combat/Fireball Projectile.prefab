@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
-  damage: 50
+  damage: 20
   hitStun: 0.5
   velocity: 8
   impactVfxPrefab: {fileID: 4484318258963729763, guid: f4a5478a2b4bae84db3bf1a92636a6c9,

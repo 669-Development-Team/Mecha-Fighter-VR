@@ -13,4 +13,9 @@ public class DamageHitbox : AbilityHitbox
 		other.TriggerHitStun(hitStun);
 		return true;
 	}
+
+	public override bool ApplyShield(Shield other) {
+		other.TakeDamage(damage);
+		return true;
+	}
 }

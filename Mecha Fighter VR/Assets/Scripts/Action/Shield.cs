@@ -22,6 +22,17 @@ public class Shield : MonoBehaviour, IDamageable
         currentDurability = maxDurability;
     }
 
+    private void OnTriggerEnter(Collider o) {
+        Debug.Log(o);
+		GameObject other = o.gameObject;
+		var hit = other.GetComponentInParent(typeof(AbilityHitbox)) as AbilityHitbox;
+		
+		if (hit != null) {
+			Debug.Log("Shield collision with " + other.name);
+            hit.ApplyShield(this);
+		}
+    }
+
     public float GetDurabilityPercentage()
     {
         return 100f * (currentDurability / maxDurability);

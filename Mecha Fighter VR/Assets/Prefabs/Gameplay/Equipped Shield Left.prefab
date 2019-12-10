@@ -137,3 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defense: 5
+  onShieldDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldReady:
+    m_PersistentCalls:
+      m_Calls: []

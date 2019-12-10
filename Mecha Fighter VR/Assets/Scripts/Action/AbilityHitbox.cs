@@ -12,4 +12,5 @@ public abstract class AbilityHitbox : MonoBehaviour
 	}
 	
     public abstract bool Apply(PlayerStats other);
+    public abstract bool ApplyShield(Shield other);
 }

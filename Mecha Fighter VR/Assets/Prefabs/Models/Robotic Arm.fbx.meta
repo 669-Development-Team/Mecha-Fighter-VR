@@ -3,7 +3,62 @@ guid: a985bbfdc5c67104caf504cc0bf605b2
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BG
+    second: {fileID: 2100000, guid: 4d606621d69067846af8ecf7dc37e18d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue_Light
+    second: {fileID: 2100000, guid: 73380352cbcf37b4fb2deabd93ff0849, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chrome
+    second: {fileID: 2100000, guid: c6dba1dd11f1547429260f0e4a4f5b43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: e568034f9801c4447b94deff72ba336e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glossy
+    second: {fileID: 2100000, guid: c34e5fb9e58674c40ab106343636b98e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gray_1
+    second: {fileID: 2100000, guid: df7dcd8f9e83bb94ca9dbe63ad30dbc4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hdri
+    second: {fileID: 2100000, guid: 1e5f9236a7b084a4a93883b27f03d278, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 7cf3252c2a01b6d448706d2a73886493, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red
+    second: {fileID: 2100000, guid: e25aef0513d7ad3498979c302bbc210b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 65d86e75b356c0240a9064535b855058, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White_Light
+    second: {fileID: 2100000, guid: cc49cf599603dbb4bbad7a50b2d46819, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

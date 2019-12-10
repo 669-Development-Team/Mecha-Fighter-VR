@@ -74,7 +74,7 @@ public class AnimatedGestureAbility : GestureAbility
             prefab.layer = gameObject.layer;
             if (stateName == "Uppercut")
             {
-                prefab.GetComponent<Uppercut>().setFollow(GameObject.Find("mixamorig:RightHand").transform);
+                prefab.GetComponent<Uppercut>().setFollow(spawnPoint);
             }
 
 

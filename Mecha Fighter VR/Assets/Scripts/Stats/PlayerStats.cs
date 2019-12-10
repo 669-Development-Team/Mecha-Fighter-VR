@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour, Stats.IDamageable
 	public void TakeDamage(float damageDealt) {
 		currentHealth -= Mathf.Max(1, damageDealt);
 		PlaySfx();
-		if(damageDealt > 20f){
+		if(damageDealt >= 10f){
 			gameObject.GetComponent<FightReactions>().ProjectileHit();
 		}
 		if (currentHealth <= 0f)

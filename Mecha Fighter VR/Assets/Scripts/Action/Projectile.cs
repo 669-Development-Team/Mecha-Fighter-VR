@@ -9,11 +9,19 @@ namespace Action
 
         public override bool Apply(PlayerStats other)
         {
-
             Instantiate(impactVfxPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
 
             return base.Apply(other);
+        }
+
+        public override bool ApplyShield(Shield other)
+        {
+            Debug.Log("Shield collide with projectile");
+            Instantiate(impactVfxPrefab, transform.position, transform.rotation);
+            Destroy(gameObject);
+
+            return base.ApplyShield(other);
         }
 
         private void Update()

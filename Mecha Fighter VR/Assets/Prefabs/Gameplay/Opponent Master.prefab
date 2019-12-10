@@ -921,7 +921,6 @@ GameObject:
   - component: {fileID: 4534458763952427812}
   - component: {fileID: 4534458763952427813}
   - component: {fileID: 4534458763952427816}
-  - component: {fileID: 4534458763952427817}
   - component: {fileID: 4534458763952427801}
   - component: {fileID: 4534458763952427800}
   - component: {fileID: 4534458763952427804}
@@ -1166,8 +1165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftShield: {fileID: 4534458764908784582}
   rightShield: {fileID: 4534458764956570359}
-  maxDurability: 200
-  regenerationRate: 4
+  maxDurability: 100
+  regenerationRate: 2
+  shieldRecoveryTime: 5
   onActivate:
     m_PersistentCalls:
       m_Calls:
@@ -1229,29 +1229,6 @@ MonoBehaviour:
   headTarget: {fileID: 4534458764256687533}
   leftArmTarget: {fileID: 4534458764875485708}
   rightArmTarget: {fileID: 4534458765332206310}
-  player: {fileID: 0}
---- !u!114 &4534458763952427817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4534458763952427823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bab38055bf4234084206dbb988967e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 3
-  projectileButtonDown:
-    m_PersistentCalls:
-      m_Calls: []
-  groundPoundButtonDown:
-    m_PersistentCalls:
-      m_Calls: []
-  uppercutButtonDown:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4534458763952427801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3458,6 +3435,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defense: 5
+  onShieldDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldReady:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4534458764944403656
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,6 +3567,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defense: 5
+  onShieldDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldBreak:
+    m_PersistentCalls:
+      m_Calls: []
+  onShieldReady:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4534458764957499129
 GameObject:
   m_ObjectHideFlags: 0
@@ -5051,6 +5046,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54b33982596c094caa72f2dcb038c84, type: 3}
+--- !u!224 &5134146413172079043 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8767810067613363352, guid: f54b33982596c094caa72f2dcb038c84,
+    type: 3}
+  m_PrefabInstance: {fileID: 4534458763511829851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4499425384274789221 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 44061505990465086, guid: f54b33982596c094caa72f2dcb038c84,
@@ -5069,12 +5070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &5134146413172079043 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8767810067613363352, guid: f54b33982596c094caa72f2dcb038c84,
-    type: 3}
-  m_PrefabInstance: {fileID: 4534458763511829851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4534458763971035914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5156,12 +5151,6 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 4534458763971035914}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1296858685210999606 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3392050695623882812, guid: d905846d6fb33674cbf7be6aec7dc4b4,
-    type: 3}
-  m_PrefabInstance: {fileID: 4534458763971035914}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1296858684213310054 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 3392050694726660460, guid: d905846d6fb33674cbf7be6aec7dc4b4,
@@ -5186,3 +5175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc076f99f9a0a4345b086e230ac0b10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1296858685210999606 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3392050695623882812, guid: d905846d6fb33674cbf7be6aec7dc4b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4534458763971035914}
+  m_PrefabAsset: {fileID: 0}

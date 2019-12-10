@@ -19,10 +19,10 @@ public class ScaleHandPosition : MonoBehaviour
     void LateUpdate()
     {
         //The displacement vector between the chest and the hand
-        Vector3 displacement = transform.position - headTarget.transform.position;
+        Vector3 displacement = transform.localPosition - headTarget.transform.localPosition;
         //Scale the displacement by the size of the arms
         displacement *= armSize;
         //Add the displacement back on to the arm position
-        transform.position = headTarget.transform.position + displacement;
+        transform.localPosition = headTarget.transform.localPosition + displacement;
     }
 }

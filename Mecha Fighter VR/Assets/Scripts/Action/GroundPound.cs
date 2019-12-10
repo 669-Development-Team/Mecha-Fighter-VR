@@ -11,6 +11,12 @@ namespace Action
             return base.Apply(other);
         }
 
+        public override bool ApplyShield(Shield other)
+        {
+            Debug.Log("Shield collide with ground pound");
+            return base.ApplyShield(other);
+        }
+
         private void Update()
         {
 

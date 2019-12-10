@@ -13,6 +13,12 @@ namespace Action
             return base.Apply(other);
         }
 
+        public override bool ApplyShield(Shield other)
+        {
+            Debug.Log("Shield collide with uppercut");
+            return base.ApplyShield(other);
+        }
+
         private void Update()
         {
             transform.position = hand.position;

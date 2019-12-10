@@ -3700,7 +3700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftShield: {fileID: 5123802153961939355}
   rightShield: {fileID: 5123802153272483606}
-  maxDurability: 50
+  maxDurability: 100
   regenerationRate: 2
   shieldRecoveryTime: 5
   onActivate:
