@@ -64,9 +64,13 @@ MonoBehaviour:
   effectSpeed: 10
   restoreSpeed: 1
   delayInSeconds: 0.25
+  vibrationDuration: 0.5
   vignetteHitIntensity: 0.3
   chromaticAberrationHitIntensity: 5
   saturationHitIntensity: -60
   depthOfFieldHitDistance: 2.5
   impactEffectVfx: {fileID: 686689185494121609, guid: 0eef0337379ccfc41ad1ffdf1f4e50da,
     type: 3}
+  haptics:
+    actionPath: /actions/default/out/Haptic
+    needsReinit: 0
