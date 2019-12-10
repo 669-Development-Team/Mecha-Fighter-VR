@@ -14,7 +14,7 @@ public class VisualEffects : MonoBehaviour
     public GameObject Trail;
     public float TrailAppearsWhenGreaterThan;
 
-
+    public float maxEffectSize = 1f;
 
     private void Start()
     {
@@ -50,6 +50,10 @@ public class VisualEffects : MonoBehaviour
         float force = (collision.impulse / Time.deltaTime).magnitude;
 
         force *= 0.001f;
+        Debug.Log("Visual force: " + force);
+        if(force > maxEffectSize){
+            force = maxEffectSize;
+        }
         GameObject temp;
         Hit.transform.localScale = new Vector3(force, force, force);
         temp = Instantiate(Hit, transform.position, transform.rotation);
