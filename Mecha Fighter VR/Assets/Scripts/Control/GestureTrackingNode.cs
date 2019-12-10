@@ -89,7 +89,6 @@ public class GestureTrackingNode
         if (!isRecording) {
             return 0;
         }
-
         return getDisplacement().magnitude;
     }
 

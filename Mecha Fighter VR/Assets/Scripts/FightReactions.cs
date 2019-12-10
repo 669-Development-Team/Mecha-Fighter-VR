@@ -64,11 +64,6 @@ public class FightReactions : MonoBehaviour
 		}
 	}
 	
-	void OnParticleCollision(GameObject other) {
-		
-		HandleCollision(other);
-	}
-	
     public void ProjectileHit()
     {
         Animator animator = GetComponent<Animator>();

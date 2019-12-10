@@ -56,15 +56,19 @@ public class GameStateManager : MonoBehaviour
             print("game over");
             print(gameCase);
             Invoke("EndGame", slowdownLength);
+            Invoke("playKO", 1f);
         }
     }
 
     void EndGame()
     {
-    
         gameOver = false;
         stopTime = true;
         Time.timeScale = 0;
+    }
+    
+    private void playKO(){
+        koSound.Play();
     }
 
     public void addPoints(bool player, int points)

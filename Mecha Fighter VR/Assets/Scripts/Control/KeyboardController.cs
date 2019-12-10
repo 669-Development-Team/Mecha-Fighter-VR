@@ -27,21 +27,8 @@ public class KeyboardController : MonoBehaviour
     private void updatePosition()
     {
         displacement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        displacement = displacement.x * transform.right + displacement.z * transform.forward;
         displacement.Normalize();
-        // Multiplying by Time.deltaTime is already done in MovementHandler.cs
-        // Movement speed is handled in MovementHandler.cs
-
-//        if (Input.GetKey("w"))
-//            displacement.z += 1;
-//        if (Input.GetKey("s"))
-//            displacement.z -= 1;
-//        if (Input.GetKey("a"))
-//            displacement.x -= 1;
-//        if (Input.GetKey("d"))
-//            displacement.x += 1;
-
-//        displacement = displacement.x * transform.right + displacement.z * transform.forward;
-//        displacement *= Time.deltaTime * movementSpeed;
 
         playerController.DoMovement(displacement);
 

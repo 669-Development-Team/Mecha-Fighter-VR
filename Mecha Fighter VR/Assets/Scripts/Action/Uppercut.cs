@@ -20,7 +20,7 @@ namespace Action
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.root.CompareTag("Player"))
+            if (!other.transform.root.CompareTag("Player"))
             {
                 base.Apply(other.transform.root.GetComponent<PlayerStats>());
             }

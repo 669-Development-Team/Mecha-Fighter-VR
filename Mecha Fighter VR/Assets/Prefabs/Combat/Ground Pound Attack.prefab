@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2680580450743350694}
   - component: {fileID: 431573502327755075}
   - component: {fileID: 7126897455030883299}
-  - component: {fileID: 9082026798018328407}
   m_Layer: 0
   m_Name: Ground Pound Attack
   m_TagString: Untagged
@@ -143,6 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e93b2f4d4742b992e76e743b5d1332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 3
+  damage: 20
+  hitStun: 1
 --- !u!114 &7126897455030883299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,21 +157,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069269b2074190647974a0099f9a579c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9082026798018328407
+--- !u!114 &6259741901541014290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5310783816710055431}
+  m_GameObject: {fileID: 5311743224979871642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a61454cad94527439ada20ba4961119, type: 3}
+  m_Script: {fileID: 11500000, guid: 56e93b2f4d4742b992e76e743b5d1332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 3
-  damage: 50
-  hitStun: 0.5
+  damage: 20
+  hitStun: 1
 --- !u!1001 &5310783816655590836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -378,6 +380,31 @@ PrefabInstance:
       propertyPath: VelocityModule.speedModifier.scalar
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 198345217066185332, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198345217066185332, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198345217066185332, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198345217066185332, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198345217066185332, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: CollisionModule.collisionMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1314945738539566, guid: 32c9fd11a72259d45aa26ae41c34c5aa, type: 3}
       propertyPath: m_Name
       value: EarthShatter
@@ -467,6 +494,11 @@ PrefabInstance:
       propertyPath: CollisionModule.collisionMessages
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198770071860600260, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198720281749553436, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
         type: 3}
       propertyPath: looping
@@ -509,6 +541,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c9fd11a72259d45aa26ae41c34c5aa, type: 3}
+--- !u!1 &5311743224979871642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1314945738539566, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 5310783816655590836}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5305966669779419158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4825948614923682, guid: 32c9fd11a72259d45aa26ae41c34c5aa,
