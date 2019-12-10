@@ -112,6 +112,6 @@ public class GameStateManager : MonoBehaviour
         yield return new WaitForSeconds(ReturnToLobbyCounter);
         SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         SceneManager.UnloadSceneAsync(current);
-        Debug.Log("This is working");
+        
     }
 }
