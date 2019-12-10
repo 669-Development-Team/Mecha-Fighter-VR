@@ -4,16 +4,17 @@ namespace Action
 {
     public class Projectile : DamageHitbox
     {
-		[SerializeField] private float velocity = 0f;
+        [SerializeField] private float velocity = 0f;
         [SerializeField] private GameObject impactVfxPrefab = null;
 
-		public override bool Apply(PlayerStats other) {
+        public override bool Apply(PlayerStats other)
+        {
 
-			Instantiate(impactVfxPrefab, transform.position, transform.rotation);
-			Destroy(gameObject);
+            Instantiate(impactVfxPrefab, transform.position, transform.rotation);
+            Destroy(gameObject);
 
-			return base.Apply(other);
-		}
+            return base.Apply(other);
+        }
 
         private void Update()
         {
@@ -22,10 +23,10 @@ namespace Action
 
         private void OnTriggerEnter(Collider other)
         {
-	        if (other.transform.root.CompareTag("Player"))
-	        {
-		        base.Apply(other.transform.root.GetComponent<PlayerStats>());
-	        }
+            if (other.transform.root.CompareTag("Player"))
+            {
+                base.Apply(other.transform.root.GetComponent<PlayerStats>());
+            }
         }
     }
 }
