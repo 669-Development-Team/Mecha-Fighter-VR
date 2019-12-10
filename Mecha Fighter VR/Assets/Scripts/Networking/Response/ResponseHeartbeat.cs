@@ -50,11 +50,11 @@ public class ResponseHeartbeat : NetworkResponse
         {
             //Read all of the positions and rotations
             Vector3 cameraPos = readVector3();
-            Quaternion cameraRot = Quaternion.Euler(readVector3());
+            Vector3 cameraRot = readVector3();
             Vector3 lHandPos = readVector3();
-            Quaternion lHandRot = Quaternion.Euler(readVector3());
+            Vector3 lHandRot = readVector3();
             Vector3 rHandPos = readVector3();
-            Quaternion rHandRot = Quaternion.Euler(readVector3());
+            Vector3 rHandRot = readVector3();
 
             //Update the root and IK targets
             networkController.updatePositions(cameraPos, lHandPos, rHandPos);
