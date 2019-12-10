@@ -36,7 +36,9 @@ public class GameStateManager : MonoBehaviour
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             YouWinText.SetActive(true);
-            Invoke("ReturnToLobby", 5f);
+            //Invoke("ReturnToLobby", 5f);
+            ReturnToLobby();
+
         }
     }
 
@@ -61,6 +63,7 @@ public class GameStateManager : MonoBehaviour
             print(gameCase);
             Invoke("EndGame", slowdownLength);
             Invoke("playKO", 1f);
+            Invoke("ReturnToLobby", 1f);
         }
     }
 
@@ -100,11 +103,13 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    public void ReturnToLobby()
+    IEnumerator ReturnToLobby()
     {
         int current = SceneManager.GetActiveScene().buildIndex;
-        
-        SceneManager.LoadScene("Lobby");
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         SceneManager.UnloadSceneAsync(current);
+        Debug.Log("This is working");
     }
 }
