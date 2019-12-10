@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using Valve.VR;
 
 // This script is attached to the post-process volume object
 [RequireComponent(typeof(PostProcessVolume))]
@@ -10,6 +11,7 @@ public class CameraEffects : MonoBehaviour
     [SerializeField] private float effectSpeed = 5f;
     [SerializeField] private float restoreSpeed = 2f;
     [SerializeField] private float delayInSeconds = 1f;
+    [SerializeField] private float vibrationDuration = 0.5f;
 
     // Post-processing effects
     [SerializeField, Range(0f, 1f)] private float vignetteHitIntensity = 0.5f;
@@ -17,8 +19,12 @@ public class CameraEffects : MonoBehaviour
     [SerializeField, Range(-100, 100)] private int saturationHitIntensity = -60;
     [SerializeField, Range(0.1f, 20f)] private float depthOfFieldHitDistance = 4f;
 
-    // VFX prefab that will spawn in front of the camera
+    [Tooltip("VFX prefab that will spawn in front of the camera")]
     [SerializeField] private GameObject impactEffectVfx = null;
+
+    [SerializeField] private SteamVR_Action_Vibration haptics;
+
+    private SteamVR_Input_Sources controller;
 
     // Post-processing volume and layers
     private PostProcessVolume volume = null;
@@ -39,6 +45,7 @@ public class CameraEffects : MonoBehaviour
 
     private void Awake()
     {
+        controller = GetComponentInParent<SteamVR_Behaviour_Pose>().inputSource;
         // Initialize
         volume = GetComponent<PostProcessVolume>();
         volume.profile.TryGetSettings(out vignetteLayer);
@@ -78,6 +85,7 @@ public class CameraEffects : MonoBehaviour
     {
         StartCoroutine(EffectSequence());
         Instantiate(impactEffectVfx, cameraPos.transform.position, cameraPos.transform.rotation);
+        haptics.Execute(0, vibrationDuration, 100f, 0.6f, controller);
     }
 
     private IEnumerator EffectSequence()
