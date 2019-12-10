@@ -20,6 +20,7 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager instance;
 
     public GameObject YouWinText;
+    public GameObject YouLoseText;
     public int ReturnToLobbyCounter = 5;
     
 
@@ -37,7 +38,7 @@ public class GameStateManager : MonoBehaviour
         {
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-            YouWinText.SetActive(true);
+            
             StartCoroutine(ReturnToLobby());
 
         }
@@ -49,12 +50,14 @@ public class GameStateManager : MonoBehaviour
         {
             gameOver = true;
             string gameCase = "";
-            if (loser != "Player Controller Root 2")
+            if (loser != "Player Controller Root Master")
             {
                 gameCase = "You Win!";
+                YouWinText.SetActive(true);
             }
             else
             {
+                YouLoseText.SetActive(true);
                 gameCase = "You Lose";
             }
 
