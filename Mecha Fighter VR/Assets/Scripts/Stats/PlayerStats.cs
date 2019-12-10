@@ -99,4 +99,5 @@ public class PlayerStats : MonoBehaviour, Stats.IDamageable
 		audioSource.PlayOneShot(hitImpactSfx[Random.Range(0, hitImpactSfx.Length - 1)]);
 		audioSource.Play();
 	}
+
 }

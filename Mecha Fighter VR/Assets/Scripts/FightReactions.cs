@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RootMotion.FinalIK;
 using Stats;
+using Action;
 
 // handles the receiving of collisions from other player's abilities
 public class FightReactions : MonoBehaviour
@@ -64,11 +65,26 @@ public class FightReactions : MonoBehaviour
 		}
 	}
 	
+	void OnParticleCollision(GameObject other) {
+        print(other);
+        GameObject o = findParent(gameObject);    
+        print(o.GetComponent<PlayerStats>());
+        other.GetComponent<GroundPound>().Apply(o.GetComponent<PlayerStats>());
+	}
+	
     public void ProjectileHit()
     {
         Animator animator = GetComponent<Animator>();
       
             animator.SetTrigger("HitH");
         
+    }
+    private GameObject findParent(GameObject o){
+        Transform parent = o.transform;
+        
+        while(parent.parent != null){
+            parent = parent.parent;
+        }
+        return parent.gameObject;
     }
 }

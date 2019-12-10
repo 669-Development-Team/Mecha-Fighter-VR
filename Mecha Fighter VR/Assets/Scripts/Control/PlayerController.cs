@@ -44,6 +44,15 @@ namespace Control
             trigger.AddOnChangeListener(TriggerChange, SteamVR_Input_Sources.RightHand);
         }
 
+        private void Update() {
+            if (opponent != null)
+            {
+                // Only rotate y-axis
+                Vector3 lookDirection = new Vector3(opponent.transform.position.x, transform.position.y, opponent.transform.position.z);
+                transform.LookAt(lookDirection);
+           }    
+        }
+
         // Movement with left stick
         private void ControlMovement(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta)
         {

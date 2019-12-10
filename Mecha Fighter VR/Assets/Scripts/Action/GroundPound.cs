@@ -16,14 +16,6 @@ namespace Action
 
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            print("hello");
-            if (!other.transform.root.CompareTag("Player"))
-            {
-                base.Apply(other.transform.root.GetComponent<PlayerStats>());
-            }
-        }
 
     }
 }
