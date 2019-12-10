@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Stats;
 
@@ -19,6 +20,8 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager instance;
 
     public GameObject YouWinText;
+    public int ReturnToLobbyCounter = 5;
+    
 
     void Start()
     {
@@ -35,6 +38,8 @@ public class GameStateManager : MonoBehaviour
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             YouWinText.SetActive(true);
+            StartCoroutine(ReturnToLobby());
+
         }
     }
 
@@ -59,6 +64,7 @@ public class GameStateManager : MonoBehaviour
             print(gameCase);
             Invoke("EndGame", slowdownLength);
             Invoke("playKO", 1f);
+            Invoke("ReturnToLobby", 1f);
         }
     }
 
@@ -67,6 +73,7 @@ public class GameStateManager : MonoBehaviour
         gameOver = false;
         stopTime = true;
         Time.timeScale = 0;
+        
     }
     
     private void playKO(){
@@ -96,5 +103,15 @@ public class GameStateManager : MonoBehaviour
         {
             return pointsOpponent;
         }
+    }
+
+    IEnumerator ReturnToLobby()
+    {
+        int current = SceneManager.GetActiveScene().buildIndex;
+
+        yield return new WaitForSeconds(ReturnToLobbyCounter);
+        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        SceneManager.UnloadSceneAsync(current);
+        
     }
 }
